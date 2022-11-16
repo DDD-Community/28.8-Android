@@ -10,6 +10,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/core-datastore" />
+            <option value="$PROJECT_DIR$/core-designsystem" />
+            <option value="$PROJECT_DIR$/core-navigator" />
+            <option value="$PROJECT_DIR$/core-network" />
+            <option value="$PROJECT_DIR$/feature" />
           </set>
         </option>
       </GradleProjectSettings>
