@@ -13,9 +13,9 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "carssok"
-include ':app'
-include ':feature'
-include ':core-network'
-include ':core-designsystem'
-include ':core-navigator'
-include ':core-datastore'
+include(":app")
+include(":feature")
+include(":core-network")
+include(":core-designsystem")
+include(":core-navigator")
+include(":core-datastore")
