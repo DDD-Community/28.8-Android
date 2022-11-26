@@ -1,6 +1,8 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -8,11 +10,8 @@ android {
 }
 
 dependencies {
+    implementation(Dependency.AndroidX.DataStore.DATASTORE)
 
-    implementation(Dependency.AndroidX.CORE)
-    implementation(Dependency.AndroidX.APPCOMPAT)
-    implementation(Dependency.Google.MATERIAL)
-    testImplementation(Dependency.JunitTest.JUNIT)
-    androidTestImplementation(Dependency.AndroidXTest.ANDROID_JUNIT)
-    androidTestImplementation(Dependency.AndroidXTest.ESPRESSO_CORE)
+    implementation(Dependency.Hilt.HILT)
+    kapt(Dependency.Hilt.HILT_COMPILER)
 }
