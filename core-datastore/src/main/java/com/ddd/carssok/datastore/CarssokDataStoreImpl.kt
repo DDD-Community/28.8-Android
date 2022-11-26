@@ -9,16 +9,16 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class CarssokDataStoreImpl @Inject constructor(
-    private val userPreference: DataStore<Preferences>
+    private val carssokPreferences: DataStore<Preferences>
 ) : CarssokDataStore {
 
-    override fun getUserName(): Flow<String> = userPreference.data.map {
-        it[stringPreferencesKey(KEY_USER_NAME)] ?: ""
+    override fun getUserName(): Flow<String> = carssokPreferences.data.map { preferences ->
+        preferences[KEY_USER_NAME] ?: ""
     }
 
     override suspend fun updateUserName(name: String) {
-        userPreference.edit {
-            it[stringPreferencesKey(KEY_USER_NAME)] = name
+        carssokPreferences.edit { preferences ->
+            preferences[KEY_USER_NAME] = name
         }
     }
 
@@ -28,6 +28,8 @@ class CarssokDataStoreImpl @Inject constructor(
 
     companion object {
         const val PREFERENCE_DATA_STORE_NAME = "carssok_preferences.pb"
-        private const val KEY_USER_NAME = "key_user_name"
+        private val KEY_USER_NAME = "key_user_name".toKey()
+
+        private fun String.toKey(): Preferences.Key<String> = stringPreferencesKey(this)
     }
 }
