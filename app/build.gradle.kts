@@ -29,10 +29,21 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = Dependency.AndroidX.Compose.compiler_version
+    }
 }
 
 dependencies {
+    implementation(project(Dependency.Modules.CORE_DESIGN_SYSTEM))
+    implementation(project(Dependency.Modules.FEATURE))
+    implementation(project(Dependency.Modules.CORE_NAVIGATOR))
 
+    implementation(Dependency.AndroidX.Navigation.COMPOSE)
     implementation(Dependency.AndroidX.CORE)
     implementation(Dependency.AndroidX.APPCOMPAT)
     implementation(Dependency.AndroidX.CONSTRAINT_LAYOUT)

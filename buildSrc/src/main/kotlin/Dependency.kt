@@ -1,5 +1,16 @@
 object Dependency {
 
+    object Modules {
+        const val APP = ":app"
+
+        const val CORE_DATASTORE = ":core-datastore"
+        const val CORE_DESIGN_SYSTEM = ":core-designsystem"
+        const val CORE_NAVIGATOR = ":core-navigator"
+        const val CORE_NETWORK = ":core-network"
+
+        const val FEATURE = ":feature"
+    }
+
     object Gradle {
         const val GRADLE = "com.android.tools.build:gradle:7.3.1"
         const val KOTLIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Kotlin.version}"
@@ -7,7 +18,7 @@ object Dependency {
     }
 
     object Kotlin {
-        const val version = "1.7.0"
+        const val version = "1.7.20"
         const val KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib:${version}"
     }
 
@@ -17,8 +28,12 @@ object Dependency {
         const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.1.4"
 
         object Compose {
-            private const val version = "1.2.0"
+            private const val version = "1.3.1"
+            private const val material3_version = "1.0.1"
+            const val compiler_version = "1.3.2"
             const val MATERIAL = "androidx.compose.material:material:$version"
+            const val MATERIAL3 = "androidx.compose.material3:material3:$material3_version"
+            const val MATERIAL3_WINDOW_SIZE = "androidx.compose.material3:material3-window-size-class:$material3_version"
             const val PREVIEW_SUPPORT = "androidx.compose.ui:ui-tooling-preview:$version"
             const val UI = "androidx.compose.ui:ui:$version"
             const val UI_TOOL = "androidx.compose.ui:ui-tooling:$version"
