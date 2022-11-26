@@ -49,6 +49,11 @@ object Dependency {
             private const val version = "2.5.2"
             const val COMPOSE = "androidx.navigation:navigation-compose:${version}"
         }
+
+        object DataStore {
+            private const val version = "1.0.0"
+            const val DATASTORE = "androidx.datastore:datastore-preferences:$version"
+        }
     }
 
     object Hilt {
