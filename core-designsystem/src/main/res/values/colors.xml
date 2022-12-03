@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--color gray-->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="gray90">#141414</color>
+    <color name="gray80">#212121</color>
+    <color name="gray70">#292929</color>
+    <color name="gray60">#303030</color>
+    <color name="gray50">#404040</color>
+    <color name="gray40">#6E6E6E</color>
+    <color name="gray35">#919191</color>
+    <color name="gray30">#BDBDBD</color>
+    <color name="gray25">#C8C8C8</color>
+    <color name="gray20">#E1E1E1</color>
+    <color name="gray15">#F1F1F1</color>
+    <color name="gray10">#F8F8F8</color>
+
+    <!--color green-->
+    <color name="green100">#005F14</color>
+    <color name="green90">#007328</color>
+    <color name="green80">#007D32</color>
+    <color name="green70">#00873C</color>
+    <color name="green60">#149B50</color>
+    <color name="green50">#1EA55A</color>
+    <color name="green40">#32B96E</color>
+    <color name="green30">#50D78C</color>
+    <color name="green20">#64EBA0</color>
+    <color name="green10">#6EF5B4</color>
+
+    <!--color yellow-->
+    <color name="yellow100">#EAB400</color>
+    <color name="yellow90">#F8BF00</color>
+    <color name="yellow80">#FFCC20</color>
+    <color name="yellow70">#FFD62A</color>
+    <color name="yellow60">#FFE034</color>
+    <color name="yellow50">#FFF448</color>
+    <color name="yellow40">#FFFF5C</color>
+    <color name="yellow30">#FFFF70</color>
+    <color name="yellow20">#FFFF8E</color>
+    <color name="yellow10">#FFFFC0</color>
+
+    <!--color red-->
+    <color name="red100">#CD0119</color>
+    <color name="red70">#EB1F37</color>
+    <color name="red60">#FF334B</color>
+    <color name="red50">#FF5169</color>
+    <color name="red40">#FF657D</color>
+    <color name="red30">#FF7991</color>
+    <color name="red20">#FF8DA5</color>
+    <color name="red10">#FFABC3</color>
+
+
+    <color name="primary_text">#141414</color>
+    <color name="secondary_text">#404040</color>
+    <color name="disable_text">#BDBDBD</color>
+    <color name="caption_text">#F1F1F1</color>
+    <color name="tertiary_text">#007D32</color>
+    <color name="error_text">#FF334B</color>
+
+    <color name="primary_bg">#FFFFFF</color>
+    <color name="secondary_bg">#F1F1F1</color>
+    <color name="tertiary_bg">#149B50</color>
+
+    <color name="button_enabled">#50D78C</color>
+    <color name="button_hovered">#007D32</color>
+    <color name="button_pressed">#007D32</color>
+    <color name="button_disabled">#F1F1F1</color>
+
+    <color name="divider_primary">#E1E1E1</color>
+    <color name="divider_secondary">#141414</color>
+    <color name="divider_tertiary_">#C8C8C8</color>
+</resources>

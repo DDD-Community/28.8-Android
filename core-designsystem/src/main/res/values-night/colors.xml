@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary_text">#FFFFFF</color>
+    <color name="secondary_text">#F1F1F1</color>
+    <color name="disable_text">#ACACAC</color>
+    <color name="caption_text">#404040</color>
+    <color name="tertiary_text">#007D32</color>
+    <color name="error_text">#FF334B</color>
+
+    <color name="primary_bg">#141414</color>
+    <color name="secondary_bg">#292929</color>
+    <color name="tertiary_bg">#007328</color>
+
+    <color name="button_enabled">#32B96E</color>
+    <color name="button_hovered">#007D32</color>
+    <color name="button_pressed">#007D32</color>
+    <color name="button_disabled">#303030</color>
+
+    <color name="divider_primary">#404040</color>
+    <color name="divider_secondary">#007D32</color>
+    <color name="divider_tertiary_">#6E6E6E</color>
+</resources>
