@@ -2,13 +2,17 @@ package com.ddd.carssok.core.designsystem.component
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import com.ddd.carssok.core.designsystem.R
+import com.ddd.carssok.core.designsystem.TypoStyle
 
 
 @Composable
@@ -48,4 +52,28 @@ fun RowScope.BottomNavigationItem(
             unselectedTextColor = colorResource(id = R.color.disable_text)
         )
     )
+}
+
+@Preview
+@Composable
+fun BottomNavigationPreview() {
+    BottomNavigation {
+        listOf("first tab", "second tab").forEach {
+            BottomNavigationItem(
+                selected = true,
+                onClick = { },
+                icon = {
+                    Icon(
+                        painter = painterResource(
+                            id = com.google.android.material.R.drawable
+                                .ic_m3_chip_checked_circle
+                        ),
+                        contentDescription = null
+                    )
+                },
+                label = {
+                    TypoText(text = it, typoStyle = TypoStyle.BODY_X11_SMALL)
+                })
+        }
+    }
 }
