@@ -21,8 +21,7 @@ fun BottomNavigation(
     content: @Composable RowScope.() -> Unit
 ) {
     NavigationBar(
-        modifier = modifier
-            .fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         containerColor = colorResource(id = R.color.green50),
         content = content
     )
