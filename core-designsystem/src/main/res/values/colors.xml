@@ -18,7 +18,7 @@
     <color name="gray10">#F8F8F8</color>
 
     <!--color green-->
-    <color name="green100">#005F14</color>
+    <color name="green100">#056419</color>
     <color name="green90">#007328</color>
     <color name="green80">#007D32</color>
     <color name="green70">#00873C</color>
@@ -26,8 +26,8 @@
     <color name="green50">#1EA55A</color>
     <color name="green40">#32B96E</color>
     <color name="green30">#50D78C</color>
-    <color name="green20">#64EBA0</color>
-    <color name="green10">#6EF5B4</color>
+    <color name="green20">#99EDBE</color>
+    <color name="green10">#D0F4E0</color>
 
     <!--color yellow-->
     <color name="yellow100">#EAB400</color>
@@ -60,7 +60,7 @@
     <color name="error_text">#FF334B</color>
 
     <color name="primary_bg">#FFFFFF</color>
-    <color name="secondary_bg">#F1F1F1</color>
+    <color name="secondary_bg">#F8F8F8</color>
     <color name="tertiary_bg">#149B50</color>
 
     <color name="button_enabled">#50D78C</color>

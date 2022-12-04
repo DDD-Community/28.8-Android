@@ -8,7 +8,7 @@ enum class TypoStyle(val textSize: Int, val fontWeight: FontWeight) {
     DISPLAY_SMALL_24(24, FontWeight.Bold),
     HEADLINE_LARGE_20(20, FontWeight.Bold),
     HEADLINE_MEDIUM_18(18, FontWeight.Bold),
-    HEADLINE_SMALL_16(16, FontWeight.Normal),
+    HEADLINE_SMALL_16(16, FontWeight.Bold),
     HEADLINE_X_SMALL_14(14, FontWeight.Normal),
 
     BODY_LARGE_16(16, FontWeight.Normal),
