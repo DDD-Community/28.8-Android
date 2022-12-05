@@ -1,6 +1,6 @@
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    kotlin("android")
 }
 
 android {
@@ -48,7 +48,4 @@ dependencies {
     implementation(Dependency.AndroidX.APPCOMPAT)
     implementation(Dependency.AndroidX.CONSTRAINT_LAYOUT)
     implementation(Dependency.Google.MATERIAL)
-    testImplementation(Dependency.JunitTest.JUNIT)
-    androidTestImplementation(Dependency.AndroidXTest.ANDROID_JUNIT)
-    androidTestImplementation(Dependency.AndroidXTest.ESPRESSO_CORE)
 }

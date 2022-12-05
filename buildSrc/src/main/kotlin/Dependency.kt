@@ -15,6 +15,7 @@ object Dependency {
         const val GRADLE = "com.android.tools.build:gradle:7.3.1"
         const val KOTLIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Kotlin.version}"
         const val HILT = "com.google.dagger:hilt-android-gradle-plugin:${Hilt.version}"
+        const val NAVIGATION_SAFE_ARGS = "androidx.navigation:navigation-safe-args-gradle-plugin:${AndroidX.Navigation.version}"
     }
 
     object Kotlin {
@@ -46,7 +47,7 @@ object Dependency {
         }
 
         object Navigation {
-            private const val version = "2.5.2"
+            const val version = "2.5.2"
             const val COMPOSE = "androidx.navigation:navigation-compose:${version}"
         }
 

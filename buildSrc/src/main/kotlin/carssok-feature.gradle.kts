@@ -1,5 +1,7 @@
 plugins {
     id("carssok-compose")
+    id("carssok-hilt")
+    id("carssok-navigation")
 }
 
 dependencies {
