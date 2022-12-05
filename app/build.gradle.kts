@@ -34,18 +34,18 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Dependency.AndroidX.Compose.compiler_version
+        kotlinCompilerExtensionVersion = Dep.AndroidX.Compose.compiler_version
     }
 }
 
 dependencies {
-    implementation(project(Dependency.Modules.CORE_DESIGN_SYSTEM))
-    implementation(project(Dependency.Modules.FEATURE))
-    implementation(project(Dependency.Modules.CORE_NAVIGATOR))
+    implementation(project(Dep.Modules.CORE_DESIGN_SYSTEM))
+    implementation(project(Dep.Modules.FEATURE))
+    implementation(project(Dep.Modules.CORE_NAVIGATOR))
 
-    implementation(Dependency.AndroidX.Navigation.COMPOSE)
-    implementation(Dependency.AndroidX.CORE)
-    implementation(Dependency.AndroidX.APPCOMPAT)
-    implementation(Dependency.AndroidX.CONSTRAINT_LAYOUT)
-    implementation(Dependency.Google.MATERIAL)
+    implementation(Dep.AndroidX.Navigation.COMPOSE)
+    implementation(Dep.AndroidX.CORE)
+    implementation(Dep.AndroidX.APPCOMPAT)
+    implementation(Dep.AndroidX.CONSTRAINT_LAYOUT)
+    implementation(Dep.Google.MATERIAL)
 }

@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation(Dependency.Retrofit.RETROFIT)
-    implementation(Dependency.Retrofit.CONVERTER_GSON)
-    implementation(Dependency.OkHttp.LOGGING_INTERCEPTOR)
+    implementation(Dep.Retrofit.RETROFIT)
+    implementation(Dep.Retrofit.CONVERTER_GSON)
+    implementation(Dep.OkHttp.LOGGING_INTERCEPTOR)
 }

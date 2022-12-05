@@ -4,6 +4,6 @@ plugins {
 }
 
 dependencies {
-    implementation(Dependency.Hilt.HILT)
-    kapt(Dependency.Hilt.HILT_COMPILER)
+    implementation(Dep.Hilt.HILT)
+    kapt(Dep.Hilt.HILT_COMPILER)
 }

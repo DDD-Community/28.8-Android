@@ -6,9 +6,9 @@ buildscript {
     }
 
     dependencies {
-        classpath(Dependency.Gradle.GRADLE)
-        classpath(Dependency.Gradle.KOTLIN)
-        classpath(Dependency.Gradle.HILT)
+        classpath(Dep.Gradle.GRADLE)
+        classpath(Dep.Gradle.KOTLIN)
+        classpath(Dep.Gradle.HILT)
     }
 }
 

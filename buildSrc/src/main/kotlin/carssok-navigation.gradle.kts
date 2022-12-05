@@ -4,5 +4,5 @@ plugins {
 }
 
 dependencies {
-    implementation(Dependency.AndroidX.Navigation.COMPOSE)
+    implementation(Dep.AndroidX.Navigation.COMPOSE)
 }

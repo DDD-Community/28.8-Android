@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation(Dependency.AndroidX.CORE)
-    implementation(Dependency.AndroidX.APPCOMPAT)
-    implementation(Dependency.Google.MATERIAL)
+    implementation(Dep.AndroidX.CORE)
+    implementation(Dep.AndroidX.APPCOMPAT)
+    implementation(Dep.Google.MATERIAL)
 }

@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    implementation(Dependency.AndroidX.DataStore.DATASTORE)
+    implementation(Dep.AndroidX.DataStore.DATASTORE)
 }

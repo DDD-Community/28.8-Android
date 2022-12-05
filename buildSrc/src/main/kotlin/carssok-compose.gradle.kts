@@ -7,15 +7,15 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Dependency.AndroidX.Compose.compiler_version
+        kotlinCompilerExtensionVersion = Dep.AndroidX.Compose.compiler_version
     }
 }
 
 dependencies {
-    implementation(Dependency.AndroidX.Compose.MATERIAL3)
-    implementation(Dependency.AndroidX.Compose.MATERIAL3_WINDOW_SIZE)
-    implementation(Dependency.AndroidX.Compose.PREVIEW_SUPPORT)
-    implementation(Dependency.AndroidX.Compose.UI)
-    implementation(Dependency.AndroidX.Compose.UI_TOOL)
-    implementation(Dependency.AndroidX.Compose.RUNTIME)
+    implementation(Dep.AndroidX.Compose.MATERIAL3)
+    implementation(Dep.AndroidX.Compose.MATERIAL3_WINDOW_SIZE)
+    implementation(Dep.AndroidX.Compose.PREVIEW_SUPPORT)
+    implementation(Dep.AndroidX.Compose.UI)
+    implementation(Dep.AndroidX.Compose.UI_TOOL)
+    implementation(Dep.AndroidX.Compose.RUNTIME)
 }

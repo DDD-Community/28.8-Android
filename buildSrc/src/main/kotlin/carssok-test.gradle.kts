@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    testImplementation(Dependency.JunitTest.JUNIT)
-    androidTestImplementation(Dependency.AndroidXTest.ANDROID_JUNIT)
-    androidTestImplementation(Dependency.AndroidXTest.ESPRESSO_CORE)
+    testImplementation(Dep.JunitTest.JUNIT)
+    androidTestImplementation(Dep.AndroidXTest.ANDROID_JUNIT)
+    androidTestImplementation(Dep.AndroidXTest.ESPRESSO_CORE)
 }

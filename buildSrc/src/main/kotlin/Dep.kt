@@ -1,4 +1,4 @@
-object Dependency {
+object Dep {
 
     object Modules {
         const val APP = ":app"
