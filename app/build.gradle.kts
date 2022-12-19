@@ -48,4 +48,11 @@ dependencies {
     implementation(Dep.AndroidX.APPCOMPAT)
     implementation(Dep.AndroidX.CONSTRAINT_LAYOUT)
     implementation(Dep.Google.MATERIAL)
+
+    implementation(Dep.AndroidX.Compose.MATERIAL3)
+    implementation(Dep.AndroidX.Compose.MATERIAL3_WINDOW_SIZE)
+    implementation(Dep.AndroidX.Compose.PREVIEW_SUPPORT)
+    implementation(Dep.AndroidX.Compose.UI)
+    implementation(Dep.AndroidX.Compose.UI_TOOL)
+    implementation(Dep.AndroidX.Compose.RUNTIME)
 }
