@@ -111,7 +111,7 @@ fun CommonDialog(
 }
 
 @Composable
-fun CommonDialogContent(
+private fun CommonDialogContent(
     buttons: @Composable () -> Unit,
     title: (@Composable () -> Unit)?,
     text: (@Composable () -> Unit)?,
