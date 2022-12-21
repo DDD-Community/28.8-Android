@@ -50,6 +50,7 @@ object Dep {
         object Navigation {
             const val version = "2.5.2"
             const val COMPOSE = "androidx.navigation:navigation-compose:${version}"
+            const val HILT_NAVIGATION_COMPOSE = "androidx.hilt:hilt-navigation-compose:1.0.0"
         }
 
         object DataStore {

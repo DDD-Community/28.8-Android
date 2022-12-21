@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -42,6 +44,9 @@ dependencies {
     implementation(project(Dep.Modules.CORE_DESIGN_SYSTEM))
     implementation(project(Dep.Modules.FEATURE))
     implementation(project(Dep.Modules.CORE_NAVIGATOR))
+
+    implementation(Dep.Hilt.HILT)
+    kapt(Dep.Hilt.HILT_COMPILER)
 
     implementation(Dep.AndroidX.Navigation.COMPOSE)
     implementation(Dep.AndroidX.CORE)

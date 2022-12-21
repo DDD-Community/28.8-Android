@@ -43,13 +43,15 @@ fun CarssokAppScaffold(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(
-                shape = CircleShape,
-                onClick = {
-                    appState.navigateToBottomNavigation(RecordDestination.route)
+            if(appState.shouldShowBottomNavigationBar) {
+                FloatingActionButton(
+                    shape = CircleShape,
+                    onClick = {
+                        appState.navigateToBottomNavigation(RecordDestination.route)
+                    }
+                ) {
+                    Icon(Icons.Filled.Add, "")
                 }
-            ) {
-                Icon(Icons.Filled.Add,"")
             }
         },
         floatingActionButtonPosition = FabPosition.Center,

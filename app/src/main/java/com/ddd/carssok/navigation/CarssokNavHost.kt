@@ -8,7 +8,6 @@ import androidx.navigation.compose.rememberNavController
 import com.ddd.carssok.feature.home.navi.HomeDestination
 import com.ddd.carssok.feature.home.navi.toHomeGraph
 import com.ddd.carssok.feature.introduce.navi.toIntroduceGraph
-import com.ddd.carssok.feature.login.navi.toLoginGraph
 import com.ddd.carssok.feature.record.navi.toRecordGraph
 
 @Composable
@@ -22,10 +21,10 @@ fun CarssokNavHost(
         modifier = modifier,
         startDestination = startDestination
     ) {
-        toLoginGraph()
-
         // toplevel route screen
-        toHomeGraph()
+        toHomeGraph(
+            navController = navController
+        )
         toRecordGraph()
         toIntroduceGraph()
     }
