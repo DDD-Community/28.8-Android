@@ -33,7 +33,7 @@ fun NavGraphBuilder.toHomeGraph(
             navController.navigate(HomeDestination.route) {
                 popUpTo(HomeDestination.route) {
                     inclusive = true
-                    saveState = true
+                    saveState = false
                 }
             }
         },
