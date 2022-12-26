@@ -1,5 +1,6 @@
 package com.ddd.carssok.core.designsystem.component
 
+import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -44,8 +45,7 @@ fun CarssockCheckbox(isChecked: Boolean = false, onChangedValue: (Boolean) -> Un
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement =
-            Arrangement.Center
+            verticalArrangement = Arrangement.Center
         ) {
             if (rememberCheckState) {
                 Icon(
@@ -59,9 +59,15 @@ fun CarssockCheckbox(isChecked: Boolean = false, onChangedValue: (Boolean) -> Un
 }
 
 @Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
 @Composable
 fun CarssockCheckboxPreview() {
-    CarssockCheckbox(false) { isChecked ->
+    Column {
+        CarssockCheckbox(false) { isChecked ->
 
+        }
+        CarssockCheckbox(true) { isChecked ->
+
+        }
     }
 }
