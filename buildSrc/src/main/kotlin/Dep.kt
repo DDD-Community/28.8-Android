@@ -7,8 +7,12 @@ object Dep {
         const val CORE_DESIGN_SYSTEM = ":core-designsystem"
         const val CORE_NAVIGATOR = ":core-navigator"
         const val CORE_NETWORK = ":core-network"
+        const val CORE_DATA = ":core-data"
 
-        const val FEATURE = ":feature"
+        const val FEATURE_HOME = ":feature:home"
+        const val FEATURE_RECORD = ":feature:record"
+        const val FEATURE_INTRODUCE = ":feature:introduce"
+        const val FEATURE_ONBOARDING = ":feature:onboarding"
     }
 
     object Gradle {
@@ -49,6 +53,7 @@ object Dep {
         object Navigation {
             const val version = "2.5.2"
             const val COMPOSE = "androidx.navigation:navigation-compose:${version}"
+            const val HILT_NAVIGATION_COMPOSE = "androidx.hilt:hilt-navigation-compose:1.0.0"
         }
 
         object DataStore {
