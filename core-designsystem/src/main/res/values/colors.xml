@@ -63,7 +63,7 @@
     <color name="primary_bg">#FFFFFF</color>
     <color name="secondary_bg">#F8F8F8</color>
     <color name="tertiary_bg">#149B50</color>
-    <color name="error_bg">#FFABC3</color>
+    <color name="error_bg">#FFEEF0</color>
 
     <color name="button_enabled">#50D78C</color>
     <color name="button_hovered">#007D32</color>

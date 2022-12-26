@@ -34,14 +34,6 @@ fun CarssokAppScaffold(
     appState: CarssokAppState
 ) {
     Scaffold(
-    topBar = {
-            Appbar(
-                titleRes = R.string.app_name,
-                onClickedBack = {
-                    appState.onBackPressed()
-                }
-            )
-        },
         floatingActionButton = {
             if(appState.shouldShowBottomNavigationBar) {
                 FloatingActionButton(

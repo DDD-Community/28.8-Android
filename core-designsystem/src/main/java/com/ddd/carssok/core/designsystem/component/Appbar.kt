@@ -58,7 +58,7 @@ fun Appbar(
 @Composable
 fun AppbarPreview() {
     Scaffold(
-        topBar =  {
+        topBar = {
             Appbar(titleRes = androidx.appcompat.R.string.abc_capital_off)
         }
     ) {
