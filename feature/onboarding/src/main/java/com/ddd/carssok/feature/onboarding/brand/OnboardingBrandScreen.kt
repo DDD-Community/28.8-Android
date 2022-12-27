@@ -48,7 +48,8 @@ fun OnBoardingBrandRoute(
         viewModel = viewModel,
         onChecked = { id, isChecked ->
             viewModel.onCheckedBrandCard(id, isChecked)
-        }
+        },
+        onClickedNextButton = onDone
     )
 }
 
@@ -56,7 +57,8 @@ fun OnBoardingBrandRoute(
 @Composable
 fun OnBoardingBrandScreen(
     viewModel: OnBoardingBrandViewModel,
-    onChecked: (Long, Boolean) -> Unit
+    onChecked: (Long, Boolean) -> Unit,
+    onClickedNextButton:() -> Unit,
 ) {
     val state by viewModel.uiState.collectAsState()
     Scaffold(
@@ -65,7 +67,8 @@ fun OnBoardingBrandScreen(
             CarssokButton(
                 modifier = Modifier.size(width = 160.dp, height = 56.dp),
                 titleRes = R.string.on_boarding_select_brand_next,
-                isEnabled = state.nextButtonEnabled
+                isEnabled = state.nextButtonEnabled,
+                onClicked = onClickedNextButton
             )
         },
         floatingActionButtonPosition = FabPosition.Center
