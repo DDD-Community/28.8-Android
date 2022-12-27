@@ -47,6 +47,8 @@ fun OnBoardingModelScreen(
     onBackPressed: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val state by uiState.collectAsState()
+
     Scaffold(
         topBar = {
             Appbar(
@@ -57,7 +59,7 @@ fun OnBoardingModelScreen(
         containerColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_bg),
         floatingActionButton = {
             OnBoardingModelNextButton(
-                uiState = uiState.collectAsState(),
+                state = state,
                 onClickedNext = onClickedNext
             )
         },
@@ -82,7 +84,7 @@ fun OnBoardingModelScreen(
             )
 
             OnBoardingModelContent(
-                uiState = uiState.collectAsState(),
+                state = state,
                 onClickDetailModel = onClickDetailModel,
                 modifier = modifier
             )
@@ -92,12 +94,12 @@ fun OnBoardingModelScreen(
 
 @Composable
 fun OnBoardingModelNextButton(
-    uiState: State<OnBoardingModelUiState>,
+    state: OnBoardingModelUiState,
     onClickedNext: () -> Unit,
 ) {
     CarssokButton(
         titleRes = R.string.on_boarding_select_model_next,
-        isEnabled = when(val state = uiState.value) {
+        isEnabled = when(state) {
             is OnBoardingModelUiState.Inputing,
             is OnBoardingModelUiState.Error -> false
             is OnBoardingModelUiState.Loaded -> state.isNextButtonEnable
@@ -126,7 +128,7 @@ fun OnBoardingModelInputTextBox(
 
 @Composable
 fun ColumnScope.OnBoardingModelContent(
-    uiState: State<OnBoardingModelUiState>,
+    state: OnBoardingModelUiState,
     onClickDetailModel: (OnBoardingDetailModelEntity?) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -134,7 +136,7 @@ fun ColumnScope.OnBoardingModelContent(
         .weight(1f)
         .padding(horizontal = 24.dp)
     ) {
-        when(val state = uiState.value) {
+        when(state) {
             is OnBoardingModelUiState.Inputing -> {
                 // TODO 실시간 검색
             }
