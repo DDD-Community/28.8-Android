@@ -27,6 +27,7 @@ object Dep {
     object Kotlin {
         const val version = "1.7.20"
         const val KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib:${version}"
+        const val COROUTINES_ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9"
     }
 
     object AndroidX {
