@@ -16,8 +16,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.ddd.carssok.core.data.model.OnboardingDetailModelEntity
-import com.ddd.carssok.core.data.model.OnboardingModelEntity
+import com.ddd.carssok.core.data.model.OnBoardingDetailModelEntity
+import com.ddd.carssok.core.data.model.OnBoardingModelEntity
 import com.ddd.carssok.core.designsystem.TypoStyle
 import com.ddd.carssok.core.designsystem.component.CarssokButton
 import com.ddd.carssok.core.designsystem.component.InputTextBox
@@ -26,14 +26,14 @@ import com.ddd.carssok.feature.onboarding.R
 import kotlinx.coroutines.flow.StateFlow
 
 @Composable
-fun OnboardingModelRoute(
+fun OnBoardingModelRoute(
     onDone: () -> Unit,
     onBackPressed: () -> Unit,
-    viewModel: OnboardingModelViewModel = hiltViewModel()
+    viewModel: OnBoardingModelViewModel = hiltViewModel()
 ) {
     val uiState = viewModel.uiState
     
-    OnboardingModelScreen(
+    OnBoardingModelScreen(
         uiState = uiState,
         search = viewModel::getModels,
         onModelCheckedChange = { selectedModel, isSelect ->
@@ -46,10 +46,10 @@ fun OnboardingModelRoute(
 }
 
 @Composable
-fun OnboardingModelScreen(
-    uiState: StateFlow<OnboardingModelUiState>,
+fun OnBoardingModelScreen(
+    uiState: StateFlow<OnBoardingModelUiState>,
     search: (String) -> Unit,
-    onModelCheckedChange: (OnboardingDetailModelEntity, Boolean) -> Unit,
+    onModelCheckedChange: (OnBoardingDetailModelEntity, Boolean) -> Unit,
     onButtonClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -68,11 +68,11 @@ fun OnboardingModelScreen(
                 )
             }
 
-            OnboardingModelInputTextBox(
+            OnBoardingModelInputTextBox(
                 onInputTextChange = search
             )
 
-            OnboardingModelContent(
+            OnBoardingModelContent(
                 uiState = uiState.collectAsState(),
                 onModelCheckedChange = { selectedModel, isChecked ->
                     isNextButtonEnable = isChecked
@@ -93,7 +93,7 @@ fun OnboardingModelScreen(
 }
 
 @Composable
-fun OnboardingModelInputTextBox(
+fun OnBoardingModelInputTextBox(
     onInputTextChange: (String) -> Unit,
 ) {
     var inputText by remember { mutableStateOf("") }
@@ -110,9 +110,9 @@ fun OnboardingModelInputTextBox(
 }
 
 @Composable
-fun ColumnScope.OnboardingModelContent(
-    uiState: State<OnboardingModelUiState>,
-    onModelCheckedChange: (OnboardingDetailModelEntity, Boolean) -> Unit,
+fun ColumnScope.OnBoardingModelContent(
+    uiState: State<OnBoardingModelUiState>,
+    onModelCheckedChange: (OnBoardingDetailModelEntity, Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier
@@ -120,17 +120,17 @@ fun ColumnScope.OnboardingModelContent(
         .padding(horizontal = 24.dp)
     ) {
         when(val state = uiState.value) {
-            is OnboardingModelUiState.Inputing -> {
+            is OnBoardingModelUiState.Inputing -> {
 
             }
-            is OnboardingModelUiState.Loaded -> {
+            is OnBoardingModelUiState.Loaded -> {
                 var expandIndex by remember { mutableStateOf(-1) }
 
                 LazyColumn(
                     modifier = modifier.fillMaxSize()
                 ) {
                     itemsIndexed(state.modelList) { index, model ->
-                        OnboardingModelRow(
+                        OnBoardingModelRow(
                             model = model,
                             isExpand = (expandIndex == index),
                             onModelClicked = {
@@ -153,17 +153,17 @@ fun ColumnScope.OnboardingModelContent(
                     }
                 }
             }
-            is OnboardingModelUiState.Error -> Unit
+            is OnBoardingModelUiState.Error -> Unit
         }
     }
 }
 
 @Composable
-fun OnboardingModelRow(
-    model: OnboardingModelEntity,
+fun OnBoardingModelRow(
+    model: OnBoardingModelEntity,
     isExpand: Boolean = false,
     onModelClicked: () -> Unit,
-    onModelCheckedChange: (OnboardingDetailModelEntity, Boolean) -> Unit,
+    onModelCheckedChange: (OnBoardingDetailModelEntity, Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -188,7 +188,7 @@ fun OnboardingModelRow(
         if(isExpand) {
             Column {
                 model.detailModels.forEach { detail ->
-                    OnboardingDetailModelItem(
+                    OnBoardingDetailModelItem(
                         item = detail,
                         onCheckedChange = {
                             onModelCheckedChange(detail, it)
@@ -201,8 +201,8 @@ fun OnboardingModelRow(
 }
 
 @Composable
-fun OnboardingDetailModelItem(
-    item: OnboardingDetailModelEntity,
+fun OnBoardingDetailModelItem(
+    item: OnBoardingDetailModelEntity,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -235,8 +235,8 @@ fun OnboardingDetailModelItem(
 
 @Preview
 @Composable
-fun OnboardingModelScreenPreview() {
-    OnboardingModelRoute(
+fun OnBoardingModelScreenPreview() {
+    OnBoardingModelRoute(
         onDone = {},
         onBackPressed = {}
     )

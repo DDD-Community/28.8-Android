@@ -7,25 +7,25 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.ddd.carssok.core.designsystem.TypoStyle
 import com.ddd.carssok.core.designsystem.component.CarssokButton
 import com.ddd.carssok.core.designsystem.component.TypoText
-import com.ddd.carssok.feature.onboarding.OnboardingViewModel
+import com.ddd.carssok.feature.onboarding.OnBoardingViewModel
 import com.ddd.carssok.feature.onboarding.R
 
 @Composable
-fun OnboardingFuelRoute(
+fun OnBoardingFuelRoute(
     onDone: () -> Unit,
     onBackPressed: () -> Unit,
-    viewModel: OnboardingViewModel = hiltViewModel()
+    viewModel: OnBoardingViewModel = hiltViewModel()
 ) {
-    OnboardingFuelScreen(
+    OnBoardingFuelScreen(
         onButtonClicked = {
-            viewModel.onOnboardingDone()
+            viewModel.onOnBoardingDone()
             onDone()
         }
     )
 }
 
 @Composable
-fun OnboardingFuelScreen(
+fun OnBoardingFuelScreen(
     onButtonClicked: () -> Unit,
 ) {
     Column {
@@ -42,8 +42,8 @@ fun OnboardingFuelScreen(
 
 @Preview
 @Composable
-fun OnboardingFuelScreenPreview() {
-    OnboardingFuelRoute(
+fun OnBoardingFuelScreenPreview() {
+    OnBoardingFuelRoute(
         onDone = {},
         onBackPressed = {}
     )

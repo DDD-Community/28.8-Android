@@ -6,6 +6,6 @@ import javax.inject.Singleton
 @Singleton // 임시
 class HomeRepositoryImpl @Inject constructor(
 ) {
-    var needShowOnboarding = true
+    var needShowOnBoarding = true
 
 }

@@ -1,7 +1,7 @@
 package com.ddd.carssok.core.data.di
 
-import com.ddd.carssok.core.data.repository.onboarding.FakeOnboardingRepositoryImpl
-import com.ddd.carssok.core.data.repository.onboarding.OnboardingRepository
+import com.ddd.carssok.core.data.repository.onboarding.FakeOnBoardingRepositoryImpl
+import com.ddd.carssok.core.data.repository.onboarding.OnBoardingRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -10,16 +10,16 @@ import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
-class OnboardingModule {
+class OnBoardingModule {
 
     @Module
     @InstallIn(ViewModelComponent::class)
-    interface OnboardingBindsModule {
+    interface OnBoardingBindsModule {
 
         @Binds
         @ViewModelScoped
-        fun bindOnboardingRepository(
-            repository: FakeOnboardingRepositoryImpl
-        ): OnboardingRepository
+        fun bindOnBoardingRepository(
+            repository: FakeOnBoardingRepositoryImpl
+        ): OnBoardingRepository
     }
 }

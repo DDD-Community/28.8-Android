@@ -1,11 +1,11 @@
 package com.ddd.carssok.core.data.model
 
-data class OnboardingModelEntity(
+data class OnBoardingModelEntity(
     val title: String,
-    val detailModels: List<OnboardingDetailModelEntity>
+    val detailModels: List<OnBoardingDetailModelEntity>
 )
 
-data class OnboardingDetailModelEntity(
+data class OnBoardingDetailModelEntity(
     val year: String,
     val title: String,
     val thumbnail: String,

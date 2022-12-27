@@ -14,24 +14,24 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @Composable
 fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel(),
-    navigateToOnboarding: () -> Unit,
+    navigateToOnBoarding: () -> Unit,
 ) {
     val onboardingState = viewModel.onboardingState
 
     HomeScreen(
-        shouldShowOnboarding = onboardingState,
-        navigateToOnboarding = navigateToOnboarding,
+        shouldShowOnBoarding = onboardingState,
+        navigateToOnBoarding = navigateToOnBoarding,
     )
 }
 
 @Composable
 fun HomeScreen(
-    shouldShowOnboarding: Boolean,
-    navigateToOnboarding: () -> Unit,
+    shouldShowOnBoarding: Boolean,
+    navigateToOnBoarding: () -> Unit,
 ) {
-    if(shouldShowOnboarding) {
+    if(shouldShowOnBoarding) {
         LaunchedEffect(Unit) {
-            navigateToOnboarding()
+            navigateToOnBoarding()
         }
     }
 
@@ -49,6 +49,6 @@ fun HomeScreen(
 @Composable
 fun HomeScreenPreview() {
     HomeRoute(
-        navigateToOnboarding = {}
+        navigateToOnBoarding = {}
     )
 }
