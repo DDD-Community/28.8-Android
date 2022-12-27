@@ -2,6 +2,7 @@ package com.ddd.carssok.feature.onboarding.model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ddd.carssok.core.data.model.OnBoardingDetailModelEntity
 import com.ddd.carssok.core.data.model.OnBoardingModelEntity
 import com.ddd.carssok.core.data.repository.onboarding.OnBoardingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +20,15 @@ class OnBoardingModelViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<OnBoardingModelUiState>(OnBoardingModelUiState.Inputing)
     val uiState = _uiState.asStateFlow()
 
-    fun getModels(brand: String) = viewModelScope.launch {
+    fun search(keyword: String) {
+        if(keyword.isBlank()) {
+            _uiState.update { OnBoardingModelUiState.Inputing }
+        } else {
+            getModels(brand = keyword)
+        }
+    }
+
+    private fun getModels(brand: String) = viewModelScope.launch {
         kotlin.runCatching {
             repository.getModels(brand)
         }.onSuccess { list ->
@@ -29,12 +38,27 @@ class OnBoardingModelViewModel @Inject constructor(
         }
 
     }
+
+    fun onModelSelected(model: OnBoardingDetailModelEntity?) {
+        // TODO cache selected model
+
+        _uiState.value.let { state ->
+            if (state is OnBoardingModelUiState.Loaded) {
+                _uiState.update {
+                    state.copy(isNextButtonEnable = model != null)
+                }
+            }
+        }
+    }
 }
 
 sealed class OnBoardingModelUiState {
     object Inputing: OnBoardingModelUiState()
-    class Loaded(
-        val modelList: List<OnBoardingModelEntity>
+
+    data class Loaded(
+        val modelList: List<OnBoardingModelEntity>,
+        val isNextButtonEnable: Boolean = false
     ): OnBoardingModelUiState()
+
     object Error: OnBoardingModelUiState()
 }
