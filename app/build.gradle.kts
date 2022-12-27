@@ -41,15 +41,19 @@ android {
 }
 
 dependencies {
-    implementation(project(Dep.Modules.CORE_DESIGN_SYSTEM))
     implementation(project(Dep.Modules.FEATURE_HOME))
     implementation(project(Dep.Modules.FEATURE_RECORD))
     implementation(project(Dep.Modules.FEATURE_INTRODUCE))
+
+    implementation(project(Dep.Modules.CORE_DESIGN_SYSTEM))
+    implementation(project(Dep.Modules.CORE_NAVIGATOR))
+    implementation(project(Dep.Modules.CORE_MODEL))
     implementation(project(Dep.Modules.CORE_NAVIGATOR))
 
     implementation(Dep.Hilt.HILT)
     kapt(Dep.Hilt.HILT_COMPILER)
 
+    implementation(Dep.AndroidX.SPLASH)
     implementation(Dep.AndroidX.Navigation.COMPOSE)
     implementation(Dep.AndroidX.CORE)
     implementation(Dep.AndroidX.APPCOMPAT)

@@ -13,6 +13,8 @@ object Dep {
         const val FEATURE_RECORD = ":feature:record"
         const val FEATURE_INTRODUCE = ":feature:introduce"
         const val FEATURE_ONBOARDING = ":feature:onboarding"
+        const val CORE_MODEL = ":core-model"
+
     }
 
     object Gradle {
@@ -31,6 +33,7 @@ object Dep {
         const val CORE = "androidx.core:core-ktx:1.8.0"
         const val APPCOMPAT = "androidx.appcompat:appcompat:1.5.0"
         const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.1.4"
+        const val SPLASH = "androidx.core:core-splashscreen:1.0.0"
 
         object Compose {
             private const val version = "1.3.1"

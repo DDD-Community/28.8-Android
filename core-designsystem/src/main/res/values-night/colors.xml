@@ -10,7 +10,7 @@
     <color name="primary_bg">#141414</color>
     <color name="secondary_bg">#292929</color>
     <color name="tertiary_bg">#007328</color>
-    <color name="error_bg">#FAC8CE</color>
+    <color name="error_bg">#FFEEF0</color>
 
     <color name="button_enabled">#32B96E</color>
     <color name="button_hovered">#007D32</color>

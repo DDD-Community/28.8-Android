@@ -35,7 +35,7 @@ fun CarssokButton(
             disabledContainerColor = colorResource(id = R.color.button_disabled),
             disabledContentColor = colorResource(id = R.color.white)
         ),
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(99.dp),
         onClick = { onClicked?.invoke() }) {
         TypoText(
             text = stringResource(id = titleRes),
@@ -48,9 +48,11 @@ fun CarssokButton(
 @Preview
 @Composable
 fun CarssokButtonPreview() {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(color = Color.White)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color.White)
+    ) {
         CarssokButton(
             titleRes = androidx.appcompat.R.string.abc_capital_off,
             isEnabled = true,

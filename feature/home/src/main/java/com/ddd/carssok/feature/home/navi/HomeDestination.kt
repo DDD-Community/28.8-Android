@@ -6,7 +6,7 @@ import androidx.navigation.compose.composable
 import com.ddd.carssok.core.navigator.CarssokNavigationDestination
 import com.ddd.carssok.feature.home.HomeRoute
 import com.ddd.carssok.feature.onboarding.navi.OnboardingDestination
-import com.ddd.carssok.feature.onboarding.navi.toOnboardingGraph
+import com.ddd.carssok.feature.onboarding.navi.toOnBoardingGraph
 
 object HomeDestination : CarssokNavigationDestination {
     override val route: String = "home_route"
@@ -27,9 +27,9 @@ fun NavGraphBuilder.toHomeGraph(
     }
 
     // sub graph - onboarding
-    toOnboardingGraph(
+    toOnBoardingGraph(
         navController = navController,
-        onOnboardingDone = {
+        onOnBoardingDone = {
             navController.navigate(HomeDestination.route) {
                 popUpTo(HomeDestination.route) {
                     inclusive = true

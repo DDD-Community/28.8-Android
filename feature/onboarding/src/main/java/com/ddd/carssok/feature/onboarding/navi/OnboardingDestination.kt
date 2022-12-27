@@ -5,7 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.ddd.carssok.core.navigator.CarssokNavigationDestination
-import com.ddd.carssok.feature.onboarding.brand.OnboardingBrandRoute
+import com.ddd.carssok.feature.onboarding.brand.OnBoardingBrandRoute
 import com.ddd.carssok.feature.onboarding.fuel.OnboardingFuelRoute
 import com.ddd.carssok.feature.onboarding.model.OnboardingModelRoute
 
@@ -29,42 +29,42 @@ private object OnboardingFuelDestination : CarssokNavigationDestination {
     override val destination: String = "onboarding_fuel_destination"
 }
 
-fun NavGraphBuilder.toOnboardingGraph(
+fun NavGraphBuilder.toOnBoardingGraph(
     navController: NavHostController,
-    onOnboardingDone: () -> Unit,
+    onOnBoardingDone: () -> Unit,
     onBackPressed: () -> Unit,
 ) {
     navigation(
-        startDestination = com.ddd.carssok.feature.onboarding.navi.OnboardingBrandDestination.route,
-        route = com.ddd.carssok.feature.onboarding.navi.OnboardingDestination.route
+        startDestination = OnboardingBrandDestination.route,
+        route = OnboardingDestination.route
     ) {
         composable(
-            route = com.ddd.carssok.feature.onboarding.navi.OnboardingBrandDestination.route,
+            route = OnboardingBrandDestination.route,
         ) {
-            OnboardingBrandRoute(
+            OnBoardingBrandRoute(
                 onDone = {
-                    navController.navigate(com.ddd.carssok.feature.onboarding.navi.OnboardingModelDestination.route)
+                    navController.navigate(OnboardingModelDestination.route)
                 },
                 onBackPressed = onBackPressed
             )
         }
 
         composable(
-            route = com.ddd.carssok.feature.onboarding.navi.OnboardingModelDestination.route,
+            route = OnboardingModelDestination.route,
         ) {
             OnboardingModelRoute(
                 onDone = {
-                    navController.navigate(com.ddd.carssok.feature.onboarding.navi.OnboardingFuelDestination.route)
+                    navController.navigate(OnboardingFuelDestination.route)
                 },
                 onBackPressed = onBackPressed
             )
         }
 
         composable(
-            route = com.ddd.carssok.feature.onboarding.navi.OnboardingFuelDestination.route,
+            route = OnboardingFuelDestination.route,
         ) {
             OnboardingFuelRoute(
-                onDone = onOnboardingDone,
+                onDone = onOnBoardingDone,
                 onBackPressed = onBackPressed
             )
         }
