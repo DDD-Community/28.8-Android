@@ -5,7 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.ddd.carssok.core.navigator.CarssokNavigationDestination
 import com.ddd.carssok.feature.home.HomeRoute
-import com.ddd.carssok.feature.onboarding.navi.OnboardingDestination
+import com.ddd.carssok.feature.onboarding.navi.OnBoardingDestination
 import com.ddd.carssok.feature.onboarding.navi.toOnBoardingGraph
 
 object HomeDestination : CarssokNavigationDestination {
@@ -20,8 +20,8 @@ fun NavGraphBuilder.toHomeGraph(
         route = HomeDestination.route
     ) {
         HomeRoute(
-            navigateToOnboarding = {
-                navController.navigate(OnboardingDestination.route)
+            navigateToOnBoarding = {
+                navController.navigate(OnBoardingDestination.route)
             }
         )
     }

@@ -6,11 +6,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class OnboardingViewModel @Inject constructor(
+class OnBoardingViewModel @Inject constructor(
     private val repository: HomeRepositoryImpl
 ): ViewModel() {
 
-    fun onOnboardingDone() {
-        repository.needShowOnboarding = false
+    fun onOnBoardingDone() {
+        repository.needShowOnBoarding = false
     }
 }

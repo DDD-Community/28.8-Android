@@ -10,5 +10,5 @@ class HomeViewModel @Inject constructor(
     private val repository: HomeRepositoryImpl
 ) : ViewModel() {
 
-    var onboardingState = repository.needShowOnboarding
+    var onboardingState = repository.needShowOnBoarding
 }
