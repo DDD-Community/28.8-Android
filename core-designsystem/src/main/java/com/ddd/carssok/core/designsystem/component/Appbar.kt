@@ -1,7 +1,8 @@
 package com.ddd.carssok.core.designsystem.component
 
+import android.content.res.Configuration
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -9,6 +10,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBarDefaults.centerAlignedTopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
@@ -23,24 +25,33 @@ import com.ddd.carssok.core.designsystem.TypoStyle
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Appbar(
-    @StringRes titleRes: Int,
+    @StringRes titleRes: Int? = null,
+    @DrawableRes backButtonImageResource: Int? = null,
     menuImageResource: Painter? = null,
     onClickedBack: (() -> Unit)? = null,
     onClickedMenuItem: (() -> Unit)? = null
 ) {
     CenterAlignedTopAppBar(
-        modifier = Modifier.background(colorResource(id = R.color.primary_bg)),
+        colors = centerAlignedTopAppBarColors(
+            containerColor = colorResource(id = R.color.primary_bg)
+        ),
         title = {
-            TypoText(
-                text = stringResource(id = titleRes),
-                color = colorResource(id = R.color.primary_text),
-                textAlign = TextAlign.Center,
-                typoStyle = TypoStyle.HEADLINE_SMALL_16
-            )
+            if (titleRes != null) {
+                TypoText(
+                    text = stringResource(id = titleRes),
+                    color = colorResource(id = R.color.primary_text),
+                    textAlign = TextAlign.Center,
+                    typoStyle = TypoStyle.HEADLINE_SMALL_16
+                )
+            }
         },
         navigationIcon = {
             IconButton(onClick = { onClickedBack?.invoke() }) {
-                Icon(painter = painterResource(id = R.drawable.ic_arrow_back_24), null)
+                Icon(
+                    painter = painterResource(id = backButtonImageResource ?: R.drawable.ic_arrow_back_24),
+                    null,
+                    tint = colorResource(id = R.color.primary_text)
+                )
             }
         },
         actions = {
@@ -55,6 +66,7 @@ fun Appbar(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun AppbarPreview() {
     Scaffold(

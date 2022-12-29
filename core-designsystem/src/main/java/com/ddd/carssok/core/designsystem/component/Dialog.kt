@@ -1,5 +1,6 @@
 package com.ddd.carssok.core.designsystem.component
 
+import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.AlertDialogDefaults
@@ -144,6 +145,7 @@ private val TextPadding = PaddingValues()
 private val ButtonsPadding = PaddingValues(top = 20.dp)
 
 @Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun DialogPreview() {
     CommonDialog(

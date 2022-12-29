@@ -1,5 +1,6 @@
 package com.ddd.carssok.feature.onboarding.brand
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -185,6 +186,7 @@ fun CountryBrandCarItem(
 }
 
 @Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun OnBoardingBrandScreenPreview() {
     OnBoardingBrandRoute(
