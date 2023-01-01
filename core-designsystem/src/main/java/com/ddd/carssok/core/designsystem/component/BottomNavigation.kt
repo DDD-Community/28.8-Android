@@ -1,5 +1,6 @@
 package com.ddd.carssok.core.designsystem.component
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Icon
@@ -54,6 +55,7 @@ fun RowScope.BottomNavigationItem(
 }
 
 @Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun BottomNavigationPreview() {
     BottomNavigation {

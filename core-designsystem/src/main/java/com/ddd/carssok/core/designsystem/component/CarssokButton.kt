@@ -1,7 +1,7 @@
 package com.ddd.carssok.core.designsystem.component
 
+import android.content.res.Configuration
 import androidx.annotation.StringRes
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,7 +10,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,12 +45,12 @@ fun CarssokButton(
 }
 
 @Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun CarssokButtonPreview() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.White)
     ) {
         CarssokButton(
             titleRes = androidx.appcompat.R.string.abc_capital_off,

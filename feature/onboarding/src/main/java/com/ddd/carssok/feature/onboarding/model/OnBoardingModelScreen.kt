@@ -1,5 +1,6 @@
 package com.ddd.carssok.feature.onboarding.model
 
+import android.content.res.Configuration
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -188,6 +189,7 @@ fun OnBoardingModelListContent(
 }
 
 @Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun OnBoardingModelScreenPreview() {
     OnBoardingModelRoute(

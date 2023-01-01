@@ -1,8 +1,8 @@
 package com.ddd.carssok.core.designsystem.component
 
+import android.content.res.Configuration
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
@@ -47,9 +47,10 @@ fun TypoText(
 }
 
 @Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun TypeTextPreview() {
-    Column(verticalArrangement = Arrangement.SpaceBetween, modifier = Modifier.background(color = Color.White)) {
+    Column(verticalArrangement = Arrangement.SpaceBetween) {
         TypoStyle.values().forEach {
             TypoText(text = it.name, typoStyle = it)
         }

@@ -9,9 +9,12 @@
     <string name="on_boarding_select_brand_korea">국산차 브랜드</string>
     <string name="on_boarding_select_brand_foreign">수입차 브랜드</string>
 
+    <!--온보딩 차량모델 선택-->
     <string name="on_boarding_select_model_top_bar_title"></string>
     <string name="on_boarding_select_model_next">다음</string>
     <string name="on_boarding_select_model_title">차량의 상세 모델도\n선택해주세요.</string>
     <string name="on_boarding_select_model_input_hint">차량을 입력해주세요</string>
 
+    <!--온보딩 차량 연료 선택-->
+    <string name="on_boarding_fuel_select">연료를 선택해주세요</string>
 </resources>

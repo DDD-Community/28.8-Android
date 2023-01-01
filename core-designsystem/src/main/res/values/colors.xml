@@ -61,7 +61,7 @@
     <color name="error_text">#FF334B</color>
 
     <color name="primary_bg">#FFFFFF</color>
-    <color name="secondary_bg">#F8F8F8</color>
+    <color name="secondary_bg">#F6F8FA</color>
     <color name="tertiary_bg">#149B50</color>
     <color name="error_bg">#FFEEF0</color>
 
