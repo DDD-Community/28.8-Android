@@ -7,6 +7,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import com.ddd.carssok.core.designsystem.Theme
 import com.ddd.carssok.core.designsystem.TypoStyle
@@ -38,6 +39,8 @@ fun CarssokAppScaffold(
             if(appState.shouldShowBottomNavigationBar) {
                 FloatingActionButton(
                     shape = CircleShape,
+                    containerColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_text),
+                    contentColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_bg),
                     onClick = {
                         appState.navigateToBottomNavigation(RecordDestination.route)
                     }
