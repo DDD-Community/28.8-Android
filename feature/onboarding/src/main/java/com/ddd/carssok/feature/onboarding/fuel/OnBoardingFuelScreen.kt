@@ -42,16 +42,21 @@ import com.ddd.carssok.core.designsystem.component.Appbar
 import com.ddd.carssok.core.designsystem.component.CarssokButton
 import com.ddd.carssok.core.designsystem.component.Chip
 import com.ddd.carssok.core.designsystem.component.TypoText
+import com.ddd.carssok.feature.onboarding.OnBoardingViewModel
 import com.ddd.carssok.feature.onboarding.R
 
 @Composable
 fun OnBoardingFuelRoute(
     onDone: () -> Unit,
     onBackPressed: () -> Unit,
+    onBoardingViewModel: OnBoardingViewModel = hiltViewModel(),
     viewModel: OnBoardingFuelViewModel = hiltViewModel()
 ) {
     OnBoardingFuelScreen(
-        onButtonClicked = onDone,
+        onButtonClicked = {
+            onBoardingViewModel.onOnBoardingDone()
+            onDone()
+        },
         onBackPressed = onBackPressed,
         onClickedChipFuel = viewModel::onClickedFilterFuel,
         viewModel = viewModel
