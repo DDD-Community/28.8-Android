@@ -1,14 +1,24 @@
 package com.ddd.carssok
 
-import androidx.compose.runtime.*
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetState
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.ddd.carssok.navigation.CarssokNavItems
 
+@OptIn(ExperimentalMaterialApi::class)
 class CarssokAppState(
     val navController: NavHostController,
+    val modalBottomSheetState: ModalBottomSheetState
 ) {
     private val currentDestination: NavDestination?
         @Composable get() = navController
@@ -55,11 +65,17 @@ class CarssokAppState(
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun rememberCarssokAppState(
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
+    modalBottomSheetState: ModalBottomSheetState = rememberModalBottomSheetState(
+        initialValue = ModalBottomSheetValue.Hidden,
+        skipHalfExpanded = true
+    ),
 ) = remember {
     CarssokAppState(
-        navController = navController
+        navController = navController,
+        modalBottomSheetState = modalBottomSheetState,
     )
 }

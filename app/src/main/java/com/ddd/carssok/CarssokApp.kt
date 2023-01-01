@@ -2,37 +2,87 @@ package com.ddd.carssok
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import com.ddd.carssok.core.designsystem.Theme
 import com.ddd.carssok.core.designsystem.TypoStyle
-import com.ddd.carssok.core.designsystem.component.Appbar
 import com.ddd.carssok.core.designsystem.component.BottomNavigation
 import com.ddd.carssok.core.designsystem.component.BottomNavigationItem
 import com.ddd.carssok.core.designsystem.component.TypoText
-import com.ddd.carssok.feature.record.navi.RecordDestination
+import com.ddd.carssok.feature.record.RecordNavigationBottomSheetContent
 import com.ddd.carssok.navigation.CarssokNavHost
 import com.ddd.carssok.navigation.CarssokNavItems
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CarssokApp(
     appState: CarssokAppState = rememberCarssokAppState()
 ) {
     Theme {
-        // 앱 화면
-        CarssokAppScaffold(appState)
+        val scope = rememberCoroutineScope()
+
+        // TODO Back Press Handler 추가
+
+        CarssokBottonSheetAppScaffold(
+            appState = appState,
+            scope = scope
+        ) {
+            // 앱 화면
+            CarssokAppScaffold(
+                appState = appState,
+                scope = scope
+            )
+        }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun CarssokBottonSheetAppScaffold(
+    appState: CarssokAppState,
+    scope: CoroutineScope,
+    content: @Composable () -> Unit
+) {
+    ModalBottomSheetLayout(
+        sheetContent = {
+            RecordNavigationBottomSheetContent(
+                onItemClicked = {
+                    scope.launch {
+                        appState.navigateTo(it.route)
+                        appState.modalBottomSheetState.hide()
+                    }
+                }
+            )
+        },
+        sheetState = appState.modalBottomSheetState,
+        sheetShape = RoundedCornerShape(28.dp),
+        sheetBackgroundColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_bg),
+    ) {
+        content()
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun CarssokAppScaffold(
-    appState: CarssokAppState
+    appState: CarssokAppState,
+    scope: CoroutineScope,
 ) {
     Scaffold(
         floatingActionButton = {
@@ -42,7 +92,10 @@ fun CarssokAppScaffold(
                     containerColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_text),
                     contentColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_bg),
                     onClick = {
-                        appState.navigateToBottomNavigation(RecordDestination.route)
+                        scope.launch {
+                            appState.modalBottomSheetState.show()
+                        }
+
                     }
                 ) {
                     Icon(Icons.Filled.Add, "")

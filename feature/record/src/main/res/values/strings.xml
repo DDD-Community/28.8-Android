@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--기록하기 진입 바텀시트-->
+    <string name="record_title">기록하기</string>
+    <string name="record_sub_title">어떤 것을 기록할 지 먼저 선택해주세요!</string>
+
+
+</resources>
