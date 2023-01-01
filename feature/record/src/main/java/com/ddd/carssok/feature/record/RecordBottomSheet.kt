@@ -62,12 +62,12 @@ fun RecordNavigationBottomSheetContent(
                     Image(painter = painterResource(id = item.icon), contentDescription = null)
                     Spacer(modifier = modifier.size(12.dp))
                     TypoText(
-                        text = item.title,
+                        text = stringResource(id = item.title),
                         typoStyle = TypoStyle.HEADLINE_SMALL_16,
                         modifier = modifier.weight(1f)
                     )
                     TypoText(
-                        text = item.state,
+                        text = stringResource(id = item.state),
                         typoStyle = TypoStyle.BODY_X11_SMALL, color = colorResource(
                         id = com.ddd.carssok.core.designsystem.R.color.tertiary_text)
                     )

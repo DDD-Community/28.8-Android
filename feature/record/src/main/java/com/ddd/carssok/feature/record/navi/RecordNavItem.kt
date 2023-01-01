@@ -1,38 +1,40 @@
 package com.ddd.carssok.feature.record.navi
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import com.ddd.carssok.feature.record.R
 
 data class RecordNavItem(
-    val title: String,
+    @StringRes val title: Int,
     @DrawableRes val icon: Int,
-    val state: String,
+    @StringRes val state: Int,
     val route: String,
 )
 
 object RecordNavItems {
     val BottomSheetItems = listOf<RecordNavItem>(
         RecordNavItem(
-            title = "주유기록 등록",
+            title = R.string.record_register_refuel_title,
             icon = com.ddd.carssok.core.designsystem.R.drawable.ic_refuel,
-            state = "미동록 상태",
+            state = R.string.record_unregistered_status,
             route = RecordRefuelDestination.route,
         ),
         RecordNavItem(
-            title = "정비기록 등록",
+            title = R.string.record_register_maintenance_title,
             icon = com.ddd.carssok.core.designsystem.R.drawable.ic_refuel,
-            state = "미동록 상태",
+            state = R.string.record_unregistered_status,
             route = RecordMaintenanceDestination.route,
         ),
         RecordNavItem(
-            title = "주행기록 등록",
+            title = R.string.record_register_drive_title,
             icon = com.ddd.carssok.core.designsystem.R.drawable.ic_refuel,
-            state = "미동록 상태",
+            state = R.string.record_unregistered_status,
             route = RecordDriveDestination.route,
         ),
         RecordNavItem(
-            title = "사고기록 등록",
+            title = R.string.record_register_accident_title,
             icon = com.ddd.carssok.core.designsystem.R.drawable.ic_refuel,
-            state = "미동록 상태",
+            state = R.string.record_unregistered_status,
             route = RecordAccidentDestination.route,
         ),
     )

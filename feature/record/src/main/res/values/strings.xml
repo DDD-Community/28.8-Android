@@ -4,5 +4,9 @@
     <string name="record_title">기록하기</string>
     <string name="record_sub_title">어떤 것을 기록할 지 먼저 선택해주세요!</string>
 
-
+    <string name="record_register_refuel_title">주유기록 등록</string>
+    <string name="record_register_maintenance_title">정비기록 등록</string>
+    <string name="record_register_drive_title">주행기록 등록</string>
+    <string name="record_register_accident_title">사고기록 등록</string>
+    <string name="record_unregistered_status">미등록 상태</string>
 </resources>
