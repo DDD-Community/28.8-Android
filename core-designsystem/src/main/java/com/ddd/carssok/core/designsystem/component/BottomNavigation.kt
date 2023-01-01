@@ -23,7 +23,7 @@ fun BottomNavigation(
 ) {
     NavigationBar(
         modifier = modifier.fillMaxWidth(),
-        containerColor = colorResource(id = R.color.green50),
+        containerColor = colorResource(id = R.color.primary_bg),
         content = content
     )
 }

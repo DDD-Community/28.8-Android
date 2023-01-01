@@ -25,7 +25,9 @@ fun CarssokNavHost(
         toHomeGraph(
             navController = navController
         )
-        toRecordGraph()
+        toRecordGraph(
+            navController = navController,
+        )
         toIntroduceGraph()
     }
 }
