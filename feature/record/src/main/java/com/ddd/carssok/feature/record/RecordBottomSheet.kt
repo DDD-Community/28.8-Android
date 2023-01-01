@@ -50,6 +50,7 @@ fun RecordNavigationBottomSheetContent(
                 }
                 
             },
+            itemSpaceSize = 12f,
             itemContent = { item ->
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
