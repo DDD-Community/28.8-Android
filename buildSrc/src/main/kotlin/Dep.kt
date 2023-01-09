@@ -66,6 +66,7 @@ object Dep {
         }
     }
 
+
     object Hilt {
         const val version = "2.42"
         const val HILT = "com.google.dagger:hilt-android:${version}"
@@ -86,6 +87,10 @@ object Dep {
 
     object Google {
         const val MATERIAL = "com.google.android.material:material:1.5.0"
+    }
+
+    object Lib {
+        const val LANDSCAPIST = "com.github.skydoves:landscapist-glide:2.1.0"
     }
 
     object JunitTest {

@@ -64,7 +64,7 @@ fun NavGraphBuilder.toOnBoardingGraph(
             route = OnBoardingFuelDestination.route,
         ) {
             OnBoardingFuelRoute(
-                onDone = onOnBoardingDone,
+                onClickedDone = onOnBoardingDone,
                 onBackPressed = onBackPressed
             )
         }

@@ -1,6 +1,7 @@
 package com.ddd.carssok.feature.onboarding.fuel
 
 import androidx.lifecycle.ViewModel
+import com.ddd.carssok.core.data.repository.HomeRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,7 +19,7 @@ enum class FuelType(val koreanName: String) {
 }
 
 @HiltViewModel
-class OnBoardingFuelViewModel @Inject constructor() : ViewModel() {
+class OnBoardingFuelViewModel @Inject constructor(private val repository: HomeRepositoryImpl) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
@@ -36,5 +37,9 @@ class OnBoardingFuelViewModel @Inject constructor() : ViewModel() {
 
     fun onClickedFilterFuel(isSelected: Boolean) {
 
+    }
+
+    fun onClickedDone() {
+        repository.needShowOnBoarding = false
     }
 }

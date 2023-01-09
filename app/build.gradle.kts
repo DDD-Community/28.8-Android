@@ -51,6 +51,7 @@ dependencies {
     implementation(project(Dep.Modules.CORE_NAVIGATOR))
 
     implementation(Dep.Hilt.HILT)
+    implementation("androidx.compose.material:material:1.3.1")
     kapt(Dep.Hilt.HILT_COMPILER)
 
     implementation(Dep.AndroidX.SPLASH)

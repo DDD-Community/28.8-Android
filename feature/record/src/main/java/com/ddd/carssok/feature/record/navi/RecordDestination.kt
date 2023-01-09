@@ -10,6 +10,7 @@ import com.ddd.carssok.feature.record.drive.RecordDriveRoute
 import com.ddd.carssok.feature.record.maintenance.RecordMaintenanceRoute
 import com.ddd.carssok.feature.record.refuel.RecordRefuelRoute
 
+
 object RecordDestination : CarssokNavigationDestination {
     override val route: String = "record_route"
     override val destination: String = "record_destination"
@@ -63,7 +64,11 @@ fun NavGraphBuilder.toRecordGraph(
         composable(
             route = RecordAccidentDestination.route
         ) {
-            RecordAccidentRoute()
+            RecordAccidentRoute(
+                onClickedBack = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }

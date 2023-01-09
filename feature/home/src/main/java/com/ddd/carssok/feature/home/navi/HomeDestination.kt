@@ -38,7 +38,7 @@ fun NavGraphBuilder.toHomeGraph(
             }
         },
         onBackPressed = {
-            // TODO 온보딩 완료 안하고 뒤로갈 경우, 앱 종료하기
+            navController.popBackStack()
         }
     )
 }
