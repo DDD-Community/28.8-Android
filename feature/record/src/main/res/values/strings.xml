@@ -9,4 +9,16 @@
     <string name="record_register_drive_title">주행기록 등록</string>
     <string name="record_register_accident_title">사고기록 등록</string>
     <string name="record_unregistered_status">미등록 상태</string>
+
+    <string name="record_accident_image">사고 사진</string>
+    <string name="record_accident_image_upload_max">(최대 5장)</string>
+    <string name="record_accident_image_upload_add">+추가하기</string>
+    <string name="record_accident_save">저장하기</string>
+    <string name="record_accident_title">사고 기록등록</string>
+    <string name="record_accident_timestamp_title">발생 날짜</string>
+    <string name="record_accident_timestamp_hint">사고가 발생한 날짜를 기록해주세요.</string>
+    <string name="record_accident_location_title">발생위치</string>
+    <string name="record_accident_location_hint">사고가 발생한 위치를 기록하세요.</string>
+    <string name="record_accident_memo_title">관련 메모</string>
+    <string name="record_accident_memo_hint">기록해야 하는 메모를 남겨주세요.</string>
 </resources>

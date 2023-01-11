@@ -17,6 +17,7 @@ import com.ddd.carssok.core.data.model.OnBoardingDetailModelEntity
 import com.ddd.carssok.core.data.model.OnBoardingModelEntity
 import com.ddd.carssok.core.designsystem.TypoStyle
 import com.ddd.carssok.core.designsystem.component.*
+import com.ddd.carssok.core.designsystem.component.input.InputTextBox
 import com.ddd.carssok.feature.onboarding.R
 import com.ddd.carssok.feature.onboarding.model.list.OnBoardingModelRow
 import kotlinx.coroutines.flow.StateFlow

@@ -47,15 +47,14 @@ import com.ddd.carssok.feature.onboarding.R
 
 @Composable
 fun OnBoardingFuelRoute(
-    onDone: () -> Unit,
+    onClickedDone: () -> Unit,
     onBackPressed: () -> Unit,
-    onBoardingViewModel: OnBoardingViewModel = hiltViewModel(),
     viewModel: OnBoardingFuelViewModel = hiltViewModel()
 ) {
     OnBoardingFuelScreen(
-        onButtonClicked = {
-            onBoardingViewModel.onOnBoardingDone()
-            onDone()
+        onClickedDone = {
+            viewModel.onClickedDone()
+            onClickedDone()
         },
         onBackPressed = onBackPressed,
         onClickedChipFuel = viewModel::onClickedFilterFuel,
@@ -66,7 +65,7 @@ fun OnBoardingFuelRoute(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OnBoardingFuelScreen(
-    onButtonClicked: () -> Unit,
+    onClickedDone: () -> Unit,
     onBackPressed: () -> Unit,
     onClickedChipFuel: (Boolean) -> Unit,
     viewModel: OnBoardingFuelViewModel
@@ -85,7 +84,7 @@ fun OnBoardingFuelScreen(
                 modifier = Modifier.size(width = 160.dp, height = 56.dp),
                 titleRes = R.string.on_boarding_select_brand_next,
                 isEnabled = true,
-                onClicked = onButtonClicked
+                onClicked = onClickedDone
             )
         },
         floatingActionButtonPosition = FabPosition.Center
@@ -190,7 +189,7 @@ fun OnBoardingFuelCarInfo(carName: String, carImageUrl: String) {
 @Composable
 fun OnBoardingFuelScreenPreview() {
     OnBoardingFuelRoute(
-        onDone = {},
+        onClickedDone = {},
         onBackPressed = {}
     )
 }

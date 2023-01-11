@@ -23,15 +23,14 @@ import com.ddd.carssok.core.designsystem.component.CarssokBottomSheetListContent
 import com.ddd.carssok.core.designsystem.component.TypoText
 import com.ddd.carssok.feature.record.navi.RecordNavItem
 import com.ddd.carssok.feature.record.navi.RecordNavItems
-import com.ddd.carssok.feature.record.R
 
 @Composable
 fun RecordNavigationBottomSheetContent(
     modifier: Modifier = Modifier,
     onItemClicked: (RecordNavItem) -> Unit,
 ) {
-    CarssokBottomSheetContent() {
-        CarssokBottomSheetListContent<RecordNavItem>(
+    CarssokBottomSheetContent {
+        CarssokBottomSheetListContent(
             items = RecordNavItems.BottomSheetItems,
             headerContent = {
                 Column(
@@ -45,10 +44,11 @@ fun RecordNavigationBottomSheetContent(
                         text = stringResource(id = R.string.record_sub_title),
                         typoStyle = TypoStyle.HEADLINE_SMALL_16,
                         color = colorResource(
-                        id = com.ddd.carssok.core.designsystem.R.color.secondary_text)
+                            id = com.ddd.carssok.core.designsystem.R.color.secondary_text
+                        )
                     )
                 }
-                
+
             },
             itemSpaceSize = 12f,
             itemContent = { item ->
@@ -56,7 +56,9 @@ fun RecordNavigationBottomSheetContent(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = modifier
                         .fillMaxWidth()
-                        .clickable { onItemClicked(item) }
+                        .clickable {
+                            onItemClicked(item)
+                        }
                         .height(52.dp)
                         .padding(start = 28.dp, end = 34.5.dp)
                 ) {
@@ -70,7 +72,8 @@ fun RecordNavigationBottomSheetContent(
                     TypoText(
                         text = stringResource(id = item.state),
                         typoStyle = TypoStyle.BODY_X11_SMALL, color = colorResource(
-                        id = com.ddd.carssok.core.designsystem.R.color.tertiary_text)
+                            id = com.ddd.carssok.core.designsystem.R.color.tertiary_text
+                        )
                     )
                     Spacer(modifier = modifier.size(10.5.dp))
                     Icon(
