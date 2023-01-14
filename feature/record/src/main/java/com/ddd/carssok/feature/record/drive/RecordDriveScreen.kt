@@ -70,6 +70,7 @@ fun RecordDriveScreen(
                 backButtonImageResource = com.ddd.carssok.core.designsystem.R.drawable.ic_arrow_back_circle_32
             )
         },
+        containerColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_bg),
         floatingActionButton = {
             CarssokButton(
                 titleRes = R.string.record_drive_save_button_title,
