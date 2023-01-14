@@ -1,7 +1,8 @@
 package com.ddd.carssok.feature.record.drive
 
+import RecordDriveBackHandler
+import RecordDriveSaveDialog
 import android.content.res.Configuration
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,7 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,7 +36,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.ddd.carssok.core.designsystem.TypoStyle
 import com.ddd.carssok.core.designsystem.component.Appbar
 import com.ddd.carssok.core.designsystem.component.CarssokButton
-import com.ddd.carssok.core.designsystem.component.CommonDialog
 import com.ddd.carssok.core.designsystem.component.TypoText
 import com.ddd.carssok.core.designsystem.component.input.InputTextBox
 import com.ddd.carssok.feature.record.R
@@ -57,41 +58,15 @@ fun RecordDriveRoute(
     )
 }
 
-@Composable
-fun RecordDriveBackHandler(
-    enable: Boolean = false,
-    navigateUp: () -> Unit,
-    coroutineScope: CoroutineScope = rememberCoroutineScope()
-) {
-    var rememberExitDialog by remember { mutableStateOf(false) }
 
-    if(rememberExitDialog) {
-        CommonDialog(
-            text = stringResource(id = R.string.record_exit_dialog_content),
-            confirmButtonTitle = stringResource(id = R.string.record_exit_dialog_confirm_button_continue),
-            dismissButtonTitle = stringResource(id = R.string.record_exit_dialog_dismiss_button_exit),
-            onConfirmClicked = {
-                rememberExitDialog = false
-            },
-            onDismissClicked = {
-                rememberExitDialog = false
-                navigateUp()
-            }
-        )
-    }
-
-    BackHandler(enabled = enable) {
-        coroutineScope.launch {
-            rememberExitDialog = true
-        }
-    }
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecordDriveScreen(
     modifier: Modifier = Modifier,
     mileageState: StateFlow<String>,
+    coroutineScope: CoroutineScope = rememberCoroutineScope(),
+    saveDialogState: MutableState<Boolean> = remember { mutableStateOf(false) },
     onInputMileageChanged: (String) -> Unit,
     onClickedSave: () -> Unit,
     onClickedPreviousDrivingHistory: () -> Unit,
@@ -104,6 +79,12 @@ fun RecordDriveScreen(
     RecordDriveBackHandler(
         enable = rememberSaveButtonEnabled,
         navigateUp = onClickedBack,
+        coroutineScope = coroutineScope
+    )
+
+    RecordDriveSaveDialog(
+        dialogState = saveDialogState,
+        onClickedConfirm = onClickedSave
     )
 
     Scaffold(
@@ -123,7 +104,11 @@ fun RecordDriveScreen(
                     .fillMaxWidth()
                     .height(56.dp)
                     .padding(horizontal = 24.dp),
-                onClicked = onClickedSave
+                onClicked = {
+                    coroutineScope.launch {
+                        saveDialogState.value = true
+                    }
+                }
             )
         },
         floatingActionButtonPosition = FabPosition.Center

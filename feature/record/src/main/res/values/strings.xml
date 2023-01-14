@@ -34,6 +34,9 @@
     <string name="record_drive_input_mileage_title">주행 거리</string>
     <string name="record_drive_input_mileage_hint">00km</string>
     <string name="record_drive_show_previous_driving_history">이전 주행기록 보기</string>
+    <string name="record_drive_save_dialog_content">해당 주행 기록을 저장하시면\n누적 기록에 추가됩니다.</string>
+    <string name="record_drive_save_dialog_confirm_button">추가할게요</string>
+    <string name="record_drive_save_dialog_dismiss_button">취소할래요</string>
 
 
     <string name="record_exit_dialog_content">작성 중인 글이 있어요\n정말 나가시겠어요?</string>
