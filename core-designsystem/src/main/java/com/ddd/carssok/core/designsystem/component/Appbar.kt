@@ -3,6 +3,7 @@ package com.ddd.carssok.core.designsystem.component
 import android.content.res.Configuration
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -47,11 +48,19 @@ fun Appbar(
         },
         navigationIcon = {
             IconButton(onClick = { onClickedBack?.invoke() }) {
-                Icon(
-                    painter = painterResource(id = backButtonImageResource ?: R.drawable.ic_arrow_back_24),
-                    null,
-                    tint = colorResource(id = R.color.primary_text)
-                )
+                backButtonImageResource?.let {
+                    Image(
+                        painter = painterResource(id = it),
+                        null,
+                    )
+                } ?: run {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_arrow_back_24),
+                        null,
+                        tint = colorResource(id = R.color.primary_text)
+                    )
+                }
+
             }
         },
         actions = {

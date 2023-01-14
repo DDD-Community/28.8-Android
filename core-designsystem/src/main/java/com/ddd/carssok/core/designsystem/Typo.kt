@@ -3,9 +3,11 @@ package com.ddd.carssok.core.designsystem
 import androidx.compose.ui.text.font.FontWeight
 
 enum class TypoStyle(val textSize: Int, val fontWeight: FontWeight) {
+    DISPLAY_X_LARGE_44(44, FontWeight.Bold),
     DISPLAY_LARGE_32(32, FontWeight.Bold),
     DISPLAY_MEDIUM_28(28, FontWeight.Bold),
     DISPLAY_SMALL_24(24, FontWeight.Bold),
+
     HEADLINE_LARGE_20(20, FontWeight.Bold),
     HEADLINE_MEDIUM_18(18, FontWeight.Bold),
     HEADLINE_SMALL_16(16, FontWeight.Bold),
