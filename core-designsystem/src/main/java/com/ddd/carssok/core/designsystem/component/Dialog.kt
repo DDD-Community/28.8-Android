@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -32,7 +33,7 @@ import com.ddd.carssok.core.designsystem.R
 @Composable
 fun CommonDialog(
     modifier: Modifier = Modifier,
-    title: String = "타이틀",
+    title: String = "",
     text: String = "A dialog is a type of modal\nfront of app content to ",
     confirmButtonTitle: String = stringResource(id = R.string.dialog_confirm_yes),
     onConfirmClicked: () -> Unit,
@@ -46,6 +47,7 @@ fun CommonDialog(
         properties = properties
     ) {
         CommonDialogContent(
+            modifier = modifier.width(267.dp),
             buttons = {
                 Row(
                     modifier = Modifier
@@ -83,15 +85,19 @@ fun CommonDialog(
                 }
             },
             title = {
-                Box(modifier = modifier
-                    .fillMaxWidth()
-                    .padding(TitlePadding)) {
-                    TypoText(
-                        text = title,
-                        typoStyle = TypoStyle.HEADLINE_LARGE_20,
-                        color = colorResource(id = R.color.primary_text),
-                        modifier = modifier.align(Alignment.Center)
-                    )
+                if(title.isNotBlank()) {
+                    Box(modifier = modifier
+                        .fillMaxWidth()
+                        .padding(TitlePadding)) {
+                        TypoText(
+                            text = title,
+                            typoStyle = TypoStyle.HEADLINE_LARGE_20,
+                            color = colorResource(id = R.color.primary_text),
+                            modifier = modifier.align(Alignment.Center)
+                        )
+                    }
+                } else {
+                    null
                 }
             },
             text = {
@@ -100,8 +106,9 @@ fun CommonDialog(
                     .padding(TextPadding)) {
                     TypoText(
                         text = text,
-                        typoStyle = TypoStyle.HEADLINE_X_SMALL_14,
+                        typoStyle = if(title.isNotBlank()) TypoStyle.HEADLINE_X_SMALL_14 else TypoStyle.HEADLINE_SMALL_16,
                         color = colorResource(id = R.color.secondary_text),
+                        textAlign = TextAlign.Center,
                         modifier = modifier.align(Alignment.Center)
                     )
                 }
@@ -149,6 +156,7 @@ private val ButtonsPadding = PaddingValues(top = 20.dp)
 @Composable
 fun DialogPreview() {
     CommonDialog(
+        title = "Title",
         confirmButtonTitle = stringResource(id = R.string.dialog_confirm_yes),
         onConfirmClicked = {},
         dismissButtonTitle = stringResource(id = R.string.dialog_dismiss_no),

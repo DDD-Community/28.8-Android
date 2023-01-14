@@ -1,6 +1,7 @@
 package com.ddd.carssok.feature.record.drive
 
 import android.content.res.Configuration
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -19,6 +20,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,22 +34,57 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.ddd.carssok.core.designsystem.TypoStyle
 import com.ddd.carssok.core.designsystem.component.Appbar
 import com.ddd.carssok.core.designsystem.component.CarssokButton
+import com.ddd.carssok.core.designsystem.component.CommonDialog
 import com.ddd.carssok.core.designsystem.component.TypoText
 import com.ddd.carssok.core.designsystem.component.input.InputTextBox
 import com.ddd.carssok.feature.record.R
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 @Composable
 fun RecordDriveRoute(
-    viewModel: RecordDriveViewModel = hiltViewModel()
+    viewModel: RecordDriveViewModel = hiltViewModel(),
+    onClickedBack: () -> Unit
 ) {
     RecordDriveScreen(
         mileageState = viewModel.mileageState,
         onInputMileageChanged = viewModel::updateMileage,
         onClickedSave = {},
-        onClickedPreviousDrivingHistory = {}
+        onClickedPreviousDrivingHistory = {},
+        onClickedBack = onClickedBack
     )
+}
+
+@Composable
+fun RecordDriveBackHandler(
+    enable: Boolean = false,
+    navigateUp: () -> Unit,
+    coroutineScope: CoroutineScope = rememberCoroutineScope()
+) {
+    var rememberExitDialog by remember { mutableStateOf(false) }
+
+    if(rememberExitDialog) {
+        CommonDialog(
+            text = stringResource(id = R.string.record_exit_dialog_content),
+            confirmButtonTitle = stringResource(id = R.string.record_exit_dialog_confirm_button_continue),
+            dismissButtonTitle = stringResource(id = R.string.record_exit_dialog_dismiss_button_exit),
+            onConfirmClicked = {
+                rememberExitDialog = false
+            },
+            onDismissClicked = {
+                rememberExitDialog = false
+                navigateUp()
+            }
+        )
+    }
+
+    BackHandler(enabled = enable) {
+        coroutineScope.launch {
+            rememberExitDialog = true
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -58,16 +95,23 @@ fun RecordDriveScreen(
     onInputMileageChanged: (String) -> Unit,
     onClickedSave: () -> Unit,
     onClickedPreviousDrivingHistory: () -> Unit,
+    onClickedBack: () -> Unit,
 ) {
     val mileage by mileageState.collectAsState()
 
     var rememberSaveButtonEnabled by remember { mutableStateOf(false) }
 
+    RecordDriveBackHandler(
+        enable = rememberSaveButtonEnabled,
+        navigateUp = onClickedBack,
+    )
+
     Scaffold(
         topBar = {
             Appbar(
                 titleRes = R.string.record_drive_app_bar_title,
-                backButtonImageResource = com.ddd.carssok.core.designsystem.R.drawable.ic_arrow_back_circle_32
+                backButtonImageResource = com.ddd.carssok.core.designsystem.R.drawable.ic_arrow_back_circle_32,
+                onClickedBack = onClickedBack
             )
         },
         containerColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_bg),
@@ -246,6 +290,7 @@ fun RecordDrivePreview() {
         mileageState = MutableStateFlow<String>(""),
         onInputMileageChanged = {},
         onClickedSave = {},
-        onClickedPreviousDrivingHistory = {}
+        onClickedPreviousDrivingHistory = {},
+        onClickedBack = {}
     )
 }

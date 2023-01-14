@@ -58,7 +58,11 @@ fun NavGraphBuilder.toRecordGraph(
         composable(
             route = RecordDriveDestination.route
         ) {
-            RecordDriveRoute()
+            RecordDriveRoute(
+                onClickedBack = {
+                    navController.popBackStack()
+                }
+            )
         }
 
         composable(
