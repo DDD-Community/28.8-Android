@@ -21,4 +21,25 @@
     <string name="record_accident_location_hint">사고가 발생한 위치를 기록하세요.</string>
     <string name="record_accident_memo_title">관련 메모</string>
     <string name="record_accident_memo_hint">기록해야 하는 메모를 남겨주세요.</string>
+
+
+    <!-- 주행기록 -->
+    <string name="record_drive_app_bar_title">주행 기록</string>
+    <string name="record_drive_save_button_title">저장하기</string>
+    <string name="record_drive_main_title1">지금까지의 누적 주행</string>
+    <string name="record_drive_main_title2">기록이에요!</string>
+    <string name="record_drive_sub_title">추가로 주행을 기록하세요.</string>
+    <string name="record_drive_input_date_title">주행 날짜</string>
+    <string name="record_drive_input_date_hint">주행날짜 선택</string>
+    <string name="record_drive_input_mileage_title">주행 거리</string>
+    <string name="record_drive_input_mileage_hint">00km</string>
+    <string name="record_drive_show_previous_driving_history">이전 주행기록 보기</string>
+    <string name="record_drive_save_dialog_content">해당 주행 기록을 저장하시면\n누적 기록에 추가됩니다.</string>
+    <string name="record_drive_save_dialog_confirm_button">추가할게요</string>
+    <string name="record_drive_save_dialog_dismiss_button">취소할래요</string>
+
+
+    <string name="record_exit_dialog_content">작성 중인 글이 있어요\n정말 나가시겠어요?</string>
+    <string name="record_exit_dialog_confirm_button_continue">이어서 쓰기</string>
+    <string name="record_exit_dialog_dismiss_button_exit">괜찮아요</string>
 </resources>

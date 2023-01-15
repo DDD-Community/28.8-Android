@@ -43,7 +43,10 @@ fun RecordAccidentScreen(
 ) {
     Scaffold(
         topBar = {
-            Appbar(onClickedBack = onClickedBack)
+            Appbar(
+                backButtonImageResource = com.ddd.carssok.core.designsystem.R.drawable.ic_arrow_back_circle_32,
+                onClickedBack = onClickedBack
+            )
         },
         containerColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_bg),
         floatingActionButton = {

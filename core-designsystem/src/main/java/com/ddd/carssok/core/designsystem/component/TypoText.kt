@@ -13,6 +13,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -32,6 +33,7 @@ fun TypoText(
     lineHeight: TextUnit = TextUnit.Unspecified,
     maxLines: Int = Int.MAX_VALUE,
     overflow: TextOverflow = TextOverflow.Clip,
+    textDecoration: TextDecoration? = null,
 ) {
     Text(
         modifier = modifier ?: Modifier,
@@ -42,7 +44,8 @@ fun TypoText(
         textAlign = textAlign,
         lineHeight = lineHeight,
         maxLines = maxLines,
-        overflow = overflow
+        overflow = overflow,
+        textDecoration = textDecoration
     )
 }
 
