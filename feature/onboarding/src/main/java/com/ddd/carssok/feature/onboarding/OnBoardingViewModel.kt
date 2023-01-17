@@ -8,7 +8,7 @@ import javax.inject.Inject
 @HiltViewModel
 class OnBoardingViewModel @Inject constructor(
     private val repository: HomeRepositoryImpl
-): ViewModel() {
+) : ViewModel() {
 
     fun onOnBoardingDone() {
         repository.needShowOnBoarding = false

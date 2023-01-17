@@ -67,4 +67,7 @@ dependencies {
     implementation(Dep.AndroidX.Compose.UI)
     implementation(Dep.AndroidX.Compose.UI_TOOL)
     implementation(Dep.AndroidX.Compose.RUNTIME)
+
+    debugImplementation(Dep.Lib.FACEBOOK_FLIPPER)
+    debugImplementation(Dep.Lib.FACEBOOK_FLIPPER_SOLOADER)
 }

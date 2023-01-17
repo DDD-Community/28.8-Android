@@ -1,15 +1,20 @@
 package com.ddd.carssok.feature.onboarding.brand
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.ddd.carssok.core.data.repository.account.AccountRepository
 import com.ddd.carssok.core.model.CarBrand
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class OnBoardingBrandViewModel @Inject constructor() : ViewModel() {
+class OnBoardingBrandViewModel @Inject constructor(
+    private val authRepository: AccountRepository
+) : ViewModel() {
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
 
@@ -29,6 +34,13 @@ class OnBoardingBrandViewModel @Inject constructor() : ViewModel() {
                 CarBrand(6, "제네시스", false)
             )
         _uiState.update { it.copy(brandItems = dummy) }
+
+        viewModelScope.launch {
+            kotlin.runCatching {
+                //TODO 임시방편 코루틴 error 공통 사용 개발 필요
+                authRepository.requestUser()
+            }
+        }
     }
 
     fun onCheckedBrandCard(id: Long, isChecked: Boolean) {
