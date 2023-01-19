@@ -1,5 +1,7 @@
 package com.ddd.carssok.core.data.di
 
+import com.ddd.carssok.core.data.repository.account.AccountRepository
+import com.ddd.carssok.core.data.repository.account.AccountRepositoryImpl
 import com.ddd.carssok.core.data.repository.onboarding.FakeOnBoardingRepositoryImpl
 import com.ddd.carssok.core.data.repository.onboarding.OnBoardingRepository
 import dagger.Binds
@@ -15,6 +17,12 @@ class OnBoardingModule {
     @Module
     @InstallIn(ViewModelComponent::class)
     interface OnBoardingBindsModule {
+
+        @Binds
+        @ViewModelScoped
+        fun bindAccountRepository(
+            repository: AccountRepositoryImpl
+        ): AccountRepository
 
         @Binds
         @ViewModelScoped

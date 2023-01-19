@@ -4,9 +4,7 @@ import com.ddd.carssok.core.data.model.OnBoardingDetailModelEntity
 import com.ddd.carssok.core.data.model.OnBoardingModelEntity
 import javax.inject.Inject
 
-class FakeOnBoardingRepositoryImpl @Inject constructor(
-
-): OnBoardingRepository {
+class FakeOnBoardingRepositoryImpl @Inject constructor() : OnBoardingRepository {
     override suspend fun getModels(brand: String): List<OnBoardingModelEntity> {
         return listOf(
             OnBoardingModelEntity(

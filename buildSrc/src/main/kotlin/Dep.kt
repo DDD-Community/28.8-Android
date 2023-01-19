@@ -91,6 +91,9 @@ object Dep {
 
     object Lib {
         const val LANDSCAPIST = "com.github.skydoves:landscapist-glide:2.1.0"
+        const val FACEBOOK_FLIPPER = "com.facebook.flipper:flipper:0.176.1"
+        const val FACEBOOK_FLIPPER_SOLOADER = "com.facebook.soloader:soloader:0.10.4"
+        const val FACEBOOK_FLIPPER_NETWORK = "com.facebook.flipper:flipper-network-plugin:0.176.1"
     }
 
     object JunitTest {
