@@ -14,6 +14,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -212,9 +213,9 @@ fun RecordRefuelInfo(
                     intPutText = info.totalPrice,
                     importanceCount = 1,
                     modifier = modifier,
-                    onInputTextChange = {
-                        onInfoChanged(info.copy(totalPrice = it))
-                    }
+                    onInputTextChange = remember(info.totalPrice) {
+                        { onInfoChanged(info.copy(totalPrice = it)) }
+                    },
                 )
             },
             {
@@ -225,9 +226,9 @@ fun RecordRefuelInfo(
                     intPutText = info.price,
                     importanceCount = 1,
                     modifier = modifier,
-                    onInputTextChange = {
-                        onInfoChanged(info.copy(price = it))
-                    }
+                    onInputTextChange = remember(info.price) {
+                        { onInfoChanged(info.copy(price = it)) }
+                    },
                 )
             },
             {
@@ -238,9 +239,9 @@ fun RecordRefuelInfo(
                     intPutText = info.amount,
                     importanceCount = 1,
                     modifier = modifier,
-                    onInputTextChange = {
-                        onInfoChanged(info.copy(amount = it))
-                    }
+                    onInputTextChange = remember(info.amount) {
+                        { onInfoChanged(info.copy(amount = it)) }
+                    },
                 )
             },
         ),
