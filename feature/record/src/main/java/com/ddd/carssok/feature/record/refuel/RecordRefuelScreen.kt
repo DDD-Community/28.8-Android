@@ -49,7 +49,6 @@ fun RecordRefuelRoute(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecordRefuelScreen(
-    modifier: Modifier = Modifier,
     state: StateFlow<RecordRefuelUiState>,
     onInputDataChanged: (RecordRefuelInputData) -> Unit,
     onClickedSave: () -> Unit,
@@ -69,7 +68,7 @@ fun RecordRefuelScreen(
             CarssokButton(
                 titleRes = R.string.record_refuel_save_button_title,
                 isEnabled = uiState.isSaveButtonEnable,
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp)
                     .padding(horizontal = 24.dp),
@@ -84,13 +83,12 @@ fun RecordRefuelScreen(
         ) {
             item {
                 RecordRefuelTitle(
-                    modifier = modifier.padding(top = 20.dp, start = 24.dp, bottom = 28.dp, end = 24.dp)
+                    modifier = Modifier.padding(top = 20.dp, start = 24.dp, bottom = 28.dp, end = 24.dp)
                 )
             }
 
             item {
                 RecordRefuelInputDate(
-                    modifier = modifier,
                     date = uiState.inputData.date,
                     onDateChanged = {
                         onInputDataChanged(uiState.inputData.copy(date = it))
@@ -100,7 +98,6 @@ fun RecordRefuelScreen(
 
             item {
                 RecordRefuelStation(
-                    modifier = modifier,
                     station = uiState.inputData.station.orEmpty(),
                     onStationChanged = {
                         onInputDataChanged(uiState.inputData.copy(station = it))
@@ -110,7 +107,6 @@ fun RecordRefuelScreen(
 
             item {
                 RecordRefuelInfo(
-                    modifier = modifier,
                     info = uiState.inputData.priceInfo,
                     onInfoChanged = { info ->
                         onInputDataChanged(uiState.inputData.copy(priceInfo = info))
@@ -120,7 +116,6 @@ fun RecordRefuelScreen(
 
             item {
                 RecordRefuelMemo(
-                    modifier = modifier,
                     memo = uiState.inputData.memo.orEmpty(),
                     onMemoChanged = {
                         onInputDataChanged(uiState.inputData.copy(memo = it))
@@ -129,7 +124,7 @@ fun RecordRefuelScreen(
             }
 
             item {
-                Spacer(modifier = modifier.height(124.dp))
+                Spacer(modifier = Modifier.height(124.dp))
             }
         }
     }
@@ -212,7 +207,6 @@ fun RecordRefuelInfo(
                     hintText = stringResource(id = R.string.record_refuel_input_total_price_hint),
                     intPutText = info.totalPrice,
                     importanceCount = 1,
-                    modifier = modifier,
                     onInputTextChange = remember(info.totalPrice) {
                         { onInfoChanged(info.copy(totalPrice = it)) }
                     },
@@ -225,7 +219,6 @@ fun RecordRefuelInfo(
                     hintText = stringResource(id = R.string.record_refuel_input_price_hint),
                     intPutText = info.price,
                     importanceCount = 1,
-                    modifier = modifier,
                     onInputTextChange = remember(info.price) {
                         { onInfoChanged(info.copy(price = it)) }
                     },
@@ -238,7 +231,6 @@ fun RecordRefuelInfo(
                     hintText = stringResource(id = R.string.record_refuel_input_amount_hint),
                     intPutText = info.amount,
                     importanceCount = 1,
-                    modifier = modifier,
                     onInputTextChange = remember(info.amount) {
                         { onInfoChanged(info.copy(amount = it)) }
                     },
