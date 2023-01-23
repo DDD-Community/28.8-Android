@@ -12,11 +12,8 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -32,6 +29,8 @@ import com.ddd.carssok.core.designsystem.component.TypoText
 import com.ddd.carssok.core.designsystem.component.input.InputTextBox
 import com.ddd.carssok.core.designsystem.component.input.InputTextGroupBox
 import com.ddd.carssok.feature.record.R
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun RecordRefuelRoute(
@@ -39,6 +38,8 @@ fun RecordRefuelRoute(
     onClickedBack: () -> Unit,
 ) {
     RecordRefuelScreen(
+        state = viewModel.uiState,
+        onInputDataChanged = viewModel::updateInputData,
         onClickedSave = {},
         onClickedBack = onClickedBack,
     )
@@ -48,20 +49,12 @@ fun RecordRefuelRoute(
 @Composable
 fun RecordRefuelScreen(
     modifier: Modifier = Modifier,
-    onClickedSave: (RecordRefuelInputData) -> Unit,
+    state: StateFlow<RecordRefuelUiState>,
+    onInputDataChanged: (RecordRefuelInputData) -> Unit,
+    onClickedSave: () -> Unit,
     onClickedBack: () -> Unit,
 ) {
-    var rememberInputData by remember { mutableStateOf(RecordRefuelInputData.EMPTY) }
-
-    var rememberSaveButtonEnabled by remember {
-        mutableStateOf(
-            rememberInputData.isNotBlank()
-        )
-    }
-
-    LaunchedEffect(key1 = rememberInputData) {
-        rememberSaveButtonEnabled = rememberInputData.isNotBlank()
-    }
+    val uiState by state.collectAsState()
 
     Scaffold(
         topBar = {
@@ -74,14 +67,12 @@ fun RecordRefuelScreen(
         floatingActionButton = {
             CarssokButton(
                 titleRes = R.string.record_refuel_save_button_title,
-                isEnabled = rememberSaveButtonEnabled,
+                isEnabled = uiState.isSaveButtonEnable,
                 modifier = modifier
                     .fillMaxWidth()
                     .height(56.dp)
                     .padding(horizontal = 24.dp),
-                onClicked = {
-                    onClickedSave(rememberInputData)
-                }
+                onClicked = onClickedSave
             )
         },
         floatingActionButtonPosition = FabPosition.Center
@@ -99,9 +90,9 @@ fun RecordRefuelScreen(
             item {
                 RecordRefuelInputDate(
                     modifier = modifier,
-                    date = rememberInputData.date,
+                    date = uiState.inputData.date,
                     onDateChanged = {
-                        rememberInputData = rememberInputData.copy(date = it)
+                        onInputDataChanged(uiState.inputData.copy(date = it))
                     },
                 )
             }
@@ -109,8 +100,9 @@ fun RecordRefuelScreen(
             item {
                 RecordRefuelStation(
                     modifier = modifier,
+                    station = uiState.inputData.station.orEmpty(),
                     onStationChanged = {
-                        rememberInputData = rememberInputData.copy(station = it)
+                        onInputDataChanged(uiState.inputData.copy(station = it))
                     },
                 )
             }
@@ -118,26 +110,19 @@ fun RecordRefuelScreen(
             item {
                 RecordRefuelInfo(
                     modifier = modifier,
-                    totalPrice = rememberInputData.totalPrice,
-                    price = rememberInputData.price,
-                    amount = rememberInputData.amount,
-                    onTotalPriceChanged = {
-                        rememberInputData = rememberInputData.copy(totalPrice = it)
+                    info = uiState.inputData.priceInfo,
+                    onInfoChanged = { info ->
+                        onInputDataChanged(uiState.inputData.copy(priceInfo = info))
                     },
-                    onPriceChanged = {
-                        rememberInputData = rememberInputData.copy(price = it)
-                    },
-                    onAmountChanged = {
-                        rememberInputData = rememberInputData.copy(amount = it)
-                    }
                 )
             }
 
             item {
                 RecordRefuelMemo(
                     modifier = modifier,
+                    memo = uiState.inputData.memo.orEmpty(),
                     onMemoChanged = {
-                        rememberInputData = rememberInputData.copy(memo = it)
+                        onInputDataChanged(uiState.inputData.copy(memo = it))
                     }
                 )
             }
@@ -196,13 +181,14 @@ fun RecordRefuelInputDate(
 @Composable
 fun RecordRefuelStation(
     modifier: Modifier = Modifier,
+    station: String = "",
     onStationChanged: (String) -> Unit,
 ) {
     InputTextBox(
         modifier = modifier,
         title = stringResource(id = R.string.record_refuel_input_station_title),
         hintText = stringResource(id = R.string.record_refuel_input_station_hint),
-        intPutText = "",
+        intPutText = station,
         inputTextFiledEnabled = true,
         onInputTextChange = onStationChanged
     )
@@ -211,12 +197,8 @@ fun RecordRefuelStation(
 @Composable
 fun RecordRefuelInfo(
     modifier: Modifier = Modifier,
-    totalPrice: String,
-    price: String,
-    amount: String,
-    onTotalPriceChanged: (String) -> Unit,
-    onPriceChanged: (String) -> Unit,
-    onAmountChanged: (String) -> Unit,
+    info: RecordRefuelPriceInfo,
+    onInfoChanged: (RecordRefuelPriceInfo) -> Unit,
 ) {
     InputTextGroupBox(
         modifier = modifier,
@@ -227,10 +209,12 @@ fun RecordRefuelInfo(
                 InputTextBox(
                     title = stringResource(id = R.string.record_refuel_input_total_price_title),
                     hintText = stringResource(id = R.string.record_refuel_input_total_price_hint),
-                    intPutText = totalPrice,
+                    intPutText = info.totalPrice,
                     importanceCount = 1,
                     modifier = modifier,
-                    onInputTextChange = onTotalPriceChanged
+                    onInputTextChange = {
+                        onInfoChanged(info.copy(totalPrice = it))
+                    }
                 )
             },
             {
@@ -238,10 +222,12 @@ fun RecordRefuelInfo(
                 InputTextBox(
                     title = stringResource(id = R.string.record_refuel_input_price_title),
                     hintText = stringResource(id = R.string.record_refuel_input_price_hint),
-                    intPutText = price,
+                    intPutText = info.price,
                     importanceCount = 1,
                     modifier = modifier,
-                    onInputTextChange = onPriceChanged
+                    onInputTextChange = {
+                        onInfoChanged(info.copy(price = it))
+                    }
                 )
             },
             {
@@ -249,10 +235,12 @@ fun RecordRefuelInfo(
                 InputTextBox(
                     title = stringResource(id = R.string.record_refuel_input_amount_title),
                     hintText = stringResource(id = R.string.record_refuel_input_amount_hint),
-                    intPutText = amount,
+                    intPutText = info.amount,
                     importanceCount = 1,
                     modifier = modifier,
-                    onInputTextChange = onAmountChanged
+                    onInputTextChange = {
+                        onInfoChanged(info.copy(amount = it))
+                    }
                 )
             },
         ),
@@ -262,12 +250,13 @@ fun RecordRefuelInfo(
 @Composable
 fun RecordRefuelMemo(
     modifier: Modifier = Modifier,
+    memo: String = "",
     onMemoChanged: (String) -> Unit,
 ) {
     InputTextBox(
         title = stringResource(id = R.string.record_refuel_input_memo_title),
         hintText = stringResource(id = R.string.record_refuel_input_memo_hint),
-        intPutText = "",
+        intPutText = memo,
         modifier = modifier,
         onInputTextChange = onMemoChanged
     )
@@ -277,6 +266,8 @@ fun RecordRefuelMemo(
 @Composable
 fun RecordRefuelScreenPreview() {
     RecordRefuelScreen(
+        state = MutableStateFlow(RecordRefuelUiState()),
+        onInputDataChanged = {},
         onClickedSave = {},
         onClickedBack = {}
     )
