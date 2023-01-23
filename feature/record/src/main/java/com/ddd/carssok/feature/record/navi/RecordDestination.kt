@@ -46,7 +46,11 @@ fun NavGraphBuilder.toRecordGraph(
         composable(
             route = RecordRefuelDestination.route
         ) {
-            RecordRefuelRoute()
+            RecordRefuelRoute(
+                onClickedBack = {
+                    navController.popBackStack()
+                }
+            )
         }
 
         composable(

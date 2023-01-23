@@ -10,6 +10,7 @@
     <string name="record_register_accident_title">사고기록 등록</string>
     <string name="record_unregistered_status">미등록 상태</string>
 
+    <!-- 사고기록 -->
     <string name="record_accident_image">사고 사진</string>
     <string name="record_accident_image_upload_max">(최대 5장)</string>
     <string name="record_accident_image_upload_add">+추가하기</string>
@@ -37,6 +38,25 @@
     <string name="record_drive_save_dialog_content">해당 주행 기록을 저장하시면\n누적 기록에 추가됩니다.</string>
     <string name="record_drive_save_dialog_confirm_button">추가할게요</string>
     <string name="record_drive_save_dialog_dismiss_button">취소할래요</string>
+
+
+    <!-- 주유기록 -->
+    <string name="record_refuel_main_title">주유 기록</string>
+    <string name="record_refuel_save_button_title">저장하기</string>
+    <string name="record_refuel_input_date_title">주유 날짜</string>
+    <string name="record_refuel_input_date_hint">주유한 날짜를 선택하세요.</string>
+    <string name="record_refuel_input_station_title">주유소</string>
+    <string name="record_refuel_input_station_hint">주유한 장소를 선택하세요.</string>
+    <string name="record_refuel_input_info_title">주유 정보</string>
+    <string name="record_refuel_input_total_price_title">주유 금액</string>
+    <string name="record_refuel_input_total_price_hint">주유 금액을 입력하세요.</string>
+    <string name="record_refuel_input_price_title">주유 단가</string>
+    <string name="record_refuel_input_price_hint">주유 단가를 입력하세요.</string>
+    <string name="record_refuel_input_amount_title">주유량</string>
+    <string name="record_refuel_input_amount_hint">주유량을 입력하세요.</string>
+    <string name="record_refuel_input_memo_title">관련 메모</string>
+    <string name="record_refuel_input_memo_hint">기록해야 하는 메모를 남겨주세요.</string>
+
 
 
     <string name="record_exit_dialog_content">작성 중인 글이 있어요\n정말 나가시겠어요?</string>

@@ -117,7 +117,7 @@ fun RecordDriveScreen(
             modifier = Modifier.padding(padding)
         ) {
             RecordDriveTitle(
-                modifier = modifier.padding(top = 0.dp, start = 24.dp, bottom = 0.dp, end = 24.dp)
+                modifier = modifier.padding(top = 28.dp, start = 24.dp, bottom = 0.dp, end = 24.dp)
             )
 
             RecordDriveMileage(
