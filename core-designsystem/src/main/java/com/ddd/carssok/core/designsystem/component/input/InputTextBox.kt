@@ -106,7 +106,7 @@ fun InputTextBox(
 }
 
 @Composable
-private fun InputTextTitle(titleRes: Int?, title: String?, importanceCount: Int, state: InputState) {
+fun InputTextTitle(titleRes: Int?, title: String?, importanceCount: Int, state: InputState) {
     Row {
         TypoText(
             text = titleRes?.let { stringResource(id = it) } ?: kotlin.run { title.orEmpty() },
@@ -143,39 +143,6 @@ fun getInputTextHintImageTint(state: InputState): Int {
     }
 }
 
-@Composable
-fun InputTextGroupBox(
-    modifier: Modifier = Modifier,
-    title: String,
-    inputTextBoxes: List<@Composable () -> Unit> = emptyList(),
-) {
-    Column(
-        modifier = modifier.padding(vertical = 24.dp, horizontal = 24.dp)
-    ) {
-        TypoText(
-            text = title,
-            typoStyle = TypoStyle.HEADLINE_X_SMALL_14,
-            modifier = modifier.padding(bottom = 12.dp)
-        )
-
-        Column(
-            modifier = modifier
-                .fillMaxWidth()
-                .clip(shape = RoundedCornerShape(12.dp))
-                .background(
-                    color = Color(0xFF979797),// TODO GroupBox Color 적용
-                    shape = RoundedCornerShape(12.dp)
-                )
-                .padding(vertical = 24.dp)
-        ) {
-            inputTextBoxes.forEach { inputTextBox ->
-                // TODO GroupBox Color 적용
-                inputTextBox()
-            }
-        }
-    }
-}
-
 @Preview
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
@@ -203,54 +170,6 @@ fun InputTextPreview() {
             InputTextBox(title = "title3", state = InputState.COMPLETE, intPutText = "input msg", onInputTextChange = {
 
             })
-        }
-    }
-}
-
-@Preview
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun InputTextGroupPreview() {
-    Row(modifier = Modifier.fillMaxWidth()) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(4.dp)
-        ) {
-            InputTextGroupBox(
-                title = "그룹 입력",
-                inputTextBoxes = listOf(
-                    {
-                        InputTextBox(
-                        errorSupportText = "휴대폰번호가 맞지 않습니다.",
-                        title = "title1",
-                        hintText = "텍스트을 입력해주세요",
-                        state = InputState.ERROR,
-                        intPutText = "input msg",
-                        importanceCount = 2,
-                        leadingIcon = {
-                            Icon(painter = painterResource(id = R.drawable.ic_calendar_24), contentDescription = null)
-                        },
-                        onInputTextChange = {}
-                        )
-                    },
-                    {
-                        InputTextBox(
-                            title = "title2",
-                            hintText = "텍스트을 입력해주세요",
-                            state = InputState.DEFAULT,
-                            intPutText = "",
-                            onInputTextChange = {}
-                        )
-                    },
-                    {
-                        InputTextBox(
-                            title = "title3",
-                            state = InputState.COMPLETE,
-                            intPutText = "input msg",
-                            onInputTextChange = {}
-                        )
-                    },
-                )
-            )
         }
     }
 }
