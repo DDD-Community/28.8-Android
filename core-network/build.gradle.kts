@@ -17,6 +17,10 @@ fun getApiKey(propertyKey: String): String {
 }
 
 dependencies {
+    implementation(project(Dep.Modules.CORE_DATASTORE))
+
+    implementation(Dep.Kotlin.COROUTINES_ANDROID)
+
     implementation(Dep.Retrofit.RETROFIT)
     implementation(Dep.Retrofit.CONVERTER_GSON)
     implementation(Dep.OkHttp.LOGGING_INTERCEPTOR)

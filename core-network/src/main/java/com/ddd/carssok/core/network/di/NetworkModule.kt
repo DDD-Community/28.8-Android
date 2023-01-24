@@ -1,6 +1,8 @@
 package com.ddd.carssok.core.network.di
 
+import com.ddd.carssok.core.network.AuthInterceptor
 import com.ddd.carssok.core.network.BuildConfig
+import com.ddd.carssok.datastore.CarssokDataStore
 import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import dagger.Module
@@ -19,7 +21,11 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideAuthInterceptor(dataStore: CarssokDataStore) = AuthInterceptor(dataStore)
+
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient {
         val okHttpBuilder = OkHttpClient.Builder().apply {
             if (BuildConfig.DEBUG) {
                 val loggingInterceptor = HttpLoggingInterceptor().apply {
@@ -31,7 +37,7 @@ object NetworkModule {
                 build()
             }
         }
-        return okHttpBuilder.build()
+        return okHttpBuilder.addInterceptor(authInterceptor).build()
     }
 
     @Singleton
