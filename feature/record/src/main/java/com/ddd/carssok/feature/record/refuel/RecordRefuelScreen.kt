@@ -14,7 +14,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -109,8 +108,26 @@ fun RecordRefuelScreen(
             item {
                 RecordRefuelInfo(
                     info = uiState.inputData.priceInfo,
-                    onInfoChanged = { info ->
-                        onInputDataChanged(uiState.inputData.copy(priceInfo = info))
+                    onTotalPriceChanged = {
+                        onInputDataChanged(
+                            uiState.inputData.run {
+                                copy(priceInfo = priceInfo.copy(totalPrice = it))
+                            }
+                        )
+                    },
+                    onPriceChanged = {
+                        onInputDataChanged(
+                            uiState.inputData.run {
+                                copy(priceInfo = priceInfo.copy(price = it))
+                            }
+                        )
+                    },
+                    onAmountChanged = {
+                        onInputDataChanged(
+                            uiState.inputData.run {
+                                copy(priceInfo = priceInfo.copy(amount = it))
+                            }
+                        )
                     },
                 )
             }
@@ -195,7 +212,9 @@ fun RecordRefuelStation(
 fun RecordRefuelInfo(
     modifier: Modifier = Modifier,
     info: RecordRefuelPriceInfo,
-    onInfoChanged: (RecordRefuelPriceInfo) -> Unit,
+    onTotalPriceChanged: (String) -> Unit,
+    onPriceChanged: (String) -> Unit,
+    onAmountChanged: (String) -> Unit,
 ) {
     InputTextGroupBox(
         modifier = modifier,
@@ -207,9 +226,7 @@ fun RecordRefuelInfo(
             hintText = stringResource(id = R.string.record_refuel_input_total_price_hint),
             intPutText = info.totalPrice,
             importanceCount = 1,
-            onInputTextChange = remember(info.totalPrice) {
-                { onInfoChanged(info.copy(totalPrice = it)) }
-            },
+            onInputTextChange = onTotalPriceChanged,
         )
         // 주유 단가
         InputTextInGroup(
@@ -217,9 +234,7 @@ fun RecordRefuelInfo(
             hintText = stringResource(id = R.string.record_refuel_input_price_hint),
             intPutText = info.price,
             importanceCount = 1,
-            onInputTextChange = remember(info.price) {
-                { onInfoChanged(info.copy(price = it)) }
-            },
+            onInputTextChange = onPriceChanged,
         )
         // 주유량
         InputTextInGroup(
@@ -227,9 +242,7 @@ fun RecordRefuelInfo(
             hintText = stringResource(id = R.string.record_refuel_input_amount_hint),
             intPutText = info.amount,
             importanceCount = 1,
-            onInputTextChange = remember(info.amount) {
-                { onInfoChanged(info.copy(amount = it)) }
-            },
+            onInputTextChange = onAmountChanged,
         )
     }
 }
