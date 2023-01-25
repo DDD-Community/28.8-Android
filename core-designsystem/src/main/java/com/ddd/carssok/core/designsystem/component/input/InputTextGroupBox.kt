@@ -59,7 +59,7 @@ fun InputTextGroupBox(
 }
 
 @Composable
-fun InputTextInGroup(
+fun InputTextBoxInGroup(
     modifier: Modifier = Modifier.fillMaxWidth(),
     title: String? = null,
     @StringRes titleRes: Int? = null,
@@ -141,7 +141,7 @@ fun InputTextGroupPreview() {
             InputTextGroupBox(
                 title = "그룹 입력",
             ) {
-                InputTextInGroup(
+                InputTextBoxInGroup(
                     errorSupportText = "휴대폰번호가 맞지 않습니다.",
                     title = "title1",
                     hintText = "텍스트을 입력해주세요",
@@ -153,14 +153,14 @@ fun InputTextGroupPreview() {
                     },
                     onInputTextChange = {}
                 )
-                InputTextInGroup(
+                InputTextBoxInGroup(
                     title = "title2",
                     hintText = "텍스트을 입력해주세요",
                     state = InputState.DEFAULT,
                     intPutText = "",
                     onInputTextChange = {}
                 )
-                InputTextInGroup(
+                InputTextBoxInGroup(
                     title = "title3",
                     state = InputState.COMPLETE,
                     intPutText = "input msg",

@@ -239,7 +239,7 @@ fun InputTextDropDownInGroupPreview() {
 
             }
         )
-        InputTextInGroup(
+        InputTextBoxInGroup(
             title = "textField in group",
             hintText = "textField in group hint",
             intPutText = "",

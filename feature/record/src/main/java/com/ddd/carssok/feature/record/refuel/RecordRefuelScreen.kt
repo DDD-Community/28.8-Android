@@ -28,7 +28,7 @@ import com.ddd.carssok.core.designsystem.component.CarssokButton
 import com.ddd.carssok.core.designsystem.component.TypoText
 import com.ddd.carssok.core.designsystem.component.input.InputTextBox
 import com.ddd.carssok.core.designsystem.component.input.InputTextGroupBox
-import com.ddd.carssok.core.designsystem.component.input.InputTextInGroup
+import com.ddd.carssok.core.designsystem.component.input.InputTextBoxInGroup
 import com.ddd.carssok.feature.record.R
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -221,7 +221,7 @@ fun RecordRefuelInfo(
         title = stringResource(id = R.string.record_refuel_input_info_title),
     ) {
         // 주유 금액
-        InputTextInGroup(
+        InputTextBoxInGroup(
             title = stringResource(id = R.string.record_refuel_input_total_price_title),
             hintText = stringResource(id = R.string.record_refuel_input_total_price_hint),
             intPutText = info.totalPrice,
@@ -229,7 +229,7 @@ fun RecordRefuelInfo(
             onInputTextChange = onTotalPriceChanged,
         )
         // 주유 단가
-        InputTextInGroup(
+        InputTextBoxInGroup(
             title = stringResource(id = R.string.record_refuel_input_price_title),
             hintText = stringResource(id = R.string.record_refuel_input_price_hint),
             intPutText = info.price,
@@ -237,7 +237,7 @@ fun RecordRefuelInfo(
             onInputTextChange = onPriceChanged,
         )
         // 주유량
-        InputTextInGroup(
+        InputTextBoxInGroup(
             title = stringResource(id = R.string.record_refuel_input_amount_title),
             hintText = stringResource(id = R.string.record_refuel_input_amount_hint),
             intPutText = info.amount,
