@@ -29,6 +29,7 @@ import com.ddd.carssok.core.designsystem.component.CarssokButton
 import com.ddd.carssok.core.designsystem.component.TypoText
 import com.ddd.carssok.core.designsystem.component.input.InputTextBox
 import com.ddd.carssok.core.designsystem.component.input.InputTextGroupBox
+import com.ddd.carssok.core.designsystem.component.input.InputTextInGroup
 import com.ddd.carssok.feature.record.R
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -199,45 +200,38 @@ fun RecordRefuelInfo(
     InputTextGroupBox(
         modifier = modifier,
         title = stringResource(id = R.string.record_refuel_input_info_title),
-        inputTextBoxes = listOf(
-            {
-                // 주유 금액
-                InputTextBox(
-                    title = stringResource(id = R.string.record_refuel_input_total_price_title),
-                    hintText = stringResource(id = R.string.record_refuel_input_total_price_hint),
-                    intPutText = info.totalPrice,
-                    importanceCount = 1,
-                    onInputTextChange = remember(info.totalPrice) {
-                        { onInfoChanged(info.copy(totalPrice = it)) }
-                    },
-                )
+    ) {
+        // 주유 금액
+        InputTextInGroup(
+            title = stringResource(id = R.string.record_refuel_input_total_price_title),
+            hintText = stringResource(id = R.string.record_refuel_input_total_price_hint),
+            intPutText = info.totalPrice,
+            importanceCount = 1,
+            onInputTextChange = remember(info.totalPrice) {
+                { onInfoChanged(info.copy(totalPrice = it)) }
             },
-            {
-                // 주유 단가
-                InputTextBox(
-                    title = stringResource(id = R.string.record_refuel_input_price_title),
-                    hintText = stringResource(id = R.string.record_refuel_input_price_hint),
-                    intPutText = info.price,
-                    importanceCount = 1,
-                    onInputTextChange = remember(info.price) {
-                        { onInfoChanged(info.copy(price = it)) }
-                    },
-                )
+        )
+        // 주유 단가
+        InputTextInGroup(
+            title = stringResource(id = R.string.record_refuel_input_price_title),
+            hintText = stringResource(id = R.string.record_refuel_input_price_hint),
+            intPutText = info.price,
+            importanceCount = 1,
+            onInputTextChange = remember(info.price) {
+                { onInfoChanged(info.copy(price = it)) }
             },
-            {
-                // 주유량
-                InputTextBox(
-                    title = stringResource(id = R.string.record_refuel_input_amount_title),
-                    hintText = stringResource(id = R.string.record_refuel_input_amount_hint),
-                    intPutText = info.amount,
-                    importanceCount = 1,
-                    onInputTextChange = remember(info.amount) {
-                        { onInfoChanged(info.copy(amount = it)) }
-                    },
-                )
+        )
+        // 주유량
+        InputTextInGroup(
+            title = stringResource(id = R.string.record_refuel_input_amount_title),
+            hintText = stringResource(id = R.string.record_refuel_input_amount_hint),
+            intPutText = info.amount,
+            importanceCount = 1,
+            onInputTextChange = remember(info.amount) {
+                { onInfoChanged(info.copy(amount = it)) }
             },
-        ),
-    )
+        )
+    }
 }
 
 @Composable
