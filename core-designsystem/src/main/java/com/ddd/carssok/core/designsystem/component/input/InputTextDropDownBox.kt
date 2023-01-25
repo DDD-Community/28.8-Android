@@ -51,7 +51,7 @@ fun InputTextDropDownBox(
     @StringRes titleRes: Int? = null,
     importanceCount: Int = 0,
     leadingIcon: @Composable (() -> Unit)? = null,
-    suggestions: List<String> = emptyList(),
+    suggestions: List<String>,
     defaultSuggestionIndex: Int = 0,
     onSelectedItem: (Int) -> Unit,
 ) {
