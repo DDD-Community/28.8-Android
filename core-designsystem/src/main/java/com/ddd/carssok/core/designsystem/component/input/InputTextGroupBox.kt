@@ -128,7 +128,10 @@ private fun InputTextFieldInGroupInternal(
 }
 
 @Preview
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+)
 @Composable
 fun InputTextGroupPreview() {
     Row(modifier = Modifier.fillMaxWidth()) {

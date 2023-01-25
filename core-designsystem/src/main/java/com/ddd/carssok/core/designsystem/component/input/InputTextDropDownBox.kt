@@ -22,6 +22,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,6 +46,7 @@ import com.ddd.carssok.core.designsystem.component.TypoText
 @Composable
 fun InputTextDropDownBox(
     modifier: Modifier = Modifier.fillMaxWidth(),
+    colors: TextFieldColors = InputTextDefaults.DropDownColors(),
     title: String? = null,
     @StringRes titleRes: Int? = null,
     importanceCount: Int = 0,
@@ -97,14 +99,7 @@ fun InputTextDropDownBox(
                         color = colorResource(id = R.color.disable_text)
                     )
                 },
-                colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
-                    textColor = colorResource(id = R.color.primary_text),
-                    focusedBorderColor = colorResource(id = R.color.divider_secondary),
-                    unfocusedBorderColor = colorResource(id = R.color.divider_primary),
-                    errorBorderColor = colorResource(id = R.color.error_text),
-                    cursorColor = colorResource(id = R.color.primary_text),
-                    containerColor = colorResource(id = R.color.secondary_bg)
-                )
+                colors = colors,
             )
             MaterialTheme(
                 colorScheme = MaterialTheme.colorScheme.copy(
@@ -198,7 +193,10 @@ private fun InputTextDropDownTitle(titleRes: Int?, title: String?, importanceCou
 }
 
 @Preview
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+)
 @Composable
 fun InputTextDropDownPreview() {
     InputTextDropDownBox(
@@ -211,4 +209,42 @@ fun InputTextDropDownPreview() {
         ),
         onSelectedItem = {},
     )
+}
+
+@Preview
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+)
+@Composable
+fun InputTextDropDownInGroupPreview() {
+    InputTextGroupBox(title = "GroupBox sample") {
+        // dropdown
+        InputTextDropDownBox(
+            colors = InputTextDefaults.DropDownInGroupColors(),
+            title = "dropdown in group sample",
+            importanceCount = 1,
+            suggestions = listOf(
+                "11111",
+                "22222",
+                "33333",
+                "44444",
+                "55555",
+                "66666",
+                "77777",
+                "88888",
+                "99999",
+            ),
+            onSelectedItem = {
+
+            }
+        )
+        InputTextInGroup(
+            title = "textField in group",
+            hintText = "textField in group hint",
+            intPutText = "",
+            importanceCount = 1,
+            onInputTextChange = {},
+        )
+    }
 }
