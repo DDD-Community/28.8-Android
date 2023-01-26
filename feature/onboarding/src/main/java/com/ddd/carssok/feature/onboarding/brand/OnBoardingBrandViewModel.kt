@@ -38,7 +38,7 @@ class OnBoardingBrandViewModel @Inject constructor(
         viewModelScope.launch {
             kotlin.runCatching {
                 //TODO 임시방편 코루틴 error 공통 사용 개발 필요
-                authRepository.requestUser()
+//                authRepository.getDeviceUserToken()
             }
         }
     }

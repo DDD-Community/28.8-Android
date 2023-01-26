@@ -11,28 +11,34 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ddd.carssok.core.designsystem.component.TypeTextPreview
 import com.ddd.carssok.core.designsystem.component.input.InputTextPreview
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel(),
     navigateToOnBoarding: () -> Unit,
 ) {
-    val onboardingState = viewModel.onboardingState
-
     HomeScreen(
-        shouldShowOnBoarding = onboardingState,
+        event = viewModel.event,
         navigateToOnBoarding = navigateToOnBoarding,
     )
 }
 
 @Composable
 fun HomeScreen(
-    shouldShowOnBoarding: Boolean,
+    event: SharedFlow<HomeViewModel.Event>,
     navigateToOnBoarding: () -> Unit,
 ) {
-    if(shouldShowOnBoarding) {
-        LaunchedEffect(Unit) {
-            navigateToOnBoarding()
+    LaunchedEffect(Unit) {
+        event.collectLatest {
+            when (it) {
+                is HomeViewModel.Event.CheckedCarssokUser -> {
+                    if (it.isCarssokUser.not()) {
+                        navigateToOnBoarding()
+                    }
+                }
+            }
         }
     }
 
