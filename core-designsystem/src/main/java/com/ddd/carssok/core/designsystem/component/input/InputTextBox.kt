@@ -2,6 +2,7 @@ package com.ddd.carssok.core.designsystem.component.input
 
 import android.content.res.Configuration
 import androidx.annotation.StringRes
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,7 +15,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -53,46 +53,50 @@ fun InputTextBox(
     val rememberInputState by remember {
         mutableStateOf(state)
     }
+
+    InputTextBoxInternal(
+        modifier = modifier,
+        inputState = rememberInputState,
+        title = title,
+        titleRes = titleRes,
+        errorSupportText = errorSupportText,
+        importanceCount = importanceCount,
+    ) {
+        InputTextFieldInternal(
+            inputState = rememberInputState,
+            inputTextFiledEnabled = inputTextFiledEnabled,
+            intPutText = intPutText,
+            hintText = hintText,
+            leadingIcon = leadingIcon,
+            onInputTextChange = onInputTextChange,
+        )
+    }
+}
+
+@Composable
+internal fun InputTextBoxInternal(
+    modifier: Modifier = Modifier.fillMaxWidth(),
+    inputState: InputState,
+    title: String? = null,
+    @StringRes titleRes: Int? = null,
+    errorSupportText: String? = null,
+    importanceCount: Int = 0,
+    content: @Composable () -> Unit,
+) {
     Column(modifier = modifier.padding(vertical = 10.dp, horizontal = 24.dp)) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            InputTextTitle(titleRes, title, importanceCount, rememberInputState)
+            InputTextTitle(titleRes, title, importanceCount, inputState)
         }
         Spacer(modifier = Modifier.height(10.dp))
-        OutlinedTextField(
-            enabled = inputTextFiledEnabled,
-            modifier = modifier.fillMaxWidth(),
-            value = intPutText,
-            textStyle = TextStyle(fontWeight = TypoStyle.BODY_LARGE_16.fontWeight),
-            onValueChange = onInputTextChange,
-            singleLine = true,
-            leadingIcon = leadingIcon,
-            shape = RoundedCornerShape(8.dp),
-            placeholder = {
-                TypoText(
-                    text = hintText.orEmpty(),
-                    typoStyle = TypoStyle.BODY_MEDIUM_14,
-                    color = colorResource(id = R.color.disable_text)
-                )
-            },
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                textColor = colorResource(id = R.color.primary_text),
-                focusedBorderColor = colorResource(id = R.color.divider_secondary),
-                unfocusedBorderColor = colorResource(id = R.color.divider_primary),
-                errorBorderColor = colorResource(id = R.color.error_text),
-                cursorColor = if (rememberInputState == InputState.ERROR) colorResource(id = R.color.error_text) else colorResource(
-                    id = R.color.primary_text
-                ),
-                containerColor = if (rememberInputState == InputState.ERROR) colorResource(id = R.color.error_bg) else colorResource(
-                    id = R.color.secondary_bg
-                )
-            ),
-            isError = rememberInputState == InputState.ERROR
-        )
-        if (rememberInputState == InputState.ERROR && errorSupportText.isNullOrEmpty().not()) {
+
+        // TextField
+        content()
+
+        if (inputState == InputState.ERROR && errorSupportText.isNullOrEmpty().not()) {
             TypoText(
                 colorResource = R.color.error_text,
                 text = errorSupportText.orEmpty(),
@@ -102,8 +106,40 @@ fun InputTextBox(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun InputTextTitle(titleRes: Int?, title: String?, importanceCount: Int, state: InputState) {
+internal fun InputTextFieldInternal(
+    modifier: Modifier = Modifier,
+    inputState: InputState,
+    inputTextFiledEnabled: Boolean = true,
+    intPutText: String,
+    hintText: String? = "",
+    leadingIcon: @Composable (() -> Unit)? = null,
+    onInputTextChange: (String) -> Unit,
+) {
+    OutlinedTextField(
+        enabled = inputTextFiledEnabled,
+        modifier = modifier.fillMaxWidth(),
+        value = intPutText,
+        textStyle = TextStyle(fontWeight = TypoStyle.BODY_LARGE_16.fontWeight),
+        onValueChange = onInputTextChange,
+        singleLine = true,
+        leadingIcon = leadingIcon,
+        shape = RoundedCornerShape(8.dp),
+        placeholder = {
+            TypoText(
+                text = hintText.orEmpty(),
+                typoStyle = TypoStyle.BODY_MEDIUM_14,
+                color = colorResource(id = R.color.disable_text)
+            )
+        },
+        colors = InputTextDefaults.DefaultColors(state = inputState),
+        isError = inputState == InputState.ERROR
+    )
+}
+
+@Composable
+internal fun InputTextTitle(titleRes: Int?, title: String?, importanceCount: Int, state: InputState) {
     Row {
         TypoText(
             text = titleRes?.let { stringResource(id = it) } ?: kotlin.run { title.orEmpty() },
@@ -131,7 +167,7 @@ fun InputTextTitle(titleRes: Int?, title: String?, importanceCount: Int, state: 
     }
 }
 
-fun getInputTextHintImageTint(state: InputState): Int {
+internal fun getInputTextHintImageTint(state: InputState): Int {
     return when (state) {
         InputState.EMPTY -> -1
         InputState.DEFAULT -> R.color.divider_primary

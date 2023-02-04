@@ -63,7 +63,6 @@ fun RecordDriveRoute(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecordDriveScreen(
-    modifier: Modifier = Modifier,
     mileageState: StateFlow<String>,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     saveDialogState: MutableState<Boolean> = remember { mutableStateOf(false) },
@@ -100,7 +99,7 @@ fun RecordDriveScreen(
             CarssokButton(
                 titleRes = R.string.record_drive_save_button_title,
                 isEnabled = rememberSaveButtonEnabled,
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp)
                     .padding(horizontal = 24.dp),
@@ -117,15 +116,15 @@ fun RecordDriveScreen(
             modifier = Modifier.padding(padding)
         ) {
             RecordDriveTitle(
-                modifier = modifier.padding(top = 0.dp, start = 24.dp, bottom = 0.dp, end = 24.dp)
+                modifier = Modifier.padding(top = 28.dp, start = 24.dp, bottom = 0.dp, end = 24.dp)
             )
 
             RecordDriveMileage(
-                modifier = modifier.padding(top = 12.dp, start = 24.dp, bottom = 0.dp, end = 24.dp)
+                modifier = Modifier.padding(top = 12.dp, start = 24.dp, bottom = 0.dp, end = 24.dp)
             )
 
             RecordDriveSubTitle(
-                modifier = modifier.padding(top = 52.dp, start = 24.dp, bottom = 24.dp, end = 24.dp)
+                modifier = Modifier.padding(top = 52.dp, start = 24.dp, bottom = 24.dp, end = 24.dp)
             )
 
             RecordDriveInputDate()
@@ -140,7 +139,7 @@ fun RecordDriveScreen(
 
             RecordDrivePreviousDrivingHistory(
                 onClicked = onClickedPreviousDrivingHistory,
-                modifier = modifier
+                modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(top = 31.2.dp),
             )
@@ -159,7 +158,7 @@ fun RecordDriveTitle(
             text = stringResource(id = R.string.record_drive_main_title1),
             typoStyle = TypoStyle.DISPLAY_SMALL_24
         )
-        Spacer(modifier = modifier.size(8.dp))
+        Spacer(modifier = Modifier.size(8.dp))
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {

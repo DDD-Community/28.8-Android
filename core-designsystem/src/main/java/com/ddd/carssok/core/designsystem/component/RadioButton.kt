@@ -19,8 +19,8 @@ fun CarssokRadioButton(
         selected = selected,
         enabled = enabled,
         colors = RadioButtonDefaults.colors(
-            selectedColor = colorResource(id = R.color.button_hovered),
-            unselectedColor = colorResource(id = R.color.divider_tertiary_),
+            selectedColor = colorResource(id = R.color.button_enabled),
+            unselectedColor = colorResource(id = R.color.button_disabled),
             disabledSelectedColor = colorResource(id = R.color.button_enabled),
             disabledUnselectedColor = colorResource(id = R.color.button_disabled)
         ),
@@ -34,8 +34,6 @@ fun CarssokRadioButton(
 fun CarssokRadioButtonPreview() {
     Column {
         CarssokRadioButton(selected = true, enabled = true, onClick = {})
-        CarssokRadioButton(selected = true, enabled = false, onClick = {})
         CarssokRadioButton(selected = false, enabled = true, onClick = {})
-        CarssokRadioButton(selected = false, enabled = false, onClick = {})
     }
 }
