@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
@@ -36,6 +38,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.ddd.carssok.core.designsystem.TypoStyle
 import com.ddd.carssok.core.designsystem.component.Appbar
 import com.ddd.carssok.core.designsystem.component.CarssokButton
+import com.ddd.carssok.core.designsystem.component.CarssokOutlinedButton
 import com.ddd.carssok.core.designsystem.component.TypoText
 import com.ddd.carssok.core.designsystem.component.input.InputTextBox
 import com.ddd.carssok.feature.record.R
@@ -112,37 +115,51 @@ fun RecordDriveScreen(
         },
         floatingActionButtonPosition = FabPosition.Center
     ) { padding ->
-        Column(
-            modifier = Modifier.padding(padding)
+        LazyColumn(
+            modifier = Modifier.padding(padding),
+            horizontalAlignment = Alignment.Start
         ) {
-            RecordDriveTitle(
-                modifier = Modifier.padding(top = 28.dp, start = 24.dp, bottom = 0.dp, end = 24.dp)
-            )
+            item {
+                RecordDriveTitle(
+                    modifier = Modifier.padding(top = 28.dp, start = 24.dp, bottom = 0.dp, end = 24.dp)
+                )
+            }
 
-            RecordDriveMileage(
-                modifier = Modifier.padding(top = 12.dp, start = 24.dp, bottom = 0.dp, end = 24.dp)
-            )
+            item {
+                RecordDriveMileage(
+                    modifier = Modifier.padding(top = 12.dp, start = 24.dp, bottom = 0.dp, end = 24.dp)
+                )
+            }
 
-            RecordDriveSubTitle(
-                modifier = Modifier.padding(top = 52.dp, start = 24.dp, bottom = 24.dp, end = 24.dp)
-            )
+            item {
+                RecordDriveSubTitle(
+                    modifier = Modifier.padding(top = 52.dp, start = 24.dp, bottom = 24.dp, end = 24.dp)
+                )
+            }
 
-            RecordDriveInputDate()
+            item {
+                RecordDriveInputDate()
+            }
 
-            RecordDriveInputMileage(
-                mileage = mileage,
-                onValueChanged = {
-                    rememberSaveButtonEnabled = it.isNotBlank()
-                    onInputMileageChanged(it)
-                }
-            )
+            item {
+                RecordDriveInputMileage(
+                    mileage = mileage,
+                    onValueChanged = {
+                        rememberSaveButtonEnabled = it.isNotBlank()
+                        onInputMileageChanged(it)
+                    }
+                )
+            }
 
-            RecordDrivePreviousDrivingHistory(
-                onClicked = onClickedPreviousDrivingHistory,
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(top = 31.2.dp),
-            )
+            item {
+                RecordDrivePreviousDrivingHistory(
+                    onClicked = onClickedPreviousDrivingHistory,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentWidth(align = Alignment.CenterHorizontally)
+                        .padding(top = 31.2.dp),
+                )
+            }
         }
     }
 }
@@ -257,13 +274,18 @@ fun RecordDrivePreviousDrivingHistory(
     modifier: Modifier = Modifier,
     onClicked: () -> Unit,
 ) {
-    TypoText(
-        text = stringResource(id = R.string.record_drive_show_previous_driving_history),
-        typoStyle = TypoStyle.BODY_MEDIUM_14,
-        textDecoration = TextDecoration.Underline,
-        modifier = modifier.clickable {
-            onClicked()
-        }
+    CarssokOutlinedButton(
+        modifier = modifier,
+        titleRes = R.string.record_drive_show_previous_driving_history,
+        radius = 10.dp,
+        leadingIcon = {
+            Icon(
+                painter = painterResource(id = com.ddd.carssok.core.designsystem.R.drawable.ic_previous_time_18),
+                tint = colorResource(id = com.ddd.carssok.core.designsystem.R.color.secondary_text),
+                contentDescription = null
+            )
+        },
+        onClicked = onClicked,
     )
 }
 
