@@ -86,7 +86,9 @@ fun NavGraphBuilder.toRecordGraph(
             route = RecordDriveHistoryDestination.route
         ) {
             RecordDriveHistoryRoute(
-                onClickedBack = {}
+                onClickedBack = {
+                    navController.popBackStack()
+                }
             )
         }
 
