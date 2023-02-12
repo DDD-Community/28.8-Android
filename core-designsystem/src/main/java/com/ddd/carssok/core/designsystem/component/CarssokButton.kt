@@ -1,6 +1,7 @@
 package com.ddd.carssok.core.designsystem.component
 
 import android.content.res.Configuration
+import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
@@ -59,6 +60,7 @@ fun CarssokOutlinedButton(
     radius: Dp = 99.dp,
     colors: ButtonColors = CarssokButtonDefaults.outlinedColors(),
     border: BorderStroke = CarssokButtonDefaults.outlinedBorder(),
+    @ColorRes textColorRes: Int = R.color.secondary_text,
     leadingIcon: @Composable (() -> Unit)? = null,
     onClicked: (() -> Unit)? = null,
 ) {
@@ -76,19 +78,19 @@ fun CarssokOutlinedButton(
             ) {
                 leadingIcon()
 
-                Spacer(modifier = Modifier.width(5.5.dp))
-
                 TypoText(
                     text = stringResource(id = titleRes),
-                    colorResource = R.color.secondary_text,
-                    typoStyle = TypoStyle.HEADLINE_X_SMALL_14
+                    colorResource = textColorRes,
+                    typoStyle = TypoStyle.HEADLINE_X_SMALL_14,
+                    maxLines = 1,
                 )
             }
         } ?: run {
             TypoText(
                 text = stringResource(id = titleRes),
-                colorResource = R.color.secondary_text,
-                typoStyle = TypoStyle.HEADLINE_X_SMALL_14
+                colorResource = textColorRes,
+                typoStyle = TypoStyle.HEADLINE_X_SMALL_14,
+                maxLines = 1,
             )
         }
     }
