@@ -279,6 +279,7 @@ fun RecordDrivePreviousHistory(
         radius = 10.dp,
         leadingIcon = {
             Icon(
+                modifier = Modifier.padding(end = 4.dp),
                 painter = painterResource(id = com.ddd.carssok.core.designsystem.R.drawable.ic_previous_time_18),
                 tint = colorResource(id = com.ddd.carssok.core.designsystem.R.color.secondary_text),
                 contentDescription = null
