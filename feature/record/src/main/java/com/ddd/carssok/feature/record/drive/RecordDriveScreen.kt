@@ -4,7 +4,6 @@ import RecordDriveBackHandler
 import RecordDriveSaveDialog
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -31,7 +30,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -50,13 +48,14 @@ import kotlinx.coroutines.launch
 @Composable
 fun RecordDriveRoute(
     viewModel: RecordDriveViewModel = hiltViewModel(),
-    onClickedBack: () -> Unit
+    navigateToPreviousHistory: () -> Unit,
+    onClickedBack: () -> Unit,
 ) {
     RecordDriveScreen(
         mileageState = viewModel.mileageState,
         onInputMileageChanged = viewModel::updateMileage,
         onClickedSave = {},
-        onClickedPreviousDrivingHistory = {},
+        onClickedPreviousHistory = navigateToPreviousHistory,
         onClickedBack = onClickedBack
     )
 }
@@ -71,7 +70,7 @@ fun RecordDriveScreen(
     saveDialogState: MutableState<Boolean> = remember { mutableStateOf(false) },
     onInputMileageChanged: (String) -> Unit,
     onClickedSave: () -> Unit,
-    onClickedPreviousDrivingHistory: () -> Unit,
+    onClickedPreviousHistory: () -> Unit,
     onClickedBack: () -> Unit,
 ) {
     val mileage by mileageState.collectAsState()
@@ -152,8 +151,8 @@ fun RecordDriveScreen(
             }
 
             item {
-                RecordDrivePreviousDrivingHistory(
-                    onClicked = onClickedPreviousDrivingHistory,
+                RecordDrivePreviousHistory(
+                    onClicked = onClickedPreviousHistory,
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentWidth(align = Alignment.CenterHorizontally)
@@ -270,7 +269,7 @@ fun RecordDriveInputMileage(
 }
 
 @Composable
-fun RecordDrivePreviousDrivingHistory(
+fun RecordDrivePreviousHistory(
     modifier: Modifier = Modifier,
     onClicked: () -> Unit,
 ) {
@@ -285,6 +284,7 @@ fun RecordDrivePreviousDrivingHistory(
                 contentDescription = null
             )
         },
+        isEnabled = true,
         onClicked = onClicked,
     )
 }
@@ -296,7 +296,7 @@ fun RecordDrivePreview() {
         mileageState = MutableStateFlow<String>(""),
         onInputMileageChanged = {},
         onClickedSave = {},
-        onClickedPreviousDrivingHistory = {},
+        onClickedPreviousHistory = {},
         onClickedBack = {}
     )
 }

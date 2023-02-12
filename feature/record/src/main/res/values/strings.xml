@@ -39,6 +39,14 @@
     <string name="record_drive_save_dialog_confirm_button">추가할게요</string>
     <string name="record_drive_save_dialog_dismiss_button">취소할래요</string>
 
+    <!-- 이전 주행 기록 -->
+    <string name="record_drive_history_main_title">이전 주행 기록 보기</string>
+    <string name="record_drive_history_sub_title">%s년 주행 기록 내역만 볼 수 있어요.</string>
+    <string name="record_drive_history_month_title">%s월 기록</string>
+    <string name="record_drive_history_list_title">기록 내역</string>
+    <string name="record_drive_history_edit_button">기록 내역 편집</string>
+    <string name="record_drive_history_edit_cancel_button">편집 취소</string>
+
 
     <!-- 주유기록 -->
     <string name="record_refuel_main_title">주유 기록</string>

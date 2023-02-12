@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- drive -->
+    <color name="record_drive_history_edit_cancel_button_background">@color/white</color>
+    <color name="record_drive_history_edit_cancel_button_text">@color/gray90</color>
+</resources>

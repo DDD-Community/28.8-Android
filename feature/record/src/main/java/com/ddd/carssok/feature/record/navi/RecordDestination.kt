@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.ddd.carssok.core.navigator.CarssokNavigationDestination
 import com.ddd.carssok.feature.record.accident.RecordAccidentRoute
+import com.ddd.carssok.feature.record.drive.RecordDriveHistoryRoute
 import com.ddd.carssok.feature.record.drive.RecordDriveRoute
 import com.ddd.carssok.feature.record.maintenance.RecordMaintenanceRoute
 import com.ddd.carssok.feature.record.refuel.RecordRefuelRoute
@@ -26,9 +27,16 @@ object RecordMaintenanceDestination : CarssokNavigationDestination {
     override val destination: String = "record_maintenance_destination"
 }
 
+// 주행 기록
 object RecordDriveDestination : CarssokNavigationDestination {
     override val route: String = "record_drive_route"
     override val destination: String = "record_drive_destination"
+}
+
+// 이전 주행 기록
+object RecordDriveHistoryDestination : CarssokNavigationDestination {
+    override val route: String = "record_drive_history_route"
+    override val destination: String = "record_drive_history_destination"
 }
 
 object RecordAccidentDestination : CarssokNavigationDestination {
@@ -59,13 +67,26 @@ fun NavGraphBuilder.toRecordGraph(
             RecordMaintenanceRoute()
         }
 
+        // 주행 기록
         composable(
             route = RecordDriveDestination.route
         ) {
             RecordDriveRoute(
+                navigateToPreviousHistory = {
+                    navController.navigate(route = RecordDriveHistoryDestination.route)
+                },
                 onClickedBack = {
                     navController.popBackStack()
                 }
+            )
+        }
+
+        // 이전 주행 기록
+        composable(
+            route = RecordDriveHistoryDestination.route
+        ) {
+            RecordDriveHistoryRoute(
+                onClickedBack = {}
             )
         }
 
