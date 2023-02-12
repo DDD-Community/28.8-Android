@@ -36,8 +36,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ddd.carssok.core.designsystem.TypoStyle
-import com.ddd.carssok.core.designsystem.component.Appbar
 import com.ddd.carssok.core.designsystem.component.CarssokOutlinedButton
+import com.ddd.carssok.core.designsystem.component.CustomAppbar
 import com.ddd.carssok.core.designsystem.component.TypoText
 import com.ddd.carssok.feature.record.R
 
@@ -71,8 +71,10 @@ fun RecordDriveHistoryScreen(
 ) {
     Scaffold(
         topBar = {
-            Appbar(
-                menuImageResource = painterResource(id = com.ddd.carssok.core.designsystem.R.drawable.ic_close_32),
+            CustomAppbar(
+                menuIcon = {
+                    Icon(painter = painterResource(id = com.ddd.carssok.core.designsystem.R.drawable.ic_close_32), contentDescription = null)
+                },
                 onClickedMenuItem = onClickedBack
             )
         },
@@ -86,7 +88,9 @@ fun RecordDriveHistoryScreen(
                         radius = 99.dp,
                         leadingIcon = {
                             Icon(
-                                modifier = Modifier.size(20.dp).padding(end = 4.dp),
+                                modifier = Modifier
+                                    .size(20.dp)
+                                    .padding(end = 4.dp),
                                 painter = painterResource(id = com.ddd.carssok.core.designsystem.R.drawable.ic_close_24),
                                 tint = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_bg),
                                 contentDescription = null
@@ -114,7 +118,9 @@ fun RecordDriveHistoryScreen(
                         radius = 99.dp,
                         leadingIcon = {
                             Icon(
-                                modifier = Modifier.size(20.dp).padding(end = 4.dp),
+                                modifier = Modifier
+                                    .size(20.dp)
+                                    .padding(end = 4.dp),
                                 painter = painterResource(id = com.ddd.carssok.core.designsystem.R.drawable.ic_delete_18),
                                 tint = colorResource(id = com.ddd.carssok.core.designsystem.R.color.secondary_text),
                                 contentDescription = null

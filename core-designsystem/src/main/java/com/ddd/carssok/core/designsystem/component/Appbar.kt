@@ -74,6 +74,46 @@ fun Appbar(
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CustomAppbar(
+    @StringRes titleRes: Int? = null,
+    backIcon: (@Composable () -> Unit)? = null,
+    menuIcon: (@Composable () -> Unit)? = null,
+    onClickedBack: (() -> Unit)? = null,
+    onClickedMenuItem: (() -> Unit)? = null
+) {
+    CenterAlignedTopAppBar(
+        colors = centerAlignedTopAppBarColors(
+            containerColor = colorResource(id = R.color.primary_bg)
+        ),
+        title = {
+            if (titleRes != null) {
+                TypoText(
+                    text = stringResource(id = titleRes),
+                    color = colorResource(id = R.color.primary_text),
+                    textAlign = TextAlign.Center,
+                    typoStyle = TypoStyle.HEADLINE_SMALL_16
+                )
+            }
+        },
+        navigationIcon = {
+            backIcon?.let {
+                IconButton(onClick = { onClickedBack?.invoke() }) {
+                    backIcon()
+                }
+            }
+        },
+        actions = {
+            menuIcon?.let {
+                IconButton(onClick = { onClickedMenuItem?.invoke() }) {
+                    menuIcon()
+                }
+            }
+        }
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
@@ -87,4 +127,17 @@ fun AppbarPreview() {
 
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun CustomAppbarPreview() {
+    CustomAppbar(
+        titleRes = androidx.appcompat.R.string.abc_capital_off,
+        menuIcon = {
+            Icon(painter = painterResource(id = R.drawable.ic_close_32), contentDescription = null)
+        }
+    )
 }
