@@ -137,7 +137,7 @@ fun CustomAppbarPreview() {
     CustomAppbar(
         titleRes = androidx.appcompat.R.string.abc_capital_off,
         menuIcon = {
-            Icon(painter = painterResource(id = R.drawable.ic_close_32), contentDescription = null)
+            Image(painter = painterResource(id = R.drawable.ic_close_36), contentDescription = null)
         }
     )
 }

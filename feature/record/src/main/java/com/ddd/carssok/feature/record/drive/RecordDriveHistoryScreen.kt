@@ -22,6 +22,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -29,6 +31,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -55,7 +58,9 @@ fun RecordDriveHistoryRoute(
         onClickedBack = onClickedBack,
         onClickedEditButton = viewModel::changeEditMode,
         onClickedEditCancelButton = viewModel::changeNormalMode,
-        onClickedDeleteItem = viewModel::deleteHistory
+        onClickedDeleteItem = viewModel::deleteHistory,
+        onClickedPreviousMonth = viewModel::previousMonth,
+        onClickedNextMonth = viewModel::nextMonth,
     )
 }
 
@@ -68,12 +73,14 @@ fun RecordDriveHistoryScreen(
     onClickedEditButton: () -> Unit,
     onClickedEditCancelButton: () -> Unit,
     onClickedDeleteItem: (String) -> Unit,
+    onClickedPreviousMonth: () -> Unit,
+    onClickedNextMonth: () -> Unit,
 ) {
     Scaffold(
         topBar = {
             CustomAppbar(
                 menuIcon = {
-                    Icon(painter = painterResource(id = com.ddd.carssok.core.designsystem.R.drawable.ic_close_32), contentDescription = null)
+                    Image(painter = painterResource(id = com.ddd.carssok.core.designsystem.R.drawable.ic_close_36), contentDescription = null)
                 },
                 onClickedMenuItem = onClickedBack
             )
@@ -81,7 +88,7 @@ fun RecordDriveHistoryScreen(
         containerColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_bg),
         floatingActionButton = {
             when(uiState) {
-                RecordDriveHistoryViewModel.RecordDriveHistoryUiState.Edit -> {
+                is RecordDriveHistoryViewModel.RecordDriveHistoryUiState.Edit -> {
                     CarssokOutlinedButton(
                         modifier = Modifier.widthIn(min = 136.dp),
                         titleRes = R.string.record_drive_history_edit_cancel_button,
@@ -111,7 +118,7 @@ fun RecordDriveHistoryScreen(
                         onClicked = onClickedEditCancelButton,
                     )
                 }
-                RecordDriveHistoryViewModel.RecordDriveHistoryUiState.Normal -> {
+                is RecordDriveHistoryViewModel.RecordDriveHistoryUiState.Normal -> {
                     CarssokOutlinedButton(
                         modifier = Modifier.widthIn(min = 136.dp),
                         titleRes = R.string.record_drive_history_edit_button,
@@ -146,9 +153,9 @@ fun RecordDriveHistoryScreen(
 
             RecordDriveMonthPicker(
                 modifier = Modifier.padding(top = 32.dp),
-                month = 12,
-                onClickedPrevious = {},
-                onClickedNest = {},
+                month = uiState.month,
+                onClickedPrevious = onClickedPreviousMonth,
+                onClickedNext = onClickedNextMonth,
             )
 
             TypoText(
@@ -160,7 +167,7 @@ fun RecordDriveHistoryScreen(
 
             RecordDriveHistoryList(
                 modifier = Modifier.padding(top = 10.dp),
-                isEditMode = uiState == RecordDriveHistoryViewModel.RecordDriveHistoryUiState.Edit,
+                isEditMode = uiState is RecordDriveHistoryViewModel.RecordDriveHistoryUiState.Edit,
                 items = historyList,
                 onClickedDeleteItem = onClickedDeleteItem
             )
@@ -193,12 +200,29 @@ fun RecordDriveMonthPicker(
     modifier: Modifier = Modifier,
     month: Int,
     onClickedPrevious: () -> Unit,
-    onClickedNest: () -> Unit,
+    onClickedNext: () -> Unit,
 ) {
     Row(
         modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        // TODO icon previous
+        IconButton(
+            modifier = Modifier
+                .padding(end = 14.dp)
+                .size(12.dp),
+            colors = IconButtonDefaults.iconButtonColors(
+                containerColor = Color.Transparent,
+                contentColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_text),
+                disabledContentColor = Color.Transparent,
+                disabledContainerColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.disable_text),
+            ),
+            onClick = onClickedPrevious
+        ) {
+            Icon(
+                painterResource(id = com.ddd.carssok.core.designsystem.R.drawable.ic_arrow_filled_left),
+                contentDescription = null
+            )
+        }
 
         TypoText(
             text = stringResource(id = R.string.record_drive_history_month_title, month),
@@ -206,7 +230,23 @@ fun RecordDriveMonthPicker(
             color = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_text),
         )
 
-        // TODO icon next
+        IconButton(
+            modifier = Modifier
+                .padding(start = 14.dp)
+                .size(12.dp),
+            colors = IconButtonDefaults.iconButtonColors(
+                containerColor = Color.Transparent,
+                contentColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_text),
+                disabledContentColor = Color.Transparent,
+                disabledContainerColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.disable_text),
+            ),
+            onClick = onClickedNext
+        ) {
+            Icon(
+                painterResource(id = com.ddd.carssok.core.designsystem.R.drawable.ic_arrow_filled_right),
+                contentDescription = null
+            )
+        }
     }
 }
 
@@ -300,11 +340,13 @@ fun RecordDriveHistoryListItem(
 @Composable
 private fun RecordDriveHistoryPreview() {
     RecordDriveHistoryScreen(
-        uiState = RecordDriveHistoryViewModel.RecordDriveHistoryUiState.Normal,
+        uiState = RecordDriveHistoryViewModel.RecordDriveHistoryUiState.Normal(2022, 12),
         historyList = emptyList(),
         onClickedBack = {},
         onClickedEditButton = {},
         onClickedEditCancelButton = {},
-        onClickedDeleteItem = {}
+        onClickedDeleteItem = {},
+        onClickedPreviousMonth = {},
+        onClickedNextMonth = {},
     )
 }

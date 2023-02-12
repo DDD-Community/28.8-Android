@@ -13,28 +13,65 @@ class RecordDriveHistoryViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    private val _uiState = MutableStateFlow<RecordDriveHistoryUiState>(RecordDriveHistoryUiState.Normal)
+    private val _uiState = MutableStateFlow<RecordDriveHistoryUiState>(RecordDriveHistoryUiState.Normal(year = 2022, month = 12))
     val uiState = _uiState.asStateFlow()
 
     private val _historyList: MutableStateFlow<List<RecordDriveHistoryEntity>> = MutableStateFlow(dummyList)
     val historyList = _historyList.asStateFlow()
 
     fun changeEditMode() {
-        _uiState.update { RecordDriveHistoryUiState.Edit }
+        _uiState.update {
+            RecordDriveHistoryUiState.Edit(
+                year = it.year,
+                month = it.month,
+            )
+        }
     }
 
     fun changeNormalMode() {
-        _uiState.update { RecordDriveHistoryUiState.Normal }
+        _uiState.update {
+            RecordDriveHistoryUiState.Normal(
+                year = it.year,
+                month = it.month,
+            )
+        }
+    }
+
+    fun previousMonth() {
+        _uiState.update {
+            RecordDriveHistoryUiState.Normal(
+                it.year,
+                it.month - 1
+            )
+        }
+    }
+
+    fun nextMonth() {
+        _uiState.update {
+            RecordDriveHistoryUiState.Normal(
+                it.year,
+                it.month + 1
+            )
+        }
     }
 
     fun deleteHistory(historyId: String) {
 
     }
 
-    sealed class RecordDriveHistoryUiState {
-        object Normal: RecordDriveHistoryUiState()
+    sealed interface RecordDriveHistoryUiState {
+        val year: Int
+        val month: Int
 
-        object Edit: RecordDriveHistoryUiState()
+        data class Normal(
+            override val year: Int,
+            override val month: Int,
+        ): RecordDriveHistoryUiState
+
+        data class Edit(
+            override val year: Int,
+            override val month: Int,
+        ): RecordDriveHistoryUiState
     }
 }
 
