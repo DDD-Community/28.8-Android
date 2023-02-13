@@ -67,7 +67,6 @@ fun RecordRefuelListScreen(
                     Icon(
                         modifier = Modifier.padding(end = 4.dp),
                         painter = painterResource(id = com.ddd.carssok.feature.record.R.drawable.ic_record_edit),
-                        tint = colorResource(id = R.color.primary_bg),
                         contentDescription = null
                     )
                 },
