@@ -65,6 +65,13 @@
     <string name="record_refuel_input_memo_title">관련 메모</string>
     <string name="record_refuel_input_memo_hint">기록해야 하는 메모를 남겨주세요.</string>
 
+    <!-- 주유기록 목록 -->
+    <string name="record_refuel_list_app_bar_title">주유 기록 목록</string>
+    <string name="record_refuel_list_main_title1">%s월에는 주유비로</string>
+    <string name="record_refuel_list_main_title2">이만큼 사용했어요!</string>
+    <string name="record_refuel_list_usage_title">%s년 %s월 사용내역</string>
+    <string name="record_refuel_list_price">원</string>
+    <string name="record_refuel_list_add_button_title">기록 추가</string>
 
 
     <string name="record_exit_dialog_content">작성 중인 글이 있어요\n정말 나가시겠어요?</string>

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
@@ -160,8 +161,11 @@ fun RecordRefuelTitle(
             text = stringResource(id = R.string.record_refuel_main_title),
             typoStyle = TypoStyle.DISPLAY_SMALL_24
         )
+
+        Spacer(modifier = Modifier.width(4.dp))
+
         Image(
-            painter = painterResource(id = com.ddd.carssok.core.designsystem.R.drawable.ic_record_refuel),
+            painter = painterResource(id = R.drawable.ic_record_refuel_charge),
             contentDescription = null
         )
     }
