@@ -141,36 +141,49 @@ fun RecordDriveHistoryScreen(
         },
         floatingActionButtonPosition = FabPosition.Center
     ) { padding ->
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .padding(padding)
                 .padding(horizontal = 24.dp),
         ) {
-            RecordDriveHistoryTitle(
-                modifier = Modifier.padding(top = 8.dp),
-                year = 2022,
-            )
+            item {
+                RecordDriveHistoryTitle(
+                    modifier = Modifier.padding(top = 8.dp),
+                    year = 2022,
+                )    
+            }
+            
+            item {
+                RecordDriveMonthPicker(
+                    modifier = Modifier.padding(top = 32.dp),
+                    month = uiState.month,
+                    onClickedPrevious = onClickedPreviousMonth,
+                    onClickedNext = onClickedNextMonth,
+                )    
+            }
+            
+            item {
+                TypoText(
+                    modifier = Modifier.padding(top = 12.dp, bottom = 10.dp),
+                    text = stringResource(id = R.string.record_drive_history_list_title),
+                    typoStyle = TypoStyle.BODY_SMALL_12,
+                    color = colorResource(id = com.ddd.carssok.core.designsystem.R.color.secondary_text),
+                )    
+            }
 
-            RecordDriveMonthPicker(
-                modifier = Modifier.padding(top = 32.dp),
-                month = uiState.month,
-                onClickedPrevious = onClickedPreviousMonth,
-                onClickedNext = onClickedNextMonth,
-            )
-
-            TypoText(
-                modifier = Modifier.padding(top = 12.dp),
-                text = stringResource(id = R.string.record_drive_history_list_title),
-                typoStyle = TypoStyle.BODY_SMALL_12,
-                color = colorResource(id = com.ddd.carssok.core.designsystem.R.color.secondary_text),
-            )
-
-            RecordDriveHistoryList(
-                modifier = Modifier.padding(top = 10.dp),
-                isEditMode = uiState is RecordDriveHistoryViewModel.RecordDriveHistoryUiState.Edit,
-                items = historyList,
-                onClickedDeleteItem = onClickedDeleteItem
-            )
+            itemsIndexed(historyList) { index, item ->
+                RecordDriveHistoryListItem(
+                    item = item,
+                    isEditMode = uiState is RecordDriveHistoryViewModel.RecordDriveHistoryUiState.Edit,
+                    onClickDelete = {
+                        onClickedDeleteItem(item.id)
+                    },
+                )
+                
+                if(index < historyList.lastIndex) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
+            }
         }
     }
 }
