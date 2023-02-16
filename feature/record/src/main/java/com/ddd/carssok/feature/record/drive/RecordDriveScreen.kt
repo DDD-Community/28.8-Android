@@ -4,7 +4,6 @@ import RecordDriveBackHandler
 import RecordDriveSaveDialog
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
@@ -29,13 +30,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ddd.carssok.core.designsystem.TypoStyle
 import com.ddd.carssok.core.designsystem.component.Appbar
 import com.ddd.carssok.core.designsystem.component.CarssokButton
+import com.ddd.carssok.core.designsystem.component.CarssokOutlinedButton
 import com.ddd.carssok.core.designsystem.component.TypoText
 import com.ddd.carssok.core.designsystem.component.input.InputTextBox
 import com.ddd.carssok.feature.record.R
@@ -47,13 +48,14 @@ import kotlinx.coroutines.launch
 @Composable
 fun RecordDriveRoute(
     viewModel: RecordDriveViewModel = hiltViewModel(),
-    onClickedBack: () -> Unit
+    navigateToPreviousHistory: () -> Unit,
+    onClickedBack: () -> Unit,
 ) {
     RecordDriveScreen(
         mileageState = viewModel.mileageState,
         onInputMileageChanged = viewModel::updateMileage,
         onClickedSave = {},
-        onClickedPreviousDrivingHistory = {},
+        onClickedPreviousHistory = navigateToPreviousHistory,
         onClickedBack = onClickedBack
     )
 }
@@ -68,7 +70,7 @@ fun RecordDriveScreen(
     saveDialogState: MutableState<Boolean> = remember { mutableStateOf(false) },
     onInputMileageChanged: (String) -> Unit,
     onClickedSave: () -> Unit,
-    onClickedPreviousDrivingHistory: () -> Unit,
+    onClickedPreviousHistory: () -> Unit,
     onClickedBack: () -> Unit,
 ) {
     val mileage by mileageState.collectAsState()
@@ -112,37 +114,51 @@ fun RecordDriveScreen(
         },
         floatingActionButtonPosition = FabPosition.Center
     ) { padding ->
-        Column(
-            modifier = Modifier.padding(padding)
+        LazyColumn(
+            modifier = Modifier.padding(padding),
+            horizontalAlignment = Alignment.Start
         ) {
-            RecordDriveTitle(
-                modifier = Modifier.padding(top = 28.dp, start = 24.dp, bottom = 0.dp, end = 24.dp)
-            )
+            item {
+                RecordDriveTitle(
+                    modifier = Modifier.padding(top = 28.dp, start = 24.dp, bottom = 0.dp, end = 24.dp)
+                )
+            }
 
-            RecordDriveMileage(
-                modifier = Modifier.padding(top = 12.dp, start = 24.dp, bottom = 0.dp, end = 24.dp)
-            )
+            item {
+                RecordDriveMileage(
+                    modifier = Modifier.padding(top = 12.dp, start = 24.dp, bottom = 0.dp, end = 24.dp)
+                )
+            }
 
-            RecordDriveSubTitle(
-                modifier = Modifier.padding(top = 52.dp, start = 24.dp, bottom = 24.dp, end = 24.dp)
-            )
+            item {
+                RecordDriveSubTitle(
+                    modifier = Modifier.padding(top = 52.dp, start = 24.dp, bottom = 24.dp, end = 24.dp)
+                )
+            }
 
-            RecordDriveInputDate()
+            item {
+                RecordDriveInputDate()
+            }
 
-            RecordDriveInputMileage(
-                mileage = mileage,
-                onValueChanged = {
-                    rememberSaveButtonEnabled = it.isNotBlank()
-                    onInputMileageChanged(it)
-                }
-            )
+            item {
+                RecordDriveInputMileage(
+                    mileage = mileage,
+                    onValueChanged = {
+                        rememberSaveButtonEnabled = it.isNotBlank()
+                        onInputMileageChanged(it)
+                    }
+                )
+            }
 
-            RecordDrivePreviousDrivingHistory(
-                onClicked = onClickedPreviousDrivingHistory,
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(top = 31.2.dp),
-            )
+            item {
+                RecordDrivePreviousHistory(
+                    onClicked = onClickedPreviousHistory,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentWidth(align = Alignment.CenterHorizontally)
+                        .padding(top = 31.2.dp),
+                )
+            }
         }
     }
 }
@@ -253,17 +269,24 @@ fun RecordDriveInputMileage(
 }
 
 @Composable
-fun RecordDrivePreviousDrivingHistory(
+fun RecordDrivePreviousHistory(
     modifier: Modifier = Modifier,
     onClicked: () -> Unit,
 ) {
-    TypoText(
-        text = stringResource(id = R.string.record_drive_show_previous_driving_history),
-        typoStyle = TypoStyle.BODY_MEDIUM_14,
-        textDecoration = TextDecoration.Underline,
-        modifier = modifier.clickable {
-            onClicked()
-        }
+    CarssokOutlinedButton(
+        modifier = modifier,
+        titleRes = R.string.record_drive_show_previous_driving_history,
+        radius = 10.dp,
+        leadingIcon = {
+            Icon(
+                modifier = Modifier.padding(end = 4.dp),
+                painter = painterResource(id = com.ddd.carssok.core.designsystem.R.drawable.ic_previous_time_18),
+                tint = colorResource(id = com.ddd.carssok.core.designsystem.R.color.secondary_text),
+                contentDescription = null
+            )
+        },
+        isEnabled = true,
+        onClicked = onClicked,
     )
 }
 
@@ -274,7 +297,7 @@ fun RecordDrivePreview() {
         mileageState = MutableStateFlow<String>(""),
         onInputMileageChanged = {},
         onClickedSave = {},
-        onClickedPreviousDrivingHistory = {},
+        onClickedPreviousHistory = {},
         onClickedBack = {}
     )
 }
