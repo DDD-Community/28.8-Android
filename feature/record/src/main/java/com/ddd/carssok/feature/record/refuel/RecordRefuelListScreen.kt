@@ -219,7 +219,7 @@ fun RecordRefuelListDetailItem(
         Spacer(modifier = Modifier.width(9.dp))
 
         Row(
-            modifier = Modifier.weight(82+12+9f),
+            modifier = Modifier.weight(103f),
             horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.CenterVertically
         ) {
