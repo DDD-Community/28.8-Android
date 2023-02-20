@@ -53,6 +53,42 @@ fun CarssokButton(
 }
 
 @Composable
+fun CarssokIconButton(
+    modifier: Modifier = Modifier,
+    @StringRes titleRes: Int,
+    isEnabled: Boolean = false,
+    leadingIcon: @Composable (() -> Unit)? = null,
+    onClicked: (() -> Unit)? = null
+) {
+    Button(
+        modifier = modifier,
+        enabled = isEnabled,
+        colors = CarssokButtonDefaults.defaultColors(),
+        shape = RoundedCornerShape(99.dp),
+        onClick = { onClicked?.invoke() }) {
+        leadingIcon?.let {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                leadingIcon()
+
+                TypoText(
+                    text = stringResource(id = titleRes),
+                    colorResource = R.color.white,
+                    typoStyle = TypoStyle.HEADLINE_X_SMALL_14,
+                )
+            }
+        } ?: run {
+            TypoText(
+                text = stringResource(id = titleRes),
+                colorResource = R.color.white,
+                typoStyle = TypoStyle.HEADLINE_X_SMALL_14,
+            )
+        }
+    }
+}
+
+@Composable
 fun CarssokOutlinedButton(
     modifier: Modifier = Modifier,
     @StringRes titleRes: Int,

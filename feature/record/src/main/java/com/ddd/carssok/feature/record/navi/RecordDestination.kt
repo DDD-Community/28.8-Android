@@ -9,6 +9,7 @@ import com.ddd.carssok.feature.record.accident.RecordAccidentRoute
 import com.ddd.carssok.feature.record.drive.RecordDriveHistoryRoute
 import com.ddd.carssok.feature.record.drive.RecordDriveRoute
 import com.ddd.carssok.feature.record.maintenance.RecordMaintenanceRoute
+import com.ddd.carssok.feature.record.refuel.RecordRefuelListRoute
 import com.ddd.carssok.feature.record.refuel.RecordRefuelRoute
 
 
@@ -17,9 +18,15 @@ object RecordDestination : CarssokNavigationDestination {
     override val destination: String = "record_destination"
 }
 
+// 주유 기록
 object RecordRefuelDestination : CarssokNavigationDestination {
     override val route: String = "record_refuel_route"
     override val destination: String = "record_refuel_destination"
+}
+
+object RecordRefuelListDestination : CarssokNavigationDestination {
+    override val route: String = "record_refuel_list_route"
+    override val destination: String = "record_refuel_list_destination"
 }
 
 object RecordMaintenanceDestination : CarssokNavigationDestination {
@@ -51,10 +58,22 @@ fun NavGraphBuilder.toRecordGraph(
         startDestination = RecordRefuelDestination.route,
         route = RecordDestination.route,
     ) {
+        // 주유 기록
         composable(
             route = RecordRefuelDestination.route
         ) {
             RecordRefuelRoute(
+                onClickedBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        // 주유 기록 목록
+        composable(
+            route = RecordRefuelListDestination.route
+        ) {
+            RecordRefuelListRoute(
                 onClickedBack = {
                     navController.popBackStack()
                 }
