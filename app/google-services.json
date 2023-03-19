@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "628099364608",
+    "project_id": "carssok-82c4d",
+    "storage_bucket": "carssok-82c4d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:628099364608:android:b89cf1c3da120d84c8a5e5",
+        "android_client_info": {
+          "package_name": "com.ddd.carssok"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "628099364608-7kl1po67pa7dd184uu9egsrhp2cu2tq3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ddd.carssok",
+            "certificate_hash": "196421abf41af2bcf6564171e94e55b8b655ff50"
+          }
+        },
+        {
+          "client_id": "628099364608-e74oe5v09c4vtcpudacbtagm03lj3kai.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA66VILXAySx3N2TloxUdx-Erst53RjcYo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "628099364608-e74oe5v09c4vtcpudacbtagm03lj3kai.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

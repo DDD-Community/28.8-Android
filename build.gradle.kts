@@ -9,6 +9,7 @@ buildscript {
         classpath(Dep.Gradle.GRADLE)
         classpath(Dep.Gradle.KOTLIN)
         classpath(Dep.Gradle.HILT)
+        classpath(Dep.Gradle.FIREBASE)
     }
 }
 

@@ -22,6 +22,7 @@ object Dep {
         const val KOTLIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Kotlin.version}"
         const val HILT = "com.google.dagger:hilt-android-gradle-plugin:${Hilt.version}"
         const val NAVIGATION_SAFE_ARGS = "androidx.navigation:navigation-safe-args-gradle-plugin:${AndroidX.Navigation.version}"
+        const val FIREBASE = "com.google.gms:google-services:4.3.15"
     }
 
     object Kotlin {
@@ -106,5 +107,10 @@ object Dep {
         const val ANDROID_JUNIT = "androidx.test.ext:junit:1.1.3"
         const val TEST_RUNNER = "androidx.test:runner:1.4.0"
         const val ESPRESSO_CORE = "androidx.test.espresso:espresso-core:3.4.0"
+    }
+
+    object Firebase {
+        const val BOM = "com.google.firebase:firebase-bom:31.2.3"
+        const val ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
     }
 }
