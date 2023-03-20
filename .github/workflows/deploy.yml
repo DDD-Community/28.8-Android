@@ -42,5 +42,5 @@ jobs:
           appId: ${{ secrets.FIREBASE_APP_ID }}
           token: ${{ secrets.FIREBASE_TOKEN }}
           groups: 28.8
-          file: app/build/outputs/apk/release/app-release.apk
+          file: app/build/outputs/apk/debug/app-debug.apk
           releaseNotesFile: documents/release-note/release_note.txt
