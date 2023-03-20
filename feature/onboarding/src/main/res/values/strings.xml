@@ -2,6 +2,13 @@
 <resources>
     <string name="button_title_next">다음</string>
 
+    <!--이용약관-->
+    <string name="on_boarding_user_agreement_ok">확인</string>
+    <string name="on_boarding_user_agreement_save">저장하기</string>
+    <string name="on_boarding_require_check">필수 동의 항목</string>
+    <string name="on_boarding_title">카쏙에 처음 이시군요!\n이용약관에 동의해주세요.</string>
+    <string name="on_boarding_subtitle">약관동의없이 이용 제한될 수 있습니다.</string>
+
     <!--온보딩 브랜드 선택-->
     <string name="on_boarding_select_brand_next">다음</string>
     <string name="on_boarding_select_brand_title">가지고 계신 차량의\n제조사는 무엇인가요?</string>

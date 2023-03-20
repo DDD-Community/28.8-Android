@@ -14,6 +14,10 @@ interface CarssokDataStore {
 
     suspend fun updateUserToken(token: String)
 
+    fun checkedUserAgreement(): Flow<Boolean>
+
+    suspend fun saveUserAgreement()
+
     fun clear()
 
 }

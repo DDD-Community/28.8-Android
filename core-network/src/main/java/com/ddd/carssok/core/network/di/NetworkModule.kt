@@ -2,6 +2,7 @@ package com.ddd.carssok.core.network.di
 
 import com.ddd.carssok.core.network.AuthInterceptor
 import com.ddd.carssok.core.network.BuildConfig
+import com.ddd.carssok.core.network.NetworkResultCallAdapterFactory
 import com.ddd.carssok.datastore.CarssokDataStore
 import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
@@ -18,6 +19,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+
+    @Singleton
+    @Provides
+    fun provideNetworkResultCallAdapterFactory() = NetworkResultCallAdapterFactory()
 
     @Singleton
     @Provides
@@ -42,11 +47,15 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(
+        okHttpClient: OkHttpClient,
+        networkResultCallAdapterFactory: NetworkResultCallAdapterFactory
+    ): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(BuildConfig.CARSSOK_URL)
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(networkResultCallAdapterFactory)
             .build()
     }
 }

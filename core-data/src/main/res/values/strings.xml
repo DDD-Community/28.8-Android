@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="agreement_message1">(필수) 만 19세 이상입니다.</string>
+    <string name="agreement_message1_link">https://www.naver.com</string>
+    <string name="agreement_message2">(필수) 카쏙 서비스 이용약관 동의</string>
+    <string name="agreement_message2_link">https://www.naver.com</string>
+    <string name="agreement_message3">(필수) 개인정보 처리방침 동의</string>
+    <string name="agreement_message3_link">https://www.naver.com</string>
+</resources>
