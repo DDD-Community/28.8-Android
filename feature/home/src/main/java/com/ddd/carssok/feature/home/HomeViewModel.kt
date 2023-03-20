@@ -26,7 +26,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun checkedCarssokUser() = viewModelScope.launch {
-        val result = accountRepository.checkedCarssokuser()
-        _event.emit(Event.CheckedCarssokUser( false))
+        val result = accountRepository.checkedCarssokuser().date ?: false
+        _event.emit(Event.CheckedCarssokUser(result))
     }
 }
