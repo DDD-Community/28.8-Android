@@ -13,7 +13,7 @@ android {
 }
 
 fun getApiKey(propertyKey: String): String {
-    return gradleLocalProperties(rootDir).getProperty(propertyKey, "http://ec2-3-37-168-145.ap-northeast-2.compute.amazonaws.com")
+    return gradleLocalProperties(rootDir).getProperty(propertyKey, "\"http://ec2-3-37-168-145.ap-northeast-2.compute.amazonaws.com\"")
 }
 
 dependencies {
