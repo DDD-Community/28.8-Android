@@ -21,6 +21,7 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -38,15 +39,23 @@ import com.ddd.carssok.core.designsystem.component.CarssokButton
 import com.ddd.carssok.core.designsystem.component.TypoText
 import com.ddd.carssok.core.model.CarBrand
 import com.ddd.carssok.feature.onboarding.R
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun OnBoardingBrandRoute(
+    needAgreement: () -> Unit,
     onDone: () -> Unit,
     onBackPressed: () -> Unit,
     viewModel: OnBoardingBrandViewModel = hiltViewModel()
 ) {
+    val state by viewModel.uiState.collectAsState()
+
     OnBoardingBrandScreen(
-        viewModel = viewModel,
+        state = state,
+        event = viewModel.event,
+        needAgreement = needAgreement,
         onChecked = { id, isChecked ->
             viewModel.onCheckedBrandCard(id, isChecked)
         },
@@ -57,11 +66,20 @@ fun OnBoardingBrandRoute(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OnBoardingBrandScreen(
-    viewModel: OnBoardingBrandViewModel,
+    state: OnBoardingBrandViewModel.UiState,
+    event: SharedFlow<OnBoardingBrandViewModel.Event>,
+    needAgreement: () -> Unit,
     onChecked: (Long, Boolean) -> Unit,
-    onClickedNextButton:() -> Unit,
+    onClickedNextButton: () -> Unit,
 ) {
-    val state by viewModel.uiState.collectAsState()
+    LaunchedEffect(Unit) {
+        event.collectLatest {
+            if (it is OnBoardingBrandViewModel.Event.NeedAgreement) {
+                needAgreement()
+            }
+        }
+    }
+
     Scaffold(
         containerColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_bg),
         floatingActionButton = {
@@ -190,6 +208,7 @@ fun CountryBrandCarItem(
 @Composable
 fun OnBoardingBrandScreenPreview() {
     OnBoardingBrandRoute(
+        needAgreement = {},
         onDone = {},
         onBackPressed = {}
     )

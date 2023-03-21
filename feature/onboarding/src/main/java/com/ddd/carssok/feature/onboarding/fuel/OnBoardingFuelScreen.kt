@@ -20,8 +20,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
@@ -43,17 +46,24 @@ import com.ddd.carssok.core.designsystem.component.CarssokButton
 import com.ddd.carssok.core.designsystem.component.Chip
 import com.ddd.carssok.core.designsystem.component.TypoText
 import com.ddd.carssok.feature.onboarding.R
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun OnBoardingFuelRoute(
-    onClickedDone: () -> Unit,
+    onOnBoardingDone: () -> Unit,
     onBackPressed: () -> Unit,
     viewModel: OnBoardingFuelViewModel = hiltViewModel()
 ) {
+    LaunchedEffect(Unit) {
+        viewModel.event.collectLatest { event ->
+            if (event is OnBoardingFuelViewModel.Event.OnSuccessSignup) {
+                onOnBoardingDone.invoke()
+            }
+        }
+    }
     OnBoardingFuelScreen(
         onClickedDone = {
             viewModel.onClickedDone()
-            onClickedDone()
         },
         onBackPressed = onBackPressed,
         onClickedChipFuel = viewModel::onClickedFilterFuel,
@@ -188,7 +198,7 @@ fun OnBoardingFuelCarInfo(carName: String, carImageUrl: String) {
 @Composable
 fun OnBoardingFuelScreenPreview() {
     OnBoardingFuelRoute(
-        onClickedDone = {},
+        onOnBoardingDone = {},
         onBackPressed = {}
     )
 }

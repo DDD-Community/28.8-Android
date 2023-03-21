@@ -12,9 +12,9 @@ class AuthInterceptor(private val dataStore: CarssokDataStore) : Interceptor {
             dataStore.getUserToken().firstOrNull()
         }
         val originalRequest = chain.request()
-        val requestBuilder = originalRequest.newBuilder()
-            .header("Authorization", "Bearer ${token.orEmpty()}")
-        val request = requestBuilder.build()
+        val request = originalRequest.newBuilder()
+            .addHeader("user-token", token.orEmpty())
+            .build()
         return chain.proceed(request)
     }
 }

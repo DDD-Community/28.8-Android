@@ -11,24 +11,22 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val accountRepository: AccountRepository
+    private val accountRepository: AccountRepository,
 ) : ViewModel() {
 
     sealed class Event {
-        data class CheckedCarssokUser(val isCarssokUser:Boolean) : Event()
+        data class CheckedCarssokUser(val isCarssokUser: Boolean) : Event()
     }
 
     private val _event = MutableSharedFlow<Event>()
     val event = _event.asSharedFlow()
 
     init {
-        isCarssokUser()
+        checkedCarssokUser()
     }
 
-    private fun isCarssokUser() = viewModelScope.launch {
-        accountRepository.checkedCarssokuser()
-        val fakeValue = false
-
-        _event.emit(Event.CheckedCarssokUser(fakeValue))
+    private fun checkedCarssokUser() = viewModelScope.launch {
+        val result = accountRepository.checkedCarssokuser().date ?: false
+        _event.emit(Event.CheckedCarssokUser(result))
     }
 }

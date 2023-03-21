@@ -14,7 +14,7 @@ object HomeDestination : CarssokNavigationDestination {
 }
 
 fun NavGraphBuilder.toHomeGraph(
-    navController: NavHostController,
+    navController: NavHostController
 ) {
     composable(
         route = HomeDestination.route

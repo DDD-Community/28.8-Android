@@ -31,8 +31,8 @@ fun CarssockCheckbox(isChecked: Boolean = false, onChangedValue: (Boolean) -> Un
         modifier = Modifier
             .size(16.dp)
             .clickable {
-                rememberCheckState = rememberCheckState.not()
                 onChangedValue.invoke(rememberCheckState.not())
+                rememberCheckState = rememberCheckState.not()
             },
         shape = RoundedCornerShape(99.dp),
         colors = CardDefaults.cardColors(
