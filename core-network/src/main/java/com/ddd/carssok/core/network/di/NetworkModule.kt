@@ -2,10 +2,9 @@ package com.ddd.carssok.core.network.di
 
 import com.ddd.carssok.core.network.AuthInterceptor
 import com.ddd.carssok.core.network.BuildConfig
+import com.ddd.carssok.core.network.debug.DebugInterceptors
 import com.ddd.carssok.core.network.NetworkResultCallAdapterFactory
 import com.ddd.carssok.datastore.CarssokDataStore
-import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
-import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,20 +25,19 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideAuthInterceptor(dataStore: CarssokDataStore) = AuthInterceptor(dataStore)
+    fun provideAuthInterceptor(dataStore: CarssokDataStore): AuthInterceptor = AuthInterceptor(dataStore)
 
     @Singleton
     @Provides
     fun provideOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient {
         val okHttpBuilder = OkHttpClient.Builder().apply {
-            if (BuildConfig.DEBUG) {
-                val loggingInterceptor = HttpLoggingInterceptor().apply {
-                    setLevel(HttpLoggingInterceptor.Level.BODY)
-                }
-                val flipper = FlipperOkhttpInterceptor(NetworkFlipperPlugin())
-                addInterceptor(loggingInterceptor)
-                addNetworkInterceptor(flipper)
-                build()
+            if(BuildConfig.DEBUG) {
+                addInterceptor(
+                    HttpLoggingInterceptor().apply {
+                        setLevel(HttpLoggingInterceptor.Level.BODY)
+                    }
+                )
+                addNetworkInterceptor(DebugInterceptors.flipperInterceptor)
             }
         }
         return okHttpBuilder.addInterceptor(authInterceptor).build()

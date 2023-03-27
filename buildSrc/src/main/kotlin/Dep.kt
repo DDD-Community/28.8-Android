@@ -36,6 +36,7 @@ object Dep {
         const val APPCOMPAT = "androidx.appcompat:appcompat:1.5.0"
         const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.1.4"
         const val SPLASH = "androidx.core:core-splashscreen:1.0.0"
+        const val STARTUP = "androidx.startup:startup-runtime:1.1.1"
 
         object Compose {
             private const val version = "1.3.1"
@@ -95,6 +96,7 @@ object Dep {
         const val FACEBOOK_FLIPPER = "com.facebook.flipper:flipper:0.176.1"
         const val FACEBOOK_FLIPPER_SOLOADER = "com.facebook.soloader:soloader:0.10.4"
         const val FACEBOOK_FLIPPER_NETWORK = "com.facebook.flipper:flipper-network-plugin:0.176.1"
+        const val FACEBOOK_FLIPPER_NOOP = "com.facebook.flipper:flipper-noop:0.176.1"
     }
 
     object JunitTest {
