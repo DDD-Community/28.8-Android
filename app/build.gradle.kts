@@ -9,15 +9,6 @@ plugins {
     id("dagger.hilt.android.plugin")
 }
 
-// Create a variable called keystorePropertiesFile, and initialize it to your
-// keystore.properties file, in the rootProject folder.
-val keystorePropertiesFile = rootProject.file("./keystore/keystore.properties")
-
-// Initialize a new Properties() object called keystoreProperties.
-val keystoreProperties = Properties()
-
-// Load your keystore.properties file into the keystoreProperties object.
-keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
 
 android {
@@ -35,6 +26,17 @@ android {
 
     signingConfigs {
         create("release") {
+
+            // Create a variable called keystorePropertiesFile, and initialize it to your
+            // keystore.properties file, in the rootProject folder.
+            val keystorePropertiesFile = rootProject.file("./keystore/keystore.properties")
+
+            // Initialize a new Properties() object called keystoreProperties.
+            val keystoreProperties = Properties()
+
+            // Load your keystore.properties file into the keystoreProperties object.
+            keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+
             keyAlias = keystoreProperties["keyAlias"] as String
             keyPassword = keystoreProperties["keyPassword"] as String
             storeFile = file(keystoreProperties["storeFile"] as String)
