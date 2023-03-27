@@ -27,4 +27,6 @@ dependencies {
 
     debugImplementation(Dep.Lib.FACEBOOK_FLIPPER)
     debugImplementation(Dep.Lib.FACEBOOK_FLIPPER_NETWORK)
+    debugImplementation(Dep.Lib.FACEBOOK_FLIPPER_SOLOADER)
+    releaseImplementation(Dep.Lib.FACEBOOK_FLIPPER_NOOP)
 }
