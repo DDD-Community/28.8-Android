@@ -47,15 +47,11 @@ jobs:
 
       # SERVER_URL 불러오기
       - name: Load CARSSOK_SERVER_URL
-        env:
-          CARSSOK_URL: ${{ secrets.CARSSOK_SERVER_URL }}
-        run: echo carssok_url=\"CARSSOK_URL\" > ./local.properties
+        run: echo carssok_url='${{ secrets.CARSSOK_SERVER_URL }}' > ./local.properties
 
       # google-service.json 파일 생성
       - name: Create google-service.json
-        env:
-          GOOGLE_SERVICE: ${{ secrets.GOOGLE_SERVICE_JSON }}
-        run: echo '${{ secrets.GOOGLE_SERVICE }}' > ./app/google-services.json
+        run: echo '${{ secrets.GOOGLE_SERVICE_JSON }}' > ./app/google-services.json
 
       # 빌드
       - name: Build debug apk
