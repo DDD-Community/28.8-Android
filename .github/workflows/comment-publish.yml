@@ -1,0 +1,85 @@
+name: Comment Build
+on:
+  issue_comment:
+    types: [ created ]
+
+jobs:
+  commentBuild:
+    name: Release Build
+    if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/release')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v3
+        id: get-pr
+        with:
+          script: |
+            const request = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            }
+            core.info(`Getting PR #${request.pull_number} from ${request.owner}/${request.repo}`)
+            try {
+              const result = await github.pulls.get(request)
+              return result.data
+            } catch (err) {
+              core.setFailed(`Request failed with error ${err}`)
+            }
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ fromJSON(steps.get-pr.outputs.result).head.ref }}
+
+      # JDK 설정
+      - name: Setup JDK 11
+        uses: actions/setup-java@v3
+        with:
+         distribution: "zulu"
+         java-version: 11
+
+      # Android SDK 설정
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      # gradlew 접근을 위한 권한 설정
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # SERVER_URL 불러오기
+      - name: Load CARSSOK_SERVER_URL
+        env:
+          CARSSOK_SERVER_URL: ${{ secrets.CARSSOK_SERVER_URL }}
+        run: echo carssok_url=\"$CARSSOK_SERVER_URL\" > ./local.properties
+
+      # google-service.json 파일 생성
+      - name: Create google-service.json
+        env:
+          GOOGLE_SERVICE_JSON: ${{ secrets.GOOGLE_SERVICE_JSON }}
+        run: echo $GOOGLE_SERVICE_JSON > ./app/google-services.json
+
+      # keystore.properties 파일 생성 (release 전용)
+      - name: Create keystore.properties
+        env:
+          KEYSTORE_PROPERTIES: ${{ secrets.KEYSTORE_PROPERTIES }}
+        run: echo $KEYSTORE_RELEASE_PROPERTIES > ./keystore/keystore.properties
+
+      # keystore.jks 파일 생성 (release 전용)
+      - name: Create keystore.jks file
+        run: |
+          echo "$KEYSTORE" > ./keystore/keystore-base64.txt
+          base64 -d -i ./keystore/keystore-base64.txt > ./keystore/keystore.jks
+        env:
+          KEYSTORE: ${{ secrets.APP_KEYSTORE_BASE64 }}
+
+      # 빌드
+      - name: Build release apk
+        run: ./gradlew assembleRelease
+
+      # 배포
+      - name: Upload apk to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          token: ${{ secrets.FIREBASE_TOKEN }}
+          groups: 28.8
+          file: app/build/outputs/apk/release/app-release.apk
+          releaseNotesFile: documents/release-note/release_note.txt
