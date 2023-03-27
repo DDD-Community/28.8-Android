@@ -57,6 +57,20 @@ jobs:
           GOOGLE_SERVICE_JSON: ${{ secrets.GOOGLE_SERVICE_JSON }}
         run: echo $GOOGLE_SERVICE_JSON > ./app/google-services.json
 
+      # keystore.properties 파일 생성 (release 전용)
+      - name: Create keystore.properties
+        env:
+          KEYSTORE_PROPERTIES: ${{ secrets.KEYSTORE_PROPERTIES }}
+        run: echo $KEYSTORE_RELEASE_PROPERTIES > ./keystore/keystore.properties
+
+      # keystore.jks 파일 생성 (release 전용)
+      - name: Create keystore.jks file
+        run: |
+          echo "$KEYSTORE" > ./keystore/keystore-base64.txt
+          base64 -d -i ./keystore/keystore-base64.txt > ./keystore/keystore.jks
+        env:
+          KEYSTORE: ${{ secrets.APP_KEYSTORE_BASE64 }}
+
       # 빌드
       - name: Build debug apk
         run: ./gradlew assembleDebug
