@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("com.google.gms.google-services")
     kotlin("android")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
@@ -70,4 +71,7 @@ dependencies {
 
     debugImplementation(Dep.Lib.FACEBOOK_FLIPPER)
     debugImplementation(Dep.Lib.FACEBOOK_FLIPPER_SOLOADER)
+
+    implementation(platform(Dep.Firebase.BOM))
+    implementation(Dep.Firebase.ANALYTICS)
 }
