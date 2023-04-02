@@ -1,9 +1,15 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
+    id("com.google.gms.google-services")
     kotlin("android")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
 }
+
+
 
 android {
     compileSdk = Version.compileSdk
@@ -18,9 +24,35 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+
+            // Create a variable called keystorePropertiesFile, and initialize it to your
+            // keystore.properties file, in the rootProject folder.
+            val keystorePropertiesFile = rootProject.file("./keystore/keystore.properties")
+
+            // Initialize a new Properties() object called keystoreProperties.
+            val keystoreProperties = Properties()
+
+            // Load your keystore.properties file into the keystoreProperties object.
+            keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["keyPassword"] as String
+            storeFile = file(keystoreProperties["storeFile"] as String)
+            storePassword = keystoreProperties["storePassword"] as String
+        }
+    }
+
     buildTypes {
-        getByName("release") {
+        getByName("debug") {
+            isDebuggable = true
             isMinifyEnabled = false
+        }
+
+        getByName("release") {
+            signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
@@ -49,10 +81,12 @@ dependencies {
     implementation(project(Dep.Modules.CORE_NAVIGATOR))
     implementation(project(Dep.Modules.CORE_MODEL))
     implementation(project(Dep.Modules.CORE_NAVIGATOR))
+    implementation(project(Dep.Modules.CORE_NETWORK))
 
     implementation(Dep.Hilt.HILT)
     kapt(Dep.Hilt.HILT_COMPILER)
 
+    implementation(Dep.AndroidX.STARTUP)
     implementation(Dep.AndroidX.SPLASH)
     implementation(Dep.AndroidX.Navigation.COMPOSE)
     implementation(Dep.AndroidX.CORE)
@@ -68,6 +102,6 @@ dependencies {
     implementation(Dep.AndroidX.Compose.UI_TOOL)
     implementation(Dep.AndroidX.Compose.RUNTIME)
 
-    debugImplementation(Dep.Lib.FACEBOOK_FLIPPER)
-    debugImplementation(Dep.Lib.FACEBOOK_FLIPPER_SOLOADER)
+    implementation(platform(Dep.Firebase.BOM))
+    implementation(Dep.Firebase.ANALYTICS)
 }

@@ -22,6 +22,7 @@ object Dep {
         const val KOTLIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Kotlin.version}"
         const val HILT = "com.google.dagger:hilt-android-gradle-plugin:${Hilt.version}"
         const val NAVIGATION_SAFE_ARGS = "androidx.navigation:navigation-safe-args-gradle-plugin:${AndroidX.Navigation.version}"
+        const val FIREBASE = "com.google.gms:google-services:4.3.15"
     }
 
     object Kotlin {
@@ -35,6 +36,7 @@ object Dep {
         const val APPCOMPAT = "androidx.appcompat:appcompat:1.5.0"
         const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.1.4"
         const val SPLASH = "androidx.core:core-splashscreen:1.0.0"
+        const val STARTUP = "androidx.startup:startup-runtime:1.1.1"
 
         object Compose {
             private const val version = "1.3.1"
@@ -94,6 +96,7 @@ object Dep {
         const val FACEBOOK_FLIPPER = "com.facebook.flipper:flipper:0.176.1"
         const val FACEBOOK_FLIPPER_SOLOADER = "com.facebook.soloader:soloader:0.10.4"
         const val FACEBOOK_FLIPPER_NETWORK = "com.facebook.flipper:flipper-network-plugin:0.176.1"
+        const val FACEBOOK_FLIPPER_NOOP = "com.facebook.flipper:flipper-noop:0.176.1"
     }
 
     object JunitTest {
@@ -106,5 +109,10 @@ object Dep {
         const val ANDROID_JUNIT = "androidx.test.ext:junit:1.1.3"
         const val TEST_RUNNER = "androidx.test:runner:1.4.0"
         const val ESPRESSO_CORE = "androidx.test.espresso:espresso-core:3.4.0"
+    }
+
+    object Firebase {
+        const val BOM = "com.google.firebase:firebase-bom:31.2.3"
+        const val ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
     }
 }
