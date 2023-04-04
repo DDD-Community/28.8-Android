@@ -1,115 +1,138 @@
 package com.ddd.carssok.feature.record.drive
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.ddd.carssok.core.data.repository.record.drive.RecordDriveRepository
+import com.ddd.carssok.core.model.record.drive.DriveHistoryEntity
+import com.ddd.carssok.feature.record.utils.DateUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class RecordDriveHistoryViewModel @Inject constructor(
-
+    private val repository: RecordDriveRepository
 ) : ViewModel() {
 
 
-    private val _uiState = MutableStateFlow<RecordDriveHistoryUiState>(RecordDriveHistoryUiState.Normal(year = 2022, month = 12))
+    private val _uiState = MutableStateFlow(RecordDriveHistoryUiState.EMPTY)
     val uiState = _uiState.asStateFlow()
 
-    private val _historyList: MutableStateFlow<List<RecordDriveHistoryEntity>> = MutableStateFlow(dummyList)
-    val historyList = _historyList.asStateFlow()
+    init {
+        viewModelScope.launch {
+            val currentYear = DateUtils.getCurrentYear()
+            val currentMonth = DateUtils.getCurrentMonth()
+
+            _uiState.update {
+                it.copy(
+                    year = currentYear,
+                    month = currentMonth,
+                    historyList = getFilteredHistoryList(currentYear, currentMonth).map { it.toUiState() }
+                )
+            }
+        }
+    }
 
     fun changeEditMode() {
         _uiState.update {
-            RecordDriveHistoryUiState.Edit(
+            it.copy(
                 year = it.year,
                 month = it.month,
+                mode = RecordDriveHistoryUiState.Mode.Edit
             )
         }
     }
 
     fun changeNormalMode() {
         _uiState.update {
-            RecordDriveHistoryUiState.Normal(
+            it.copy(
                 year = it.year,
                 month = it.month,
+                mode = RecordDriveHistoryUiState.Mode.Normal
             )
         }
     }
 
-    fun previousMonth() {
+    fun previousMonth() = viewModelScope.launch {
         _uiState.update {
-            RecordDriveHistoryUiState.Normal(
-                it.year,
-                it.month - 1
+            val prevMonth = DateUtils.getPreviousMonth(it.month)
+            it.copy(
+                year = it.year,
+                month = prevMonth,
+                historyList = getFilteredHistoryList(it.year, prevMonth).map { it.toUiState() }
             )
         }
     }
 
-    fun nextMonth() {
+    fun nextMonth() = viewModelScope.launch {
         _uiState.update {
-            RecordDriveHistoryUiState.Normal(
-                it.year,
-                it.month + 1
+            val nexMonth = DateUtils.getNextMonth(it.month)
+            it.copy(
+                year = it.year,
+                month = nexMonth,
+                historyList = getFilteredHistoryList(it.year, nexMonth).map { it.toUiState() }
             )
         }
     }
 
-    fun deleteHistory(historyId: String) {
-
+    fun deleteHistory(id: Int) = viewModelScope.launch {
+        val result = repository.delete(id = id)
+        _uiState.update {
+            it.copy(
+                historyList = getFilteredHistoryList(it.year, it.month).map { it.toUiState() }
+            )
+        }
     }
 
-    sealed interface RecordDriveHistoryUiState {
-        val year: Int
-        val month: Int
+    private suspend fun getFilteredHistoryList(year: Int, month: Int): List<DriveHistoryEntity> {
+        val historyList = repository.getAllHistory().date
 
-        data class Normal(
-            override val year: Int,
-            override val month: Int,
-        ): RecordDriveHistoryUiState
+        return historyList
+            ?.filter { it ->
+                DateUtils.getYear(it.date, null) == year
+                &&
+                DateUtils.getMonth(it.date, null) == month
+            }
+            ?: emptyList()
+    }
 
-        data class Edit(
-            override val year: Int,
-            override val month: Int,
-        ): RecordDriveHistoryUiState
+}
+
+data class RecordDriveHistoryUiState(
+    val year: Int,
+    val month: Int,
+    val historyList: List<RecordDriveHistoryItemUiState>,
+    val mode: Mode,
+) {
+    sealed class Mode {
+        object Normal: Mode()
+        object Edit: Mode()
+    }
+
+    companion object {
+        val EMPTY = RecordDriveHistoryUiState(
+            year = 0,
+            month = 0,
+            historyList = emptyList(),
+            mode = Mode.Normal
+        )
     }
 }
 
-data class RecordDriveHistoryEntity(
-    val id: String,
-    val title: String,
-    val mileage: Int,
-    val day: String,
+data class RecordDriveHistoryItemUiState(
+    val id: Int,
+    val distance: Int,
+    @StringRes val weekDayResId: Int,
     val date: String,
 )
 
-val dummyList = listOf<RecordDriveHistoryEntity>(
-    RecordDriveHistoryEntity(
-        id = "0",
-        title = "주행 거리",
-        mileage = 32,
-        day = "월",
-        date = "02",
-    ),
-    RecordDriveHistoryEntity(
-        id = "1",
-        title = "주행 거리",
-        mileage = 260,
-        day = "수",
-        date = "09",
-    ),
-    RecordDriveHistoryEntity(
-        id = "2",
-        title = "주행 거리",
-        mileage = 400,
-        day = "수",
-        date = "16",
-    ),
-    RecordDriveHistoryEntity(
-        id = "3",
-        title = "주행 거리",
-        mileage = 1200,
-        day = "토",
-        date = "20",
-    ),
+fun DriveHistoryEntity.toUiState() = RecordDriveHistoryItemUiState(
+    id = id,
+    distance = distance,
+    weekDayResId = DateUtils.getWeekDayString(date, null),
+    date = DateUtils.getDay(date, null).toString(),
 )

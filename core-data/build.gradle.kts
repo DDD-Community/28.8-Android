@@ -3,6 +3,7 @@ plugins {
 }
 
 dependencies {
+    implementation(project(Dep.Modules.CORE_MODEL))
     implementation(project(Dep.Modules.CORE_DATASTORE))
     implementation(project(Dep.Modules.CORE_NETWORK))
 
