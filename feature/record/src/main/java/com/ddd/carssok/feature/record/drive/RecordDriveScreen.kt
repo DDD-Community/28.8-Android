@@ -2,8 +2,11 @@ package com.ddd.carssok.feature.record.drive
 
 import RecordDriveBackHandler
 import RecordDriveSaveDialog
+import android.app.DatePickerDialog
 import android.content.res.Configuration
+import android.widget.DatePicker
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -27,6 +30,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -41,8 +45,6 @@ import com.ddd.carssok.core.designsystem.component.TypoText
 import com.ddd.carssok.core.designsystem.component.input.InputTextBox
 import com.ddd.carssok.feature.record.R
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 @Composable
@@ -51,10 +53,13 @@ fun RecordDriveRoute(
     navigateToPreviousHistory: () -> Unit,
     onClickedBack: () -> Unit,
 ) {
+    val uiState by viewModel.uiState.collectAsState()
+
     RecordDriveScreen(
-        mileageState = viewModel.mileageState,
-        onInputMileageChanged = viewModel::updateMileage,
-        onClickedSave = {},
+        uiState = uiState,
+        onInputDistanceChanged = viewModel::updateDistance,
+        onInputDateChanged = viewModel::updateDate,
+        onClickedSave = viewModel::recordDriveHistory,
         onClickedPreviousHistory = navigateToPreviousHistory,
         onClickedBack = onClickedBack
     )
@@ -65,16 +70,15 @@ fun RecordDriveRoute(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecordDriveScreen(
-    mileageState: StateFlow<String>,
+    uiState: RecordDriveUiState,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     saveDialogState: MutableState<Boolean> = remember { mutableStateOf(false) },
-    onInputMileageChanged: (String) -> Unit,
+    onInputDistanceChanged: (String) -> Unit,
+    onInputDateChanged: (String) -> Unit,
     onClickedSave: () -> Unit,
     onClickedPreviousHistory: () -> Unit,
     onClickedBack: () -> Unit,
 ) {
-    val mileage by mileageState.collectAsState()
-
     var rememberSaveButtonEnabled by remember { mutableStateOf(false) }
 
     RecordDriveBackHandler(
@@ -86,6 +90,18 @@ fun RecordDriveScreen(
     RecordDriveSaveDialog(
         dialogState = saveDialogState,
         onClickedConfirm = onClickedSave
+    )
+
+    val datePicker = DatePickerDialog(
+        LocalContext.current,
+        { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDayOfMonth: Int ->
+            onInputDateChanged(
+                "$selectedYear-${"%02d".format(selectedMonth + 1)}-$selectedDayOfMonth"
+            )
+        },
+        uiState.year,
+        uiState.month - 1,
+        uiState.day
     )
 
     Scaffold(
@@ -125,8 +141,9 @@ fun RecordDriveScreen(
             }
 
             item {
-                RecordDriveMileage(
-                    modifier = Modifier.padding(top = 12.dp, start = 24.dp, bottom = 0.dp, end = 24.dp)
+                RecordDriveDistance(
+                    modifier = Modifier.padding(top = 12.dp, start = 24.dp, bottom = 0.dp, end = 24.dp),
+                    distance = uiState.totalDistance,
                 )
             }
 
@@ -137,15 +154,20 @@ fun RecordDriveScreen(
             }
 
             item {
-                RecordDriveInputDate()
+                RecordDriveInputDate(
+                    modifier = Modifier.clickable {
+                        datePicker.show()
+                    },
+                    date = uiState.date
+                )
             }
 
             item {
-                RecordDriveInputMileage(
-                    mileage = mileage,
+                RecordDriveInputDistance(
+                    distance = uiState.distance,
                     onValueChanged = {
                         rememberSaveButtonEnabled = it.isNotBlank()
-                        onInputMileageChanged(it)
+                        onInputDistanceChanged(it)
                     }
                 )
             }
@@ -191,11 +213,11 @@ fun RecordDriveTitle(
 }
 
 @Composable
-fun RecordDriveMileage(
-    mileage: Int = 0,
-    modifier: Modifier = Modifier
+fun RecordDriveDistance(
+    modifier: Modifier = Modifier,
+    distance: Int = 0,
 ) {
-    val colorResource = if(mileage > 0)
+    val colorResource = if(distance > 0)
             com.ddd.carssok.core.designsystem.R.color.tertiary_text
         else
             com.ddd.carssok.core.designsystem.R.color.disable_text
@@ -205,7 +227,7 @@ fun RecordDriveMileage(
         modifier = modifier
     ) {
         TypoText(
-            text = mileage.toString(),
+            text = distance.toString(),
             typoStyle = TypoStyle.DISPLAY_X_LARGE_44,
             colorResource = colorResource
         )
@@ -230,13 +252,14 @@ fun RecordDriveSubTitle(
 
 @Composable
 fun RecordDriveInputDate(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    date: String,
 ) {
     InputTextBox(
         modifier = modifier,
         title = stringResource(id = R.string.record_drive_input_date_title),
         hintText = stringResource(id = R.string.record_drive_input_date_hint),
-        intPutText = "",
+        intPutText = date,
         inputTextFiledEnabled = false,
         importanceCount = 1,
         leadingIcon = {
@@ -251,15 +274,15 @@ fun RecordDriveInputDate(
 }
 
 @Composable
-fun RecordDriveInputMileage(
+fun RecordDriveInputDistance(
     modifier: Modifier = Modifier,
-    mileage: String,
+    distance: String,
     onValueChanged: (String) -> Unit,
 ) {
     InputTextBox(
-        title = stringResource(id = R.string.record_drive_input_mileage_title),
-        hintText = stringResource(id = R.string.record_drive_input_mileage_hint),
-        intPutText = mileage,
+        title = stringResource(id = R.string.record_drive_input_distance_title),
+        hintText = stringResource(id = R.string.record_drive_input_distance_hint),
+        intPutText = distance,
         importanceCount = 1,
         modifier = modifier,
         onInputTextChange = {
@@ -294,8 +317,9 @@ fun RecordDrivePreviousHistory(
 @Composable
 fun RecordDrivePreview() {
     RecordDriveScreen(
-        mileageState = MutableStateFlow<String>(""),
-        onInputMileageChanged = {},
+        uiState = RecordDriveUiState.EMPTY,
+        onInputDistanceChanged = {},
+        onInputDateChanged = {},
         onClickedSave = {},
         onClickedPreviousHistory = {},
         onClickedBack = {}

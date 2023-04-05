@@ -50,11 +50,9 @@ fun RecordDriveHistoryRoute(
     onClickedBack: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val historyList by viewModel.historyList.collectAsState()
 
     RecordDriveHistoryScreen(
         uiState = uiState,
-        historyList = historyList,
         onClickedBack = onClickedBack,
         onClickedEditButton = viewModel::changeEditMode,
         onClickedEditCancelButton = viewModel::changeNormalMode,
@@ -67,12 +65,11 @@ fun RecordDriveHistoryRoute(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecordDriveHistoryScreen(
-    uiState: RecordDriveHistoryViewModel.RecordDriveHistoryUiState,
-    historyList: List<RecordDriveHistoryEntity>,
+    uiState: RecordDriveHistoryUiState,
     onClickedBack: () -> Unit,
     onClickedEditButton: () -> Unit,
     onClickedEditCancelButton: () -> Unit,
-    onClickedDeleteItem: (String) -> Unit,
+    onClickedDeleteItem: (Int) -> Unit,
     onClickedPreviousMonth: () -> Unit,
     onClickedNextMonth: () -> Unit,
 ) {
@@ -87,8 +84,8 @@ fun RecordDriveHistoryScreen(
         },
         containerColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_bg),
         floatingActionButton = {
-            when(uiState) {
-                is RecordDriveHistoryViewModel.RecordDriveHistoryUiState.Edit -> {
+            when(uiState.mode) {
+                is RecordDriveHistoryUiState.Mode.Edit -> {
                     CarssokOutlinedButton(
                         modifier = Modifier.widthIn(min = 136.dp),
                         titleRes = R.string.record_drive_history_edit_cancel_button,
@@ -118,7 +115,7 @@ fun RecordDriveHistoryScreen(
                         onClicked = onClickedEditCancelButton,
                     )
                 }
-                is RecordDriveHistoryViewModel.RecordDriveHistoryUiState.Normal -> {
+                is RecordDriveHistoryUiState.Mode.Normal -> {
                     CarssokOutlinedButton(
                         modifier = Modifier.widthIn(min = 136.dp),
                         titleRes = R.string.record_drive_history_edit_button,
@@ -149,7 +146,7 @@ fun RecordDriveHistoryScreen(
             item {
                 RecordDriveHistoryTitle(
                     modifier = Modifier.padding(top = 8.dp),
-                    year = 2022,
+                    year = uiState.year,
                 )    
             }
             
@@ -171,16 +168,16 @@ fun RecordDriveHistoryScreen(
                 )    
             }
 
-            itemsIndexed(historyList) { index, item ->
+            itemsIndexed(uiState.historyList) { index, item ->
                 RecordDriveHistoryListItem(
                     item = item,
-                    isEditMode = uiState is RecordDriveHistoryViewModel.RecordDriveHistoryUiState.Edit,
+                    isEditMode = uiState.mode is RecordDriveHistoryUiState.Mode.Edit,
                     onClickDelete = {
                         onClickedDeleteItem(item.id)
                     },
                 )
                 
-                if(index < historyList.lastIndex) {
+                if(index < uiState.historyList.lastIndex) {
                     Spacer(modifier = Modifier.height(8.dp))
                 }
             }
@@ -264,34 +261,11 @@ fun RecordDriveMonthPicker(
 }
 
 @Composable
-fun RecordDriveHistoryList(
-    modifier: Modifier = Modifier,
-    isEditMode: Boolean = false,
-    items: List<RecordDriveHistoryEntity> = emptyList(),
-    onClickedDeleteItem: (String) -> Unit,
-) {
-    LazyColumn(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        itemsIndexed(items) { index, item ->
-            RecordDriveHistoryListItem(
-                item = item,
-                isEditMode = isEditMode,
-                onClickDelete = {
-                    onClickedDeleteItem(item.id)
-                },
-            )
-        }
-    }
-}
-
-@Composable
 fun RecordDriveHistoryListItem(
     modifier: Modifier = Modifier,
-    item: RecordDriveHistoryEntity,
+    item: RecordDriveHistoryItemUiState,
     isEditMode: Boolean = false,
-    onClickDelete: (RecordDriveHistoryEntity) -> Unit,
+    onClickDelete: (RecordDriveHistoryItemUiState) -> Unit,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -321,7 +295,7 @@ fun RecordDriveHistoryListItem(
             verticalArrangement = Arrangement.Center,
         ) {
             TypoText(
-                text = item.day,
+                text = stringResource(id = item.weekDayResId),
                 typoStyle = TypoStyle.BODY_SMALL_12,
                 color = colorResource(id = com.ddd.carssok.core.designsystem.R.color.white),
             )
@@ -337,12 +311,12 @@ fun RecordDriveHistoryListItem(
             modifier = Modifier.padding(start = 14.dp),
         ) {
             TypoText(
-                text = item.title,
+                text = stringResource(id = R.string.record_drive_input_distance_title),
                 typoStyle = TypoStyle.BODY_SMALL_12
             )
             Spacer(modifier = Modifier.height(6.dp))
             TypoText(
-                text = item.mileage.toString(),
+                text = item.distance.toString(),
                 typoStyle = TypoStyle.HEADLINE_MEDIUM_18,
             )
         }
@@ -353,8 +327,7 @@ fun RecordDriveHistoryListItem(
 @Composable
 private fun RecordDriveHistoryPreview() {
     RecordDriveHistoryScreen(
-        uiState = RecordDriveHistoryViewModel.RecordDriveHistoryUiState.Normal(2022, 12),
-        historyList = emptyList(),
+        uiState = RecordDriveHistoryUiState.EMPTY,
         onClickedBack = {},
         onClickedEditButton = {},
         onClickedEditCancelButton = {},
