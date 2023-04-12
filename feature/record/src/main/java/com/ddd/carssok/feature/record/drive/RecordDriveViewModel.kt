@@ -3,8 +3,7 @@ package com.ddd.carssok.feature.record.drive
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ddd.carssok.core.data.repository.record.drive.RecordDriveRepository
-import com.ddd.carssok.feature.record.utils.DateUtils
-import com.ddd.carssok.feature.record.utils.DateUtils.toDateString
+import com.ddd.carssok.core.util.DateUtils.toDateString
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -66,10 +65,6 @@ data class RecordDriveUiState(
     val date: String,
     val distance: String
 ) {
-    val year: Int = DateUtils.getYear(date, null)
-    val month: Int = DateUtils.getMonth(date, null)
-    val day: Int = DateUtils.getDay(date, null)
-
     companion object {
         val EMPTY = RecordDriveUiState(
             totalDistance = 0,

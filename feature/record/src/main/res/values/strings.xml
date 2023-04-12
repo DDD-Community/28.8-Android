@@ -79,11 +79,4 @@
     <string name="record_exit_dialog_confirm_button_continue">이어서 쓰기</string>
     <string name="record_exit_dialog_dismiss_button_exit">괜찮아요</string>
 
-    <string name="week_day_mon">월</string>
-    <string name="week_day_tue">화</string>
-    <string name="week_day_wed">수</string>
-    <string name="week_day_thu">목</string>
-    <string name="week_day_fri">금</string>
-    <string name="week_day_sat">토</string>
-    <string name="week_day_sun">일</string>
 </resources>

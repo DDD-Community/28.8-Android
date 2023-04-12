@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ddd.carssok.core.data.repository.record.drive.RecordDriveRepository
 import com.ddd.carssok.core.model.record.drive.DriveHistoryEntity
-import com.ddd.carssok.feature.record.utils.DateUtils
+import com.ddd.carssok.core.util.DateUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
