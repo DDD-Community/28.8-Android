@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="navigate_to_drive_history">주행기록 보기</string>
+    <string name="navigate_to_refuel_history">주유기록 보기</string>
+</resources>

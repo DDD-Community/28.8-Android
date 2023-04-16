@@ -278,7 +278,7 @@ fun RecordDriveHistoryListItem(
                     .clickable {
                         onClickDelete(item)
                     },
-                painter = painterResource(id = R.drawable.ic_record_drive_delete_20),
+                painter = painterResource(id = R.drawable.ic_record_delete_20),
                 contentDescription = null
             )
 

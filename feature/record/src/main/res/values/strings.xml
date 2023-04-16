@@ -73,6 +73,9 @@
     <string name="record_refuel_list_usage_title">%s년 %s월 사용내역</string>
     <string name="record_refuel_list_price">원</string>
     <string name="record_refuel_list_add_button_title">기록 추가</string>
+    <string name="record_refuel_list_edit_button_title">편집하기</string>
+    <string name="record_refuel_list_item_date">%s.%s일 (%s)</string>
+    <string name="record_refuel_list_item_price">%s원</string>
 
 
     <string name="record_exit_dialog_content">작성 중인 글이 있어요\n정말 나가시겠어요?</string>
