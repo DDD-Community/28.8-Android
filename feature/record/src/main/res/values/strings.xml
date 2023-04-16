@@ -61,8 +61,10 @@
     <string name="record_refuel_input_total_price_hint">주유 금액을 입력하세요.</string>
     <string name="record_refuel_input_price_title">주유 단가</string>
     <string name="record_refuel_input_price_hint">주유 단가를 입력하세요.</string>
+    <string name="record_refuel_input_price">%s원</string>
     <string name="record_refuel_input_amount_title">주유량</string>
     <string name="record_refuel_input_amount_hint">주유량을 입력하세요.</string>
+    <string name="record_refuel_input_amount">%sL</string>
     <string name="record_refuel_input_memo_title">관련 메모</string>
     <string name="record_refuel_input_memo_hint">기록해야 하는 메모를 남겨주세요.</string>
 

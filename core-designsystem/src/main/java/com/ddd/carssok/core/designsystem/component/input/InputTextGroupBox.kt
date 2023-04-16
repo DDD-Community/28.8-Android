@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -70,6 +71,7 @@ fun InputTextBoxInGroup(
     errorSupportText: String? = null,
     importanceCount: Int = 0,
     leadingIcon: @Composable (() -> Unit)? = null,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     onInputTextChange: (String) -> Unit,
 ) {
     val rememberInputState by remember {
@@ -90,6 +92,7 @@ fun InputTextBoxInGroup(
             intPutText = intPutText,
             hintText = hintText,
             leadingIcon = leadingIcon,
+            keyboardOptions = keyboardOptions,
             onInputTextChange = onInputTextChange,
         )
     }
@@ -104,6 +107,7 @@ private fun InputTextFieldInGroupInternal(
     intPutText: String,
     hintText: String? = "",
     leadingIcon: @Composable (() -> Unit)? = null,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     onInputTextChange: (String) -> Unit,
 ) {
     OutlinedTextField(
@@ -123,7 +127,8 @@ private fun InputTextFieldInGroupInternal(
             )
         },
         colors = InputTextDefaults.GroupBoxColors(state = inputState),
-        isError = inputState == InputState.ERROR
+        isError = inputState == InputState.ERROR,
+        keyboardOptions = keyboardOptions,
     )
 }
 

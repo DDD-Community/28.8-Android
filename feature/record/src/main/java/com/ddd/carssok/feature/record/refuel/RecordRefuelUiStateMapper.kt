@@ -3,14 +3,15 @@ package com.ddd.carssok.feature.record.refuel
 import com.ddd.carssok.core.model.record.refuel.DetailRefuelEntity
 import com.ddd.carssok.core.model.record.refuel.RecordRefuelEntity
 import com.ddd.carssok.core.model.record.refuel.RefuelEntity
+import com.ddd.carssok.core.util.StringUtils.toNumberString
 
 fun DetailRefuelEntity.toUiState() = RecordRefuelUiState(
     inputData = RecordRefuelUiState.InputData(
         date = date,
         station = location,
         priceInfo = RecordRefuelUiState.InputData.PriceInfo(
-            totalPrice = charge.toString(),
-            price = price.toString(),
+            totalPrice = charge.toNumberString(),
+            price = price.toNumberString(),
             amount = amount.toString()
         ),
         memo = memo,

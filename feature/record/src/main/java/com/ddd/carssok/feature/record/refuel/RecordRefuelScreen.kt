@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
@@ -27,6 +28,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -120,7 +122,9 @@ fun RecordRefuelScreen(
                 RecordRefuelInputDate(
                     modifier = if (uiState.isInputMode) {
                         Modifier.clickable {
-                            datePickerState.updateDate(date = uiState.inputData.date)
+                            if (uiState.inputData.date.isNotBlank()) {
+                                datePickerState.updateDate(date = uiState.inputData.date)
+                            }
                             datePickerState.show()
                         }
                     } else {
@@ -277,15 +281,17 @@ fun RecordRefuelPriceInfo(
             title = stringResource(id = R.string.record_refuel_input_total_price_title),
             hintText = stringResource(id = R.string.record_refuel_input_total_price_hint),
             intPutText = info.totalPrice,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             inputTextFiledEnabled = isInputMode,
             importanceCount = 1,
-            onInputTextChange = onTotalPriceChanged,
+            onInputTextChange = onTotalPriceChanged
         )
         // 주유 단가
         InputTextBoxInGroup(
             title = stringResource(id = R.string.record_refuel_input_price_title),
             hintText = stringResource(id = R.string.record_refuel_input_price_hint),
             intPutText = info.price,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             inputTextFiledEnabled = isInputMode,
             importanceCount = 1,
             onInputTextChange = onPriceChanged,
@@ -295,6 +301,7 @@ fun RecordRefuelPriceInfo(
             title = stringResource(id = R.string.record_refuel_input_amount_title),
             hintText = stringResource(id = R.string.record_refuel_input_amount_hint),
             intPutText = info.amount,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             inputTextFiledEnabled = isInputMode,
             importanceCount = 1,
             onInputTextChange = onAmountChanged,

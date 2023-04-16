@@ -7,6 +7,7 @@ import com.ddd.carssok.core.data.repository.record.refuel.RecordRefuelRepository
 import com.ddd.carssok.core.model.record.refuel.RefuelEntity
 import com.ddd.carssok.core.util.DateUtils
 import com.ddd.carssok.core.util.DateUtils.toDateString
+import com.ddd.carssok.core.util.StringUtils.toNumberString
 import com.ddd.carssok.feature.record.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -87,7 +88,7 @@ data class RecordRefuelListUiState(
 ) {
     val isEditMode: Boolean get() = mode is Mode.Edit
 
-    val monthlyTotalPrice: Int get() = list.sumOf { it.price }
+    val monthlyTotalPriceText: String get() = list.sumOf { it.price }.toNumberString()
 
     data class Item(
         val id: Int,
@@ -104,6 +105,8 @@ data class RecordRefuelListUiState(
 
         @get:StringRes
         val weekDayResId get() = DateUtils.getWeekDayString(date, null)
+
+        val priceText = price.toNumberString()
     }
 
     sealed class Mode {

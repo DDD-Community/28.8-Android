@@ -115,7 +115,7 @@ fun RecordRefuelListScreen(
 
             item {
                 RecordRefuelMonthTotalPrice(
-                    totalPrice = uiState.monthlyTotalPrice.toString()
+                    totalPrice = uiState.monthlyTotalPriceText
                 )
             }
 
@@ -306,7 +306,7 @@ fun RecordRefuelListItem(
             ) {
                 TypoText(
                     modifier = itemContentModifier,
-                    text = stringResource(id = com.ddd.carssok.feature.record.R.string.record_refuel_list_item_price, item.price),
+                    text = stringResource(id = com.ddd.carssok.feature.record.R.string.record_refuel_list_item_price, item.priceText),
                     typoStyle = TypoStyle.HEADLINE_SMALL_16,
                 )
 
