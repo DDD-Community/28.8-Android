@@ -41,8 +41,10 @@ import com.ddd.carssok.core.designsystem.TypoStyle
 import com.ddd.carssok.core.designsystem.component.Appbar
 import com.ddd.carssok.core.designsystem.component.CarssokButton
 import com.ddd.carssok.core.designsystem.component.CarssokOutlinedButton
+import com.ddd.carssok.core.designsystem.component.DatePickerState
 import com.ddd.carssok.core.designsystem.component.TypoText
 import com.ddd.carssok.core.designsystem.component.input.InputTextBox
+import com.ddd.carssok.core.designsystem.component.rememberDatePicker
 import com.ddd.carssok.feature.record.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -72,6 +74,7 @@ fun RecordDriveRoute(
 fun RecordDriveScreen(
     uiState: RecordDriveUiState,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
+    datePickerState: DatePickerState = rememberDatePicker(LocalContext.current),
     saveDialogState: MutableState<Boolean> = remember { mutableStateOf(false) },
     onInputDistanceChanged: (String) -> Unit,
     onInputDateChanged: (String) -> Unit,
@@ -92,17 +95,11 @@ fun RecordDriveScreen(
         onClickedConfirm = onClickedSave
     )
 
-    val datePicker = DatePickerDialog(
-        LocalContext.current,
-        { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDayOfMonth: Int ->
-            onInputDateChanged(
-                "$selectedYear-${"%02d".format(selectedMonth + 1)}-$selectedDayOfMonth"
-            )
-        },
-        uiState.year,
-        uiState.month - 1,
-        uiState.day
-    )
+    datePickerState.onDateSet { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDayOfMonth: Int ->
+        onInputDateChanged(
+            "$selectedYear-${"%02d".format(selectedMonth + 1)}-$selectedDayOfMonth"
+        )
+    }
 
     Scaffold(
         topBar = {
@@ -156,7 +153,8 @@ fun RecordDriveScreen(
             item {
                 RecordDriveInputDate(
                     modifier = Modifier.clickable {
-                        datePicker.show()
+                        datePickerState.updateDate(date = uiState.date)
+                        datePickerState.show()
                     },
                     date = uiState.date
                 )

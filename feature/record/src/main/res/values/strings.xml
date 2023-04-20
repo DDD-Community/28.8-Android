@@ -61,8 +61,10 @@
     <string name="record_refuel_input_total_price_hint">주유 금액을 입력하세요.</string>
     <string name="record_refuel_input_price_title">주유 단가</string>
     <string name="record_refuel_input_price_hint">주유 단가를 입력하세요.</string>
+    <string name="record_refuel_input_price">%s원</string>
     <string name="record_refuel_input_amount_title">주유량</string>
     <string name="record_refuel_input_amount_hint">주유량을 입력하세요.</string>
+    <string name="record_refuel_input_amount">%sL</string>
     <string name="record_refuel_input_memo_title">관련 메모</string>
     <string name="record_refuel_input_memo_hint">기록해야 하는 메모를 남겨주세요.</string>
 
@@ -73,17 +75,13 @@
     <string name="record_refuel_list_usage_title">%s년 %s월 사용내역</string>
     <string name="record_refuel_list_price">원</string>
     <string name="record_refuel_list_add_button_title">기록 추가</string>
+    <string name="record_refuel_list_edit_button_title">편집하기</string>
+    <string name="record_refuel_list_item_date">%s.%s일 (%s)</string>
+    <string name="record_refuel_list_item_price">%s원</string>
 
 
     <string name="record_exit_dialog_content">작성 중인 글이 있어요\n정말 나가시겠어요?</string>
     <string name="record_exit_dialog_confirm_button_continue">이어서 쓰기</string>
     <string name="record_exit_dialog_dismiss_button_exit">괜찮아요</string>
 
-    <string name="week_day_mon">월</string>
-    <string name="week_day_tue">화</string>
-    <string name="week_day_wed">수</string>
-    <string name="week_day_thu">목</string>
-    <string name="week_day_fri">금</string>
-    <string name="week_day_sat">토</string>
-    <string name="week_day_sun">일</string>
 </resources>

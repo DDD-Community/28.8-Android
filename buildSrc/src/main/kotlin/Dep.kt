@@ -8,6 +8,7 @@ object Dep {
         const val CORE_NAVIGATOR = ":core-navigator"
         const val CORE_NETWORK = ":core-network"
         const val CORE_DATA = ":core-data"
+        const val CORE_UTIL = ":core-util"
 
         const val FEATURE_HOME = ":feature:home"
         const val FEATURE_RECORD = ":feature:record"

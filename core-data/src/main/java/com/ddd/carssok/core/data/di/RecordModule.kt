@@ -2,7 +2,10 @@ package com.ddd.carssok.core.data.di
 
 import com.ddd.carssok.core.data.repository.record.drive.RecordDriveRepository
 import com.ddd.carssok.core.data.repository.record.drive.RecordDriveRepositoryImpl
+import com.ddd.carssok.core.data.repository.record.refuel.RecordRefuelRepository
+import com.ddd.carssok.core.data.repository.record.refuel.RecordRefuelRepositoryImpl
 import com.ddd.carssok.core.data.source.record.drive.RecordDriveLocalDataSource
+import com.ddd.carssok.core.data.source.record.refuel.RecordRefuelLocalDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -22,6 +25,10 @@ class RecordModule {
     @ViewModelScoped
     fun provideRecordDriveLocalDataSource(): RecordDriveLocalDataSource = RecordDriveLocalDataSource()
 
+    @Provides
+    @ViewModelScoped
+    fun provideRecordRefuelLocalDataSource(): RecordRefuelLocalDataSource = RecordRefuelLocalDataSource()
+
     @Module
     @InstallIn(ViewModelComponent::class)
     interface RecordBindsModule {
@@ -32,5 +39,10 @@ class RecordModule {
             repository: RecordDriveRepositoryImpl
         ): RecordDriveRepository
 
+        @Binds
+        @ViewModelScoped
+        fun bindRecordRefuelRepository(
+            repository: RecordRefuelRepositoryImpl
+        ): RecordRefuelRepository
     }
 }

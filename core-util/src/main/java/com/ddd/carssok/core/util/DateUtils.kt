@@ -1,7 +1,6 @@
-package com.ddd.carssok.feature.record.utils
+package com.ddd.carssok.core.util
 
 import androidx.annotation.StringRes
-import com.ddd.carssok.feature.record.R
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date

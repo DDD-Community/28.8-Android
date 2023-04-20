@@ -2,8 +2,10 @@ package com.ddd.carssok.feature.record.navi
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import androidx.navigation.navArgument
 import com.ddd.carssok.core.navigator.CarssokNavigationDestination
 import com.ddd.carssok.feature.record.accident.RecordAccidentRoute
 import com.ddd.carssok.feature.record.drive.RecordDriveHistoryRoute
@@ -20,8 +22,15 @@ object RecordDestination : CarssokNavigationDestination {
 
 // 주유 기록
 object RecordRefuelDestination : CarssokNavigationDestination {
-    override val route: String = "record_refuel_route"
+    const val ARGS_ID = "id"
+    private const val baseRoute: String = "record_refuel_route"
+
+    override val route: String = "$baseRoute?$ARGS_ID={$ARGS_ID}"
     override val destination: String = "record_refuel_destination"
+
+    fun routeWithId(id: Int): String {
+        return "$baseRoute?$ARGS_ID=$id"
+    }
 }
 
 object RecordRefuelListDestination : CarssokNavigationDestination {
@@ -58,11 +67,18 @@ fun NavGraphBuilder.toRecordGraph(
         startDestination = RecordRefuelDestination.route,
         route = RecordDestination.route,
     ) {
-        // 주유 기록
+        // 주유 기록하기
         composable(
-            route = RecordRefuelDestination.route
-        ) {
+            route = RecordRefuelDestination.route,
+            arguments = listOf(
+                navArgument(RecordRefuelDestination.ARGS_ID) {
+                    type = NavType.IntType
+                    defaultValue = -1
+                }
+            )
+        ) { backStackEntry ->
             RecordRefuelRoute(
+                id = backStackEntry.arguments?.getInt(RecordRefuelDestination.ARGS_ID) ?: -1,
                 onClickedBack = {
                     navController.popBackStack()
                 }
@@ -76,17 +92,27 @@ fun NavGraphBuilder.toRecordGraph(
             RecordRefuelListRoute(
                 onClickedBack = {
                     navController.popBackStack()
+                },
+                navigateToRecordRefuel = {
+                    navController.navigate(RecordRefuelDestination.route)
+                },
+                navigateToRefuelDetail = {
+                    navController.navigate(RecordRefuelDestination.routeWithId(it))
                 }
             )
         }
 
+        // 점검 기록하기
         composable(
             route = RecordMaintenanceDestination.route
         ) {
             RecordMaintenanceRoute()
         }
 
-        // 주행 기록
+        // TODO 점검 기록 목록
+
+
+        // 주행 기록하기
         composable(
             route = RecordDriveDestination.route
         ) {
@@ -100,7 +126,7 @@ fun NavGraphBuilder.toRecordGraph(
             )
         }
 
-        // 이전 주행 기록
+        // 이전 주행 기록 목록
         composable(
             route = RecordDriveHistoryDestination.route
         ) {
@@ -111,6 +137,7 @@ fun NavGraphBuilder.toRecordGraph(
             )
         }
 
+        // 사고 기록하기
         composable(
             route = RecordAccidentDestination.route
         ) {
@@ -120,5 +147,7 @@ fun NavGraphBuilder.toRecordGraph(
                 }
             )
         }
+
+        // TODO 사고 기록 목록
     }
 }
