@@ -32,11 +32,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.ddd.carssok.core.designsystem.R
 import com.ddd.carssok.core.designsystem.TypoStyle
 import com.ddd.carssok.core.designsystem.component.Appbar
 import com.ddd.carssok.core.designsystem.component.CarssokIconButton
 import com.ddd.carssok.core.designsystem.component.TypoText
+import com.ddd.carssok.feature.record.R
 
 @Composable
 fun RecordRefuelListRoute(
@@ -78,11 +78,11 @@ fun RecordRefuelListScreen(
         topBar = {
             Appbar(
                 titleRes = com.ddd.carssok.feature.record.R.string.record_refuel_list_app_bar_title,
-                backButtonImageResource = R.drawable.ic_arrow_back_circle_32,
+                backButtonImageResource = com.ddd.carssok.core.designsystem.R.drawable.ic_arrow_back_circle_32,
                 onClickedBack = onClickedBack
             )
         },
-        containerColor = colorResource(id = R.color.primary_bg),
+        containerColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_bg),
         floatingActionButton = {
             CarssokIconButton(
                 modifier = Modifier.height(52.dp),
@@ -168,7 +168,7 @@ fun RecordRefuelListTitle(
                 typoStyle = TypoStyle.DISPLAY_SMALL_24
             )
             Image(
-                painter = painterResource(id = com.ddd.carssok.feature.record.R.drawable.ic_record_refuel_charge),
+                painter = painterResource(id = R.drawable.ic_record_refuel_charge),
                 contentDescription = null
             )
         }
@@ -187,12 +187,12 @@ fun RecordRefuelMonthTotalPrice(
         TypoText(
             text = totalPrice,
             typoStyle = TypoStyle.DISPLAY_X_LARGE_44,
-            color = colorResource(id = R.color.tertiary_text),
+            color = colorResource(id = com.ddd.carssok.core.designsystem.R.color.tertiary_text),
         )
         TypoText(
             text = stringResource(id = com.ddd.carssok.feature.record.R.string.record_refuel_list_price),
             typoStyle = TypoStyle.DISPLAY_LARGE_32,
-            color = colorResource(id = R.color.tertiary_text),
+            color = colorResource(id = com.ddd.carssok.core.designsystem.R.color.tertiary_text),
         )
     }
 }
@@ -210,14 +210,14 @@ fun RecordRefuelListUsageTitle(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Image(painter = painterResource(id = com.ddd.carssok.feature.record.R.drawable.ic_record_refuel_list_calendar), contentDescription = null)
+        Image(painter = painterResource(id = R.drawable.ic_record_refuel_list_calendar), contentDescription = null)
 
         Spacer(modifier = Modifier.width(4.dp))
 
         TypoText(
             text = stringResource(id = com.ddd.carssok.feature.record.R.string.record_refuel_list_usage_title, year, month),
             typoStyle = TypoStyle.BODY_SMALL_12,
-            color = colorResource(id = R.color.secondary_text)
+            color = colorResource(id = com.ddd.carssok.core.designsystem.R.color.secondary_text)
         )
 
         Spacer(modifier = Modifier.weight(1f))
@@ -232,7 +232,7 @@ fun RecordRefuelListUsageTitle(
             },
             text = stringResource(id = com.ddd.carssok.feature.record.R.string.record_refuel_list_edit_button_title, year, month),
             typoStyle = TypoStyle.BODY_MEDIUM_14,
-            color = colorResource(id = R.color.gray40),
+            color = colorResource(id = com.ddd.carssok.core.designsystem.R.color.gray40),
         )
     }
 }
@@ -271,7 +271,7 @@ fun RecordRefuelListItem(
         Row(
             modifier = itemContentModifier
                 .clip(RoundedCornerShape(12.dp))
-                .background(color = colorResource(id = R.color.secondary_bg))
+                .background(color = colorResource(id = com.ddd.carssok.core.designsystem.R.color.secondary_bg))
                 .padding(start = 16.dp, top = 24.dp, end = 12.dp, bottom = 24.dp),
             verticalAlignment = Alignment.Top,
         ) {
@@ -282,7 +282,7 @@ fun RecordRefuelListItem(
                 TypoText(
                     text = item.title,
                     typoStyle = TypoStyle.BODY_SMALL_12,
-                    color = colorResource(id = R.color.primary_text)
+                    color = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_text)
                 )
 
                 TypoText(
@@ -293,7 +293,7 @@ fun RecordRefuelListItem(
                         stringResource(id = item.weekDayResId)
                     ),
                     typoStyle = TypoStyle.BODY_SMALL_12,
-                    color = colorResource(id = R.color.secondary_text)
+                    color = colorResource(id = com.ddd.carssok.core.designsystem.R.color.secondary_text)
                 )
             }
 
@@ -313,8 +313,8 @@ fun RecordRefuelListItem(
                 if (!isEditMode) {
                     Icon(
                         modifier = itemContentModifier.size(16.dp),
-                        painter = painterResource(id = R.drawable.ic_arrow_right_16),
-                        tint = colorResource(id = R.color.primary_text),
+                        painter = painterResource(id = com.ddd.carssok.core.designsystem.R.drawable.ic_arrow_right_16),
+                        tint = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_text),
                         contentDescription = null,
                     )
                 }

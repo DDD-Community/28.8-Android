@@ -203,7 +203,7 @@ fun RecordDriveTitle(
                 typoStyle = TypoStyle.DISPLAY_SMALL_24
             )
             Image(
-                painter = painterResource(id = com.ddd.carssok.core.designsystem.R.drawable.ic_record_drive_car),
+                painter = painterResource(id = R.drawable.ic_record_drive_car),
                 contentDescription = null
             )
         }
