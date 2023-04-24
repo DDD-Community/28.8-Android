@@ -97,7 +97,7 @@ fun RecordDriveScreen(
 
     datePickerState.onDateSet { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDayOfMonth: Int ->
         onInputDateChanged(
-            "$selectedYear-${"%02d".format(selectedMonth + 1)}-$selectedDayOfMonth"
+            "$selectedYear-${"%02d".format(selectedMonth + 1)}-${"%02d".format(selectedDayOfMonth)}"
         )
     }
 
