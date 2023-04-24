@@ -33,7 +33,7 @@ class RecordRefuelRepositoryImpl @Inject constructor(
         return@withContext localDataSource.getRefuelList()?.let {
             Resource.Success(data = it)
         } ?: run {
-            when (val result = recordApi.getAllRefuel("")) {
+            when (val result = recordApi.getAllRefuel(date)) {
                 is ApiSuccess -> {
                     val refuelList = result.data.model.map { it.toEntity() }.also {
                         localDataSource.setRefuelList(it)
