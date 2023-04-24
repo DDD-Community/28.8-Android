@@ -4,19 +4,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.FabPosition
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
 import androidx.compose.material.ModalBottomSheetLayout
+import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FabPosition
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.ddd.carssok.core.designsystem.Theme
 import com.ddd.carssok.core.designsystem.TypoStyle
@@ -78,7 +78,7 @@ fun CarssokBottonSheetAppScaffold(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CarssokAppScaffold(
     appState: CarssokAppState,
@@ -89,13 +89,12 @@ fun CarssokAppScaffold(
             if(appState.shouldShowBottomNavigationBar) {
                 FloatingActionButton(
                     shape = CircleShape,
-                    containerColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_text),
+                    backgroundColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_text),
                     contentColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_bg),
                     onClick = {
                         scope.launch {
                             appState.modalBottomSheetState.show()
                         }
-
                     }
                 ) {
                     Icon(Icons.Filled.Add, "")
@@ -103,7 +102,7 @@ fun CarssokAppScaffold(
             }
         },
         floatingActionButtonPosition = FabPosition.Center,
-//        isFloatingActionButtonDocked = true,  // FIXME material3 지원 안하는 듯
+        isFloatingActionButtonDocked = true,
 
         bottomBar = {
             if(appState.shouldShowBottomNavigationBar) {
@@ -115,13 +114,24 @@ fun CarssokAppScaffold(
                                 appState.navigateToBottomNavigation(item.route)
                             },
                             icon = {
-                                Icon(painter = painterResource(id = item.icon), contentDescription = null)
+                                Icon(
+                                    painter = painterResource(id = item.icon),
+                                    tint = colorResource(id = com.ddd.carssok.core.designsystem.R.color.secondary_text),
+                                    contentDescription = null
+                                )
                             },
                             selectedIcon = {
-                                Icon(painter = painterResource(id = item.selectedIcon), contentDescription = null)
+                                Icon(
+                                    painter = painterResource(id = item.selectedIcon),
+                                    tint = colorResource(id = R.color.white),
+                                    contentDescription = null
+                                )
                             },
                             label = {
-                                TypoText(text = item.title, typoStyle = TypoStyle.BODY_X11_SMALL)
+                                TypoText(
+                                    text = stringResource(id = item.titleResId),
+                                    typoStyle = TypoStyle.BODY_X11_SMALL
+                                )
                             }
                         )
                     }

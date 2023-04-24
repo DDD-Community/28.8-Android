@@ -95,7 +95,6 @@ dependencies {
     implementation(Dep.Google.MATERIAL)
 
     implementation(Dep.AndroidX.Compose.MATERIAL)
-    implementation(Dep.AndroidX.Compose.MATERIAL3)
     implementation(Dep.AndroidX.Compose.MATERIAL3_WINDOW_SIZE)
     implementation(Dep.AndroidX.Compose.PREVIEW_SUPPORT)
     implementation(Dep.AndroidX.Compose.UI)

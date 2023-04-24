@@ -1,12 +1,14 @@
 package com.ddd.carssok.navigation
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import com.ddd.carssok.R
 import com.ddd.carssok.feature.home.navi.HomeDestination
 import com.ddd.carssok.feature.introduce.navi.IntroduceDestination
 import com.ddd.carssok.feature.record.navi.RecordDestination
 
 data class CarssokNavItem(
-    val title: String,
+    @StringRes val titleResId: Int,
     @DrawableRes val icon: Int,
     @DrawableRes val selectedIcon: Int,
     val route: String
@@ -14,7 +16,7 @@ data class CarssokNavItem(
 
 object CarssokNavItems {
     val fabItem = CarssokNavItem(
-        title = "기록하기",
+        titleResId = R.string.item_fab_title_record,
         icon = com.google.android.material.R.drawable.ic_m3_chip_checked_circle,
         selectedIcon = com.google.android.material.R.drawable.ic_m3_chip_checked_circle,
         route = RecordDestination.route
@@ -22,15 +24,15 @@ object CarssokNavItems {
 
     val topLevelBottomNavItems = listOf<CarssokNavItem>(
         CarssokNavItem(
-            title = "내차정보",
-            icon = com.google.android.material.R.drawable.ic_m3_chip_checked_circle,
-            selectedIcon = com.google.android.material.R.drawable.ic_m3_chip_checked_circle,
+            titleResId = R.string.item_bottom_navigation_title_home,
+            icon = R.drawable.ic_bottom_navigation_unselected_home,
+            selectedIcon = R.drawable.ic_bottom_navigation_selected_home,
             route = HomeDestination.route
         ),
         CarssokNavItem(
-            title = "카쏙소개",
-            icon = com.google.android.material.R.drawable.ic_m3_chip_checked_circle,
-            selectedIcon = com.google.android.material.R.drawable.ic_m3_chip_checked_circle,
+            titleResId = R.string.item_bottom_navigation_title_introduce,
+            icon = R.drawable.ic_bottom_navigation_unselected_introduce,
+            selectedIcon = R.drawable.ic_bottom_navigation_selected_introduce,
             route = IntroduceDestination.route
         )
     )
