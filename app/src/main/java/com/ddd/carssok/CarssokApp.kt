@@ -72,7 +72,7 @@ fun CarssokBottonSheetAppScaffold(
             )
         },
         sheetState = appState.modalBottomSheetState,
-        sheetShape = RoundedCornerShape(28.dp),
+        sheetShape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
         sheetBackgroundColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_bg),
     ) {
         content()
