@@ -1,5 +1,6 @@
 package com.ddd.carssok
 
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -88,6 +89,7 @@ fun CarssokAppScaffold(
         floatingActionButton = {
             if(appState.shouldShowBottomNavigationBar) {
                 FloatingActionButton(
+                    modifier = Modifier.offset(y = 40.dp), // NavigationBarTokens.ContainerHeight / 2
                     shape = CircleShape,
                     backgroundColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_text),
                     contentColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_bg),
@@ -128,10 +130,12 @@ fun CarssokAppScaffold(
                                 )
                             },
                             label = {
-                                TypoText(
-                                    text = stringResource(id = item.titleResId),
-                                    typoStyle = TypoStyle.BODY_X11_SMALL
-                                )
+                                item.titleResId?.let {
+                                    TypoText(
+                                        text = stringResource(id = item.titleResId),
+                                        typoStyle = TypoStyle.BODY_X11_SMALL
+                                    )
+                                }
                             }
                         )
                     }

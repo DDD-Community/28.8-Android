@@ -8,7 +8,7 @@ import com.ddd.carssok.feature.introduce.navi.IntroduceDestination
 import com.ddd.carssok.feature.record.navi.RecordDestination
 
 data class CarssokNavItem(
-    @StringRes val titleResId: Int,
+    @StringRes val titleResId: Int?,
     @DrawableRes val icon: Int,
     @DrawableRes val selectedIcon: Int,
     val route: String
@@ -16,7 +16,7 @@ data class CarssokNavItem(
 
 object CarssokNavItems {
     val fabItem = CarssokNavItem(
-        titleResId = R.string.item_fab_title_record,
+        titleResId = null,
         icon = com.google.android.material.R.drawable.ic_m3_chip_checked_circle,
         selectedIcon = com.google.android.material.R.drawable.ic_m3_chip_checked_circle,
         route = RecordDestination.route
