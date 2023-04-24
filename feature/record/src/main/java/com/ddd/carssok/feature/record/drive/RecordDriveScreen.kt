@@ -21,6 +21,7 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -65,6 +66,10 @@ fun RecordDriveRoute(
         onClickedPreviousHistory = navigateToPreviousHistory,
         onClickedBack = onClickedBack
     )
+
+    LaunchedEffect(Unit) {
+        viewModel.init()
+    }
 }
 
 

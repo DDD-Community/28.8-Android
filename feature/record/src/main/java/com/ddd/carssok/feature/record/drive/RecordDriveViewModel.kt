@@ -19,11 +19,7 @@ class RecordDriveViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(RecordDriveUiState.EMPTY)
     val uiState = _uiState.asStateFlow()
 
-    init {
-        init()
-    }
-
-    private fun init() = viewModelScope.launch {
+    fun init() = viewModelScope.launch {
         val totalDistance = repository.getTotalDistance().date
         _uiState.update {
             it.copy(
