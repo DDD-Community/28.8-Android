@@ -21,6 +21,7 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -56,6 +57,10 @@ fun RecordRefuelListRoute(
         onClickedItem = navigateToRefuelDetail,
         onClickedDeleteItem = viewModel::deleteHistory
     )
+
+    LaunchedEffect(Unit) {
+        viewModel.init()
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -30,18 +30,14 @@ class RecordRefuelRepositoryImpl @Inject constructor(
 ): RecordRefuelRepository {
 
     override suspend fun getAllRefuel(date: String): Resource<List<RefuelEntity>> = withContext(ioDispatcher) {
-        return@withContext localDataSource.getRefuelList()?.let {
-            Resource.Success(data = it)
-        } ?: run {
-            when (val result = recordApi.getAllRefuel(date)) {
-                is ApiSuccess -> {
-                    val refuelList = result.data.model.map { it.toEntity() }.also {
-                        localDataSource.setRefuelList(it)
-                    }
-                    Resource.Success(data = refuelList)
+        return@withContext when (val result = recordApi.getAllRefuel(date)) {
+            is ApiSuccess -> {
+                val refuelList = result.data.model.map { it.toEntity() }.also {
+                    localDataSource.setRefuelList(it)
                 }
-                else -> Resource.Error()
+                Resource.Success(data = refuelList)
             }
+            else -> Resource.Error()
         }
     }
 

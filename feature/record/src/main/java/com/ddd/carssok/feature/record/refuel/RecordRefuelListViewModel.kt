@@ -24,18 +24,17 @@ class RecordRefuelListViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(RecordRefuelListUiState.EMPTY)
     val uiState = _uiState.asStateFlow()
 
-    init {
-        viewModelScope.launch {
-            val currentYear = DateUtils.getCurrentYear()
-            val currentMonth = DateUtils.getCurrentMonth()
+    fun init() = viewModelScope.launch {
+        val currentYear = DateUtils.getCurrentYear()
+        val currentMonth = DateUtils.getCurrentMonth()
+        val list = getFilteredHistoryList(currentYear, currentMonth)
 
-            _uiState.update {
-                it.copy(
-                    selectedYear = currentYear,
-                    selectedMonth = currentMonth,
-                    list = getFilteredHistoryList(currentYear, currentMonth).map { item -> item.toUiState() }
-                )
-            }
+        _uiState.update {
+            it.copy(
+                selectedYear = currentYear,
+                selectedMonth = currentMonth,
+                list = list.map { item -> item.toUiState() }
+            )
         }
     }
 
