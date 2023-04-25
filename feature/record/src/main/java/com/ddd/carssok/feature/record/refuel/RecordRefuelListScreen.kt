@@ -50,6 +50,7 @@ fun RecordRefuelListRoute(
 
     RecordRefuelListScreen(
         uiState = uiState,
+        onInitialized = viewModel::init,
         onClickedBack = onClickedBack,
         onClickedAddButton = navigateToRecordRefuel,
         onClickedEditButton = viewModel::changeEditMode,
@@ -57,16 +58,13 @@ fun RecordRefuelListRoute(
         onClickedItem = navigateToRefuelDetail,
         onClickedDeleteItem = viewModel::deleteHistory
     )
-
-    LaunchedEffect(Unit) {
-        viewModel.init()
-    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecordRefuelListScreen(
     uiState: RecordRefuelListUiState,
+    onInitialized: () -> Unit,
     onClickedBack: () -> Unit,
     onClickedAddButton: () -> Unit,
     onClickedEditButton: () -> Unit,
@@ -77,6 +75,10 @@ fun RecordRefuelListScreen(
     BackHandler(enabled = uiState.isEditMode) {
         // 편집모드 취소
         onClickedEditCancelButton()
+    }
+
+    LaunchedEffect(Unit) {
+        onInitialized()
     }
 
     Scaffold(
@@ -333,6 +335,7 @@ fun RecordRefuelListItem(
 fun RecordRefuelListPreview() {
     RecordRefuelListScreen(
         uiState = RecordRefuelListUiState.EMPTY,
+        onInitialized = {},
         onClickedBack = {},
         onClickedAddButton = {},
         onClickedEditButton = {},

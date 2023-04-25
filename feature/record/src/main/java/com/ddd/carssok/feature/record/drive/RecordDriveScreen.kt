@@ -60,16 +60,13 @@ fun RecordDriveRoute(
 
     RecordDriveScreen(
         uiState = uiState,
+        onInitialized = viewModel::init,
         onInputDistanceChanged = viewModel::updateDistance,
         onInputDateChanged = viewModel::updateDate,
         onClickedSave = viewModel::recordDriveHistory,
         onClickedPreviousHistory = navigateToPreviousHistory,
         onClickedBack = onClickedBack
     )
-
-    LaunchedEffect(Unit) {
-        viewModel.init()
-    }
 }
 
 
@@ -81,6 +78,7 @@ fun RecordDriveScreen(
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     datePickerState: DatePickerState = rememberDatePicker(LocalContext.current),
     saveDialogState: MutableState<Boolean> = remember { mutableStateOf(false) },
+    onInitialized: () -> Unit,
     onInputDistanceChanged: (String) -> Unit,
     onInputDateChanged: (String) -> Unit,
     onClickedSave: () -> Unit,
@@ -88,6 +86,10 @@ fun RecordDriveScreen(
     onClickedBack: () -> Unit,
 ) {
     var rememberSaveButtonEnabled by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        onInitialized()
+    }
 
     RecordDriveBackHandler(
         enable = rememberSaveButtonEnabled,
@@ -321,6 +323,7 @@ fun RecordDrivePreviousHistory(
 fun RecordDrivePreview() {
     RecordDriveScreen(
         uiState = RecordDriveUiState.EMPTY,
+        onInitialized = {},
         onInputDistanceChanged = {},
         onInputDateChanged = {},
         onClickedSave = {},
