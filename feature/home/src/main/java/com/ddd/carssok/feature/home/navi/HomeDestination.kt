@@ -23,21 +23,12 @@ fun NavGraphBuilder.toHomeGraph(
         route = HomeDestination.route
     ) {
         HomeRoute(
+            navigateTo = {
+                navController.navigate(it)
+            },
             navigateToOnBoarding = {
                 navController.navigate(OnBoardingDestination.route)
             },
-            // TODO 임시 진입점, 추후 제거
-            navigateToRecordHistory = {
-                when (it) {
-                    "주행 목록" -> {
-                        navController.navigate(RecordDriveHistoryDestination.route)
-                    }
-                    "주유 목록" -> {
-                        navController.navigate(RecordRefuelListDestination.route)
-                    }
-                    else -> Unit
-                }
-            }
         )
     }
 
