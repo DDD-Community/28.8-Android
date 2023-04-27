@@ -105,7 +105,7 @@ fun CarssokAppScaffold(
         },
         floatingActionButtonPosition = FabPosition.Center,
         isFloatingActionButtonDocked = true,
-
+        backgroundColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_bg),
         bottomBar = {
             if(appState.shouldShowBottomNavigationBar) {
                 BottomNavigation() {

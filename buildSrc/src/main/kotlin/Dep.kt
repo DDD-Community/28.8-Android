@@ -90,6 +90,7 @@ object Dep {
 
     object Google {
         const val MATERIAL = "com.google.android.material:material:1.5.0"
+        const val SISTEM_UI_CONTROLLER = "com.google.accompanist:accompanist-systemuicontroller:0.30.1"
     }
 
     object Lib {

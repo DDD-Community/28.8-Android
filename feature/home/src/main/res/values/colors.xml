@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="home_widget_history_accident">#CCFF334B</color>
+    <color name="home_widget_history_maintenance">#CC32B96E</color>
+    <color name="home_widget_history_refuel">#CC0063D7</color>
+    <color name="home_widget_history_drive">#CC52BBF4</color>
+
+    <color name="home_top_background_gradient_top">#FFEEF0F2</color>
+    <color name="home_top_background_gradient_bottom">#FFD2D7DC</color>
+</resources>
