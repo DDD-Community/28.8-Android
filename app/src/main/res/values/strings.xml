@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">카쏙</string>
+    <string name="item_bottom_navigation_title_home">내차 정보</string>
+    <string name="item_bottom_navigation_title_introduce">카쏙소개</string>
 </resources>

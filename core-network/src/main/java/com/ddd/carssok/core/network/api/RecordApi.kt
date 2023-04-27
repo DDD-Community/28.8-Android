@@ -47,7 +47,7 @@ interface RecordApi {
     ): ApiResult<BaseModel<UpdateDriveResponse>>
 
     // 주유
-    @GET("/record/fuels/")
+    @GET("/record/fuels")
     suspend fun getAllRefuel(
         @Query("date") date: String,
     ): ApiResult<BaseModel<List<RefuelResponse>>>

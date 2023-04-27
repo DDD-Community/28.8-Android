@@ -48,8 +48,11 @@ fun RowScope.BottomNavigationItem(
         label = label,
         alwaysShowLabel = alwaysShowLabel,
         colors = NavigationBarItemDefaults.colors(
-            selectedTextColor = colorResource(id = R.color.primary_text),
-            unselectedTextColor = colorResource(id = R.color.disable_text)
+            selectedIconColor = colorResource(id = R.color.white),
+            selectedTextColor = colorResource(id = R.color.primary_bg),
+            indicatorColor = colorResource(id = R.color.button_enabled),
+            unselectedIconColor = colorResource(id = R.color.secondary_text),
+            unselectedTextColor = colorResource(id = R.color.secondary_text),
         )
     )
 }

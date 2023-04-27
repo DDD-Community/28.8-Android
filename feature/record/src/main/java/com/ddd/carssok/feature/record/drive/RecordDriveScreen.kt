@@ -21,6 +21,7 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -59,6 +60,7 @@ fun RecordDriveRoute(
 
     RecordDriveScreen(
         uiState = uiState,
+        onInitialized = viewModel::init,
         onInputDistanceChanged = viewModel::updateDistance,
         onInputDateChanged = viewModel::updateDate,
         onClickedSave = viewModel::recordDriveHistory,
@@ -76,6 +78,7 @@ fun RecordDriveScreen(
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     datePickerState: DatePickerState = rememberDatePicker(LocalContext.current),
     saveDialogState: MutableState<Boolean> = remember { mutableStateOf(false) },
+    onInitialized: () -> Unit,
     onInputDistanceChanged: (String) -> Unit,
     onInputDateChanged: (String) -> Unit,
     onClickedSave: () -> Unit,
@@ -83,6 +86,10 @@ fun RecordDriveScreen(
     onClickedBack: () -> Unit,
 ) {
     var rememberSaveButtonEnabled by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        onInitialized()
+    }
 
     RecordDriveBackHandler(
         enable = rememberSaveButtonEnabled,
@@ -97,7 +104,7 @@ fun RecordDriveScreen(
 
     datePickerState.onDateSet { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDayOfMonth: Int ->
         onInputDateChanged(
-            "$selectedYear-${"%02d".format(selectedMonth + 1)}-$selectedDayOfMonth"
+            "$selectedYear-${"%02d".format(selectedMonth + 1)}-${"%02d".format(selectedDayOfMonth)}"
         )
     }
 
@@ -203,7 +210,7 @@ fun RecordDriveTitle(
                 typoStyle = TypoStyle.DISPLAY_SMALL_24
             )
             Image(
-                painter = painterResource(id = com.ddd.carssok.core.designsystem.R.drawable.ic_record_drive_car),
+                painter = painterResource(id = R.drawable.ic_record_drive_car),
                 contentDescription = null
             )
         }
@@ -316,6 +323,7 @@ fun RecordDrivePreviousHistory(
 fun RecordDrivePreview() {
     RecordDriveScreen(
         uiState = RecordDriveUiState.EMPTY,
+        onInitialized = {},
         onInputDistanceChanged = {},
         onInputDateChanged = {},
         onClickedSave = {},

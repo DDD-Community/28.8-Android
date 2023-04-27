@@ -8,10 +8,6 @@ import java.util.Date
 object DateUtils {
     private const val DEFAULT_FORMAT_DATE_WITHOUT_TIME = "yyyy-MM-dd"
 
-    enum class WeekDay {
-        MON, TUE, WED, THU, FRI, SAT, SUN
-    }
-
     fun Long.toDateString(format: String?): String {
         return try {
             Date(this).formatDate(format)
@@ -39,14 +35,15 @@ object DateUtils {
 
     @StringRes
     fun getWeekDayString(date: String, format: String?): Int {
-        return when (WeekDay.values()[getWeekDay(date, format)]) {
-            WeekDay.MON -> R.string.week_day_mon
-            WeekDay.TUE -> R.string.week_day_tue
-            WeekDay.WED -> R.string.week_day_wed
-            WeekDay.THU -> R.string.week_day_thu
-            WeekDay.FRI -> R.string.week_day_fri
-            WeekDay.SAT -> R.string.week_day_sat
-            WeekDay.SUN -> R.string.week_day_sun
+        return when (getWeekDay(date, format)) {
+            Calendar.MONDAY -> R.string.week_day_mon
+            Calendar.TUESDAY -> R.string.week_day_tue
+            Calendar.WEDNESDAY -> R.string.week_day_wed
+            Calendar.THURSDAY -> R.string.week_day_thu
+            Calendar.FRIDAY -> R.string.week_day_fri
+            Calendar.SATURDAY -> R.string.week_day_sat
+            Calendar.SUNDAY -> R.string.week_day_sun
+            else -> R.string.week_day_mon
         }
     }
 
