@@ -2,7 +2,6 @@ package com.ddd.carssok.core.designsystem.component.input
 
 import android.content.res.Configuration
 import android.net.Uri
-import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
@@ -93,7 +92,6 @@ fun InputImageBox(
 
 @Composable
 fun SaveCard(index: Int, bitmap: Uri, onClickedRemove: (Int) -> Unit) {
-    Log.e("bitmap", bitmap.toString())
     Card(
         modifier = Modifier
             .aspectRatio(1f)
