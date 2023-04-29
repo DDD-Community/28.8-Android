@@ -4,6 +4,7 @@ import androidx.annotation.StringRes
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 object DateUtils {
     private const val DEFAULT_FORMAT_DATE_WITHOUT_TIME = "yyyy-MM-dd"
@@ -102,11 +103,11 @@ object DateUtils {
     }
 
     fun Date.formatDate(formatStr: String?): String {
-        return SimpleDateFormat(formatStr ?: DEFAULT_FORMAT_DATE_WITHOUT_TIME).format(this)
+        return SimpleDateFormat(formatStr ?: DEFAULT_FORMAT_DATE_WITHOUT_TIME, Locale.KOREAN).format(this)
     }
 
     fun String.formatDate(formatStr: String?): Date {
-        return SimpleDateFormat(formatStr ?: DEFAULT_FORMAT_DATE_WITHOUT_TIME).parse(this)
+        return SimpleDateFormat(formatStr ?: DEFAULT_FORMAT_DATE_WITHOUT_TIME, Locale.KOREAN).parse(this)
     }
 
 }

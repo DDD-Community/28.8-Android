@@ -1,6 +1,6 @@
 package com.ddd.carssok.core.data.repository.record.refuel
 
-import com.ddd.carssok.IoDispatcher
+import com.ddd.carssok.core.data.IoDispatcher
 import com.ddd.carssok.core.data.Resource
 import com.ddd.carssok.core.data.source.record.refuel.RecordRefuelLocalDataSource
 import com.ddd.carssok.core.model.record.refuel.DetailRefuelEntity

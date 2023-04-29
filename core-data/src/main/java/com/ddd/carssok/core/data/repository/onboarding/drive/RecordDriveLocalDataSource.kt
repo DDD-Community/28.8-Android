@@ -1,4 +1,4 @@
-package com.ddd.carssok.core.data.source.record.drive
+package com.ddd.carssok.core.data.repository.onboarding.drive
 
 import com.ddd.carssok.core.model.record.drive.DriveHistoryEntity
 import javax.inject.Inject

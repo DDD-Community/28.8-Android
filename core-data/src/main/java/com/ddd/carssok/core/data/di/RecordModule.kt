@@ -1,10 +1,12 @@
 package com.ddd.carssok.core.data.di
 
+import com.ddd.carssok.core.data.repository.onboarding.drive.RecordDriveLocalDataSource
+import com.ddd.carssok.core.data.repository.record.accident.RecordAccidentRepository
+import com.ddd.carssok.core.data.repository.record.accident.RecordAccidentRepositoryImpl
 import com.ddd.carssok.core.data.repository.record.drive.RecordDriveRepository
 import com.ddd.carssok.core.data.repository.record.drive.RecordDriveRepositoryImpl
 import com.ddd.carssok.core.data.repository.record.refuel.RecordRefuelRepository
 import com.ddd.carssok.core.data.repository.record.refuel.RecordRefuelRepositoryImpl
-import com.ddd.carssok.core.data.source.record.drive.RecordDriveLocalDataSource
 import com.ddd.carssok.core.data.source.record.refuel.RecordRefuelLocalDataSource
 import dagger.Binds
 import dagger.Module
@@ -44,5 +46,11 @@ class RecordModule {
         fun bindRecordRefuelRepository(
             repository: RecordRefuelRepositoryImpl
         ): RecordRefuelRepository
+
+        @Binds
+        @ViewModelScoped
+        fun bindRecordAccidentRepository(
+            repository: RecordAccidentRepositoryImpl
+        ): RecordAccidentRepository
     }
 }

@@ -25,15 +25,15 @@ import androidx.compose.ui.unit.dp
 import com.ddd.carssok.core.designsystem.R
 
 @Composable
-fun CarssockCheckbox(isChecked: Boolean = false, onChangedValue: (Boolean) -> Unit) {
+fun CarssockCheckbox(isChecked: Boolean = false, enable: Boolean = true, onChangedValue: (Boolean) -> Unit) {
     var rememberCheckState by remember { mutableStateOf(isChecked) }
     Card(
         modifier = Modifier
             .size(16.dp)
-            .clickable {
+            .clickable(enabled = enable, onClick = {
                 onChangedValue.invoke(rememberCheckState.not())
                 rememberCheckState = rememberCheckState.not()
-            },
+            }),
         shape = RoundedCornerShape(99.dp),
         colors = CardDefaults.cardColors(
             containerColor = colorResource(

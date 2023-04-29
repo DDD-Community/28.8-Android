@@ -1,6 +1,7 @@
 package com.ddd.carssok.core.network.di
 
 import com.ddd.carssok.core.network.api.AuthApi
+import com.ddd.carssok.core.network.api.CarApi
 import com.ddd.carssok.core.network.api.RecordApi
 import dagger.Module
 import dagger.Provides
@@ -20,4 +21,8 @@ object ApiModule {
     @Singleton
     @Provides
     fun provideRecordApi(retrofit: Retrofit): RecordApi = retrofit.create(RecordApi::class.java)
+
+    @Singleton
+    @Provides
+    fun provideCarApi(retrofit: Retrofit): CarApi = retrofit.create(CarApi::class.java)
 }

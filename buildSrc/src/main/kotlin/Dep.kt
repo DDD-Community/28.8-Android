@@ -78,7 +78,9 @@ object Dep {
 
     object Retrofit {
         private const val version = "2.9.0"
+        private const val okhttp_version = "4.10.0"
         const val RETROFIT = "com.squareup.retrofit2:retrofit:${version}"
+        const val OKHTTP = "com.squareup.okhttp3:okhttp:${okhttp_version}"
         const val CONVERTER_GSON = "com.squareup.retrofit2:converter-gson:${version}"
     }
 

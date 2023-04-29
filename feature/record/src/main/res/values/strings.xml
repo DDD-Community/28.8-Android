@@ -15,7 +15,7 @@
     <string name="record_accident_image_upload_max">(최대 5장)</string>
     <string name="record_accident_image_upload_add">+추가하기</string>
     <string name="record_accident_save">저장하기</string>
-    <string name="record_accident_title">사고 기록등록</string>
+    <string name="record_accident_title">사고 기록</string>
     <string name="record_accident_timestamp_title">발생 날짜</string>
     <string name="record_accident_timestamp_hint">사고가 발생한 날짜를 기록해주세요.</string>
     <string name="record_accident_location_title">발생위치</string>

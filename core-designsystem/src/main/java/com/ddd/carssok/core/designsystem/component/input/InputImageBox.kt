@@ -1,6 +1,8 @@
 package com.ddd.carssok.core.designsystem.component.input
 
 import android.content.res.Configuration
+import android.net.Uri
+import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
@@ -22,10 +24,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -47,11 +45,10 @@ fun InputImageBox(
     cardTitle: String,
     titleHint: String? = null,
     @DrawableRes cardIconRes: Int,
-    saveList: List<Any> = emptyList(),
+    saveList: List<Uri> = emptyList(),
     onClickedAdd: () -> Unit,
     onClickedRemove: (Int) -> Unit
 ) {
-    var rememberSaveList by remember { mutableStateOf(saveList) }
     Column(
         modifier = modifier
             .padding(vertical = 10.dp, horizontal = 24.dp)
@@ -81,11 +78,8 @@ fun InputImageBox(
             verticalArrangement = Arrangement.spacedBy(14.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             content = {
-                items(rememberSaveList.count()) { index ->
-                    SaveCard(index) {
-                        rememberSaveList = rememberSaveList.toMutableList().apply {
-                            removeAt(index)
-                        }
+                items(saveList.count()) { index ->
+                    SaveCard(index, saveList[index]) {
                         onClickedRemove.invoke(it)
                     }
                 }
@@ -98,30 +92,41 @@ fun InputImageBox(
 }
 
 @Composable
-fun SaveCard(index: Int, onClickedRemove: (Int) -> Unit) {
-    Box {
-        GlideImage(
-            modifier = Modifier
-                .aspectRatio(1f)
-                .clip(RoundedCornerShape(8.dp)),
-            imageModel = { "https://picsum.photos/200/300" },
-            imageOptions = ImageOptions(
-                contentScale = ContentScale.Crop,
-                alignment = Alignment.Center
-            )
+fun SaveCard(index: Int, bitmap: Uri, onClickedRemove: (Int) -> Unit) {
+    Log.e("bitmap", bitmap.toString())
+    Card(
+        modifier = Modifier
+            .aspectRatio(1f)
+            .clip(RoundedCornerShape(8.dp))
+            .clickable { onClickedRemove.invoke(index) },
+        border = BorderStroke(1.dp, colorResource(id = R.color.button_disabled)),
+        colors = CardDefaults.cardColors(
+            containerColor = colorResource(id = R.color.secondary_bg)
         )
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(5.5.dp),
-            contentAlignment = Alignment.TopEnd
-        ) {
-            Icon(
-                modifier = Modifier.clickable { onClickedRemove.invoke(index) },
-                painter = painterResource(id = R.drawable.ic_close_24),
-                contentDescription = null,
-                tint = colorResource(id = R.color.primary_bg)
+    ) {
+        Box {
+            GlideImage(
+                modifier = Modifier
+                    .aspectRatio(1f),
+                imageModel = { bitmap},
+                imageOptions = ImageOptions(
+                    contentScale = ContentScale.Crop,
+                    alignment = Alignment.Center
+                )
             )
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(5.5.dp),
+                contentAlignment = Alignment.TopEnd
+            ) {
+                Icon(
+                    modifier = Modifier.clickable { onClickedRemove.invoke(index) },
+                    painter = painterResource(id = R.drawable.ic_close_24),
+                    contentDescription = null,
+                    tint = colorResource(id = R.color.primary_text)
+                )
+            }
         }
     }
 }
@@ -170,7 +175,7 @@ fun InputImageBoxPreview() {
                 titleHint = "(최대 5장)",
                 cardTitle = "+추가하기",
                 cardIconRes = R.drawable.ic_calendar_24,
-                saveList = listOf(1, 2, 3, 4),
+                saveList = emptyList(),
                 onClickedAdd = {},
                 onClickedRemove = {}
             )

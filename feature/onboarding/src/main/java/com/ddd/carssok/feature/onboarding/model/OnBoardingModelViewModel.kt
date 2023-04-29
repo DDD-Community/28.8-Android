@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ddd.carssok.core.data.model.OnBoardingDetailModelEntity
 import com.ddd.carssok.core.data.model.OnBoardingModelEntity
-import com.ddd.carssok.core.data.repository.onboarding.OnBoardingRepository
+import com.ddd.carssok.core.data.repository.OnBoardingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,13 +15,13 @@ import javax.inject.Inject
 @HiltViewModel
 class OnBoardingModelViewModel @Inject constructor(
     private val repository: OnBoardingRepository
-): ViewModel() {
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow<OnBoardingModelUiState>(OnBoardingModelUiState.Inputing)
     val uiState = _uiState.asStateFlow()
 
     fun search(keyword: String) {
-        if(keyword.isBlank()) {
+        if (keyword.isBlank()) {
             _uiState.update { OnBoardingModelUiState.Inputing }
         } else {
             getModels(brand = keyword)
@@ -30,9 +30,9 @@ class OnBoardingModelViewModel @Inject constructor(
 
     private fun getModels(brand: String) = viewModelScope.launch {
         kotlin.runCatching {
-            repository.getModels(brand)
+//            repository.getModels(brand)
         }.onSuccess { list ->
-            _uiState.update { OnBoardingModelUiState.Loaded(modelList = list) }
+            _uiState.update { OnBoardingModelUiState.Loaded(modelList = emptyList()) }
         }.onFailure {
             _uiState.update { OnBoardingModelUiState.Error }
         }

@@ -5,6 +5,7 @@ import com.ddd.carssok.core.network.model.BaseModel
 import com.ddd.carssok.core.network.model.record.DeleteDriveResponse
 import com.ddd.carssok.core.network.model.record.DeleteRefuelResponse
 import com.ddd.carssok.core.network.model.record.DriveHistoryResponse
+import com.ddd.carssok.core.network.model.record.RecordAccidentResponse
 import com.ddd.carssok.core.network.model.record.RecordDriveRequest
 import com.ddd.carssok.core.network.model.record.RecordDriveResponse
 import com.ddd.carssok.core.network.model.record.RecordRefuelRequest
@@ -14,11 +15,14 @@ import com.ddd.carssok.core.network.model.record.RefuelResponse
 import com.ddd.carssok.core.network.model.record.TotalDriveDistanceResponse
 import com.ddd.carssok.core.network.model.record.UpdateDriveResponse
 import com.ddd.carssok.core.network.model.record.UpdateRefuelResponse
+import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -72,4 +76,11 @@ interface RecordApi {
         @Path("id") id: Int,
         @Body request: RecordRefuelRequest
     ): ApiResult<BaseModel<UpdateRefuelResponse>>
+
+
+    @Multipart
+    @POST("/record/accidents")
+    suspend fun recordAccident(
+        @Part params: List<MultipartBody.Part>
+    ): ApiResult<BaseModel<RecordAccidentResponse>>
 }

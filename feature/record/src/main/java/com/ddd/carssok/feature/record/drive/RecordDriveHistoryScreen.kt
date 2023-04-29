@@ -77,14 +77,17 @@ fun RecordDriveHistoryScreen(
         topBar = {
             CustomAppbar(
                 menuIcon = {
-                    Image(painter = painterResource(id = com.ddd.carssok.core.designsystem.R.drawable.ic_close_36), contentDescription = null)
+                    Image(
+                        painter = painterResource(id = com.ddd.carssok.core.designsystem.R.drawable.ic_close_36),
+                        contentDescription = null
+                    )
                 },
                 onClickedMenuItem = onClickedBack
             )
         },
         containerColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.primary_bg),
         floatingActionButton = {
-            when(uiState.mode) {
+            when (uiState.mode) {
                 is RecordDriveHistoryUiState.Mode.Edit -> {
                     CarssokOutlinedButton(
                         modifier = Modifier.widthIn(min = 136.dp),
@@ -147,25 +150,25 @@ fun RecordDriveHistoryScreen(
                 RecordDriveHistoryTitle(
                     modifier = Modifier.padding(top = 8.dp),
                     year = uiState.year,
-                )    
+                )
             }
-            
+
             item {
                 RecordDriveMonthPicker(
                     modifier = Modifier.padding(top = 32.dp),
                     month = uiState.month,
                     onClickedPrevious = onClickedPreviousMonth,
                     onClickedNext = onClickedNextMonth,
-                )    
+                )
             }
-            
+
             item {
                 TypoText(
                     modifier = Modifier.padding(top = 12.dp, bottom = 10.dp),
                     text = stringResource(id = R.string.record_drive_history_list_title),
                     typoStyle = TypoStyle.BODY_SMALL_12,
                     color = colorResource(id = com.ddd.carssok.core.designsystem.R.color.secondary_text),
-                )    
+                )
             }
 
             itemsIndexed(uiState.historyList) { index, item ->
@@ -176,8 +179,8 @@ fun RecordDriveHistoryScreen(
                         onClickedDeleteItem(item.id)
                     },
                 )
-                
-                if(index < uiState.historyList.lastIndex) {
+
+                if (index < uiState.historyList.lastIndex) {
                     Spacer(modifier = Modifier.height(8.dp))
                 }
             }
@@ -194,7 +197,7 @@ fun RecordDriveHistoryTitle(
         modifier = modifier,
     ) {
         TypoText(
-            text = stringResource(id = R.string.record_drive_history_main_title), 
+            text = stringResource(id = R.string.record_drive_history_main_title),
             typoStyle = TypoStyle.DISPLAY_SMALL_24,
         )
         Spacer(modifier = Modifier.height(14.dp))
@@ -272,7 +275,7 @@ fun RecordDriveHistoryListItem(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         // delete icon
-        if(isEditMode) {
+        if (isEditMode) {
             Image(
                 modifier = Modifier
                     .clickable {
