@@ -78,14 +78,14 @@ jobs:
           releaseNotesFile: documents/release-note/release_note.txt
 
       # Action 결과 comment로 reporting
-      - name: Add publish comment
-        uses: actions/github-script@v5
+      - name: Comment on PR
+        uses: actions/github-script@v3
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            github.rest.issues.createComment({
+            await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: '배포 성공'
-            })
+            });

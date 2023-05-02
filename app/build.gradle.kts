@@ -18,8 +18,8 @@ android {
         applicationId = "com.ddd.carssok"
         minSdk = Version.minSdk
         targetSdk = Version.targetSdk
-        versionCode = Version.versionCode
-        versionName = Version.versionName
+        versionCode = Version.getVersionCode()
+        versionName = Version.getVersionName()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
