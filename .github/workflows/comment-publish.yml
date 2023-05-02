@@ -1,7 +1,7 @@
 name: Comment Build
 on:
   issue_comment:
-    types: [ created ]
+    types: [ created, edited, deleted ]
 
 jobs:
   commentBuild:
@@ -63,7 +63,7 @@ jobs:
           echo $KEYSTORE_JKS_BASE64 > ./keystore/keystore-base64.txt
           base64 -d -i ./keystore/keystore-base64.txt > ./keystore/keystore.jks
 
-      # 빌드
+      # Release 빌드
       - name: Build release apk
         run: ./gradlew assembleRelease
 
@@ -76,3 +76,16 @@ jobs:
           groups: 28.8
           file: app/build/outputs/apk/release/app-release.apk
           releaseNotesFile: documents/release-note/release_note.txt
+
+      # Action 결과 comment로 reporting
+      - name: Add publish comment
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '배포 성공'
+            })
