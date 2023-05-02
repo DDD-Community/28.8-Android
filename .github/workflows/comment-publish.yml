@@ -1,13 +1,15 @@
 name: Comment Build
 on:
   issue_comment:
-    types: [ created, edited, deleted ]
+    types: [ created, edited ]
 
 jobs:
   qr_commented:
     name: Release Build
     if: contains(github.event.comment.body, '/release')
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       # Checkout
       - name: Checkout
@@ -78,14 +80,34 @@ jobs:
           releaseNotesFile: documents/release-note/release_note.txt
 
       # Action 결과 comment로 reporting
-      - name: Comment on PR
+      - name: Add success Comment on PR
         uses: actions/github-script@v3
+        if: success()
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '배포 성공'
-            });
+            const ref = "${{github.ref}}"
+            const pull_number = Number(ref.split("/")[2])
+            
+            await github.pulls.createReview({
+              ...context.repo,
+              pull_number,
+              body: "배포 성공",
+              event: "REQUEST_CHANGES"
+            })
+
+      - name: Add failure Comment on PR
+        uses: actions/github-script@v3
+        if: failure()
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const ref = "${{github.ref}}"
+            const pull_number = Number(ref.split("/")[2])
+
+            await github.pulls.createReview({
+              ...context.repo,
+              pull_number,
+              body: "배포 실패",
+              event: "REQUEST_CHANGES"
+            })
