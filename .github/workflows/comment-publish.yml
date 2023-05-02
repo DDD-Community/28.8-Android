@@ -4,9 +4,9 @@ on:
     types: [ created, edited, deleted ]
 
 jobs:
-  commentBuild:
+  qr_commented:
     name: Release Build
-    if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/release')
+    if: contains(github.event.comment.body, '/release')
     runs-on: ubuntu-latest
     steps:
       # Checkout
