@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,7 +19,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,7 +27,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -39,8 +38,8 @@ import com.ddd.carssok.core.designsystem.component.CarssokButton
 import com.ddd.carssok.core.designsystem.component.TypoText
 import com.ddd.carssok.core.model.CarBrand
 import com.ddd.carssok.feature.onboarding.R
+import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -104,8 +103,8 @@ fun OnBoardingBrandScreen(
             item("temp koreBrand title") {
                 CountryBrandCarTitle(R.string.on_boarding_select_brand_korea)
             }
-            items(items = state.brandItems.chunked(3)) { items ->
-                CountryBrandCar(items, onChecked = onChecked)
+            items(items = state.brandItems.filter { it.isDomestic }.chunked(3)) { items ->
+                CountryBrandCar(items, state.nextButtonEnabled, onChecked = onChecked)
                 Spacer(modifier = Modifier.height(10.dp))
             }
 
@@ -114,8 +113,8 @@ fun OnBoardingBrandScreen(
                 CountryBrandCarTitle(R.string.on_boarding_select_brand_foreign)
             }
 
-            items(state.brandItems.chunked(3)) { items ->
-                CountryBrandCar(items, onChecked = onChecked)
+            items(state.brandItems.filter { it.isDomestic.not() }.chunked(3)) { items ->
+                CountryBrandCar(items, state.nextButtonEnabled, onChecked = onChecked)
                 Spacer(modifier = Modifier.height(10.dp))
             }
         }
@@ -148,11 +147,22 @@ fun CountryBrandCarTitle(titleRes: Int) {
 }
 
 @Composable
-fun CountryBrandCar(items: List<CarBrand>, onChecked: (Long, Boolean) -> Unit) {
+fun CountryBrandCar(items: List<CarBrand>, nextButtonEnabled: Boolean, onChecked: (Long, Boolean) -> Unit) {
     Row {
         for ((index, item) in items.withIndex()) {
+            if (index == 1 || index % 3 == 1) {
+                Spacer(modifier = Modifier.width(9.dp))
+            }
             Box(modifier = Modifier.fillMaxWidth(1f / (3 - index))) {
-                CountryBrandCarItem(item.name, item.isChecked, onChecked = { onChecked.invoke(item.id, it) })
+                CountryBrandCarItem(
+                    item.brand,
+                    item.logo,
+                    item.isChecked,
+                    nextButtonEnabled,
+                    onChecked = { onChecked.invoke(item.id, it) })
+            }
+            if (index == 1 || index % 3 == 1) {
+                Spacer(modifier = Modifier.width(9.dp))
             }
         }
     }
@@ -161,7 +171,9 @@ fun CountryBrandCar(items: List<CarBrand>, onChecked: (Long, Boolean) -> Unit) {
 @Composable
 fun CountryBrandCarItem(
     name: String,
+    url: String,
     isChecked: Boolean,
+    nextButtonEnabled: Boolean,
     onChecked: (Boolean) -> Unit
 ) {
     Card(
@@ -169,7 +181,10 @@ fun CountryBrandCarItem(
         modifier = Modifier.height(124.dp),
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(
-            containerColor = colorResource(id = com.ddd.carssok.core.designsystem.R.color.secondary_bg)
+            containerColor = colorResource(
+                id = if (isChecked) com.ddd.carssok.core.designsystem.R.color.tertiary_bg
+                else com.ddd.carssok.core.designsystem.R.color.secondary_bg
+            )
         )
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
@@ -186,11 +201,9 @@ fun CountryBrandCarItem(
                 verticalArrangement = Arrangement.Center
             ) {
 
-                Icon(
+                GlideImage(
+                    imageModel = { url },
                     modifier = Modifier.size(52.dp),
-                    painter = painterResource(id = com.ddd.carssok.core.designsystem.R.drawable.ic_check_14),
-                    contentDescription = null,
-                    tint = colorResource(com.ddd.carssok.core.designsystem.R.color.red0)
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 TypoText(

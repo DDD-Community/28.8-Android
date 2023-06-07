@@ -2,7 +2,7 @@ package com.ddd.carssok.feature.onboarding.brand
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ddd.carssok.core.data.repository.account.AccountRepository
+import com.ddd.carssok.core.data.repository.OnBoardingRepository
 import com.ddd.carssok.core.data.repository.agreement.UserAgreementRepository
 import com.ddd.carssok.core.model.CarBrand
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OnBoardingBrandViewModel @Inject constructor(
-    private val authRepository: AccountRepository,
+    private val carBrandsRepository: OnBoardingRepository,
     private val userAgreementRepository: UserAgreementRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(UiState())
@@ -25,7 +25,7 @@ class OnBoardingBrandViewModel @Inject constructor(
 
     data class UiState(
         val brandItems: List<CarBrand> = emptyList(),
-        val nextButtonEnabled: Boolean = true
+        val nextButtonEnabled: Boolean = false
     )
 
     sealed interface Event {
@@ -41,28 +41,18 @@ class OnBoardingBrandViewModel @Inject constructor(
             if (isPass.not()) {
                 _event.emit(Event.NeedAgreement)
             } else {
-                val dummy =
-                    listOf(
-                        CarBrand(1, "기아", false),
-                        CarBrand(2, "현대", false),
-                        CarBrand(3, "르노", false),
-                        CarBrand(4, "쌍용", false),
-                        CarBrand(5, "제네시스", false),
-                        CarBrand(6, "제네시스", false)
-                    )
-                _uiState.update { it.copy(brandItems = dummy) }
-            }
-        }
-
-        viewModelScope.launch {
-            kotlin.runCatching {
-                //TODO 임시방편 코루틴 error 공통 사용 개발 필요
-//                authRepository.getDeviceUserToken()
+                val brands = carBrandsRepository.getAllCarBrads().date
+                _uiState.update { it.copy(brandItems = brands.orEmpty()) }
             }
         }
     }
 
     fun onCheckedBrandCard(id: Long, isChecked: Boolean) {
-
+        val updateBrands = _uiState.value.brandItems.toMutableList()
+        updateBrands.forEach { it.isChecked = false }
+        val index = updateBrands.indexOfFirst { it.id == id }
+        updateBrands[index] = updateBrands[index].copy(isChecked = isChecked)
+        val nextButtonEnabled = updateBrands.any { it.isChecked }
+        _uiState.update { it.copy(brandItems = updateBrands, nextButtonEnabled = nextButtonEnabled) }
     }
 }

@@ -1,8 +1,8 @@
 package com.ddd.carssok.core.data.repository.record.drive
 
-import com.ddd.carssok.IoDispatcher
+import com.ddd.carssok.core.data.IoDispatcher
 import com.ddd.carssok.core.data.Resource
-import com.ddd.carssok.core.data.source.record.drive.RecordDriveLocalDataSource
+import com.ddd.carssok.core.data.repository.onboarding.drive.RecordDriveLocalDataSource
 import com.ddd.carssok.core.model.record.drive.DriveHistoryEntity
 import com.ddd.carssok.core.network.ApiSuccess
 import com.ddd.carssok.core.network.api.RecordApi

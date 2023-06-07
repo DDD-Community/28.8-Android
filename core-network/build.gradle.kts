@@ -22,6 +22,7 @@ dependencies {
     implementation(Dep.Kotlin.COROUTINES_ANDROID)
 
     implementation(Dep.Retrofit.RETROFIT)
+    implementation(Dep.Retrofit.OKHTTP)
     implementation(Dep.Retrofit.CONVERTER_GSON)
     implementation(Dep.OkHttp.LOGGING_INTERCEPTOR)
 

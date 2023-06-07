@@ -24,7 +24,7 @@ import com.ddd.carssok.core.designsystem.TypoStyle
 @Composable
 fun TypoText(
     modifier: Modifier? = Modifier,
-    text: String,
+    text: String = "",
     @StringRes textResource: Int? = null,
     color: Color = colorResource(id = R.color.primary_text),
     @ColorRes colorResource: Int? = null,

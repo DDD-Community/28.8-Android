@@ -1,9 +1,9 @@
 package com.ddd.carssok.core.data.di
 
-import com.ddd.carssok.DefaultDispatcher
-import com.ddd.carssok.IoDispatcher
-import com.ddd.carssok.MainDispatcher
-import com.ddd.carssok.MainImmediateDispatcher
+import com.ddd.carssok.core.data.DefaultDispatcher
+import com.ddd.carssok.core.data.IoDispatcher
+import com.ddd.carssok.core.data.MainDispatcher
+import com.ddd.carssok.core.data.MainImmediateDispatcher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

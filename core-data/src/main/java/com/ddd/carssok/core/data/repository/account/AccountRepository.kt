@@ -3,7 +3,7 @@ package com.ddd.carssok.core.data.repository.account
 import android.annotation.SuppressLint
 import android.content.Context
 import android.provider.Settings
-import com.ddd.carssok.IoDispatcher
+import com.ddd.carssok.core.data.IoDispatcher
 import com.ddd.carssok.core.data.Resource
 import com.ddd.carssok.core.data.model.UserToken
 import com.ddd.carssok.core.network.ApiSuccess

@@ -1,4 +1,4 @@
-package com.ddd.carssok
+package com.ddd.carssok.core.data
 
 import javax.inject.Qualifier
 
